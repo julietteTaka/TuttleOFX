@@ -319,6 +319,11 @@ static const char* const kScriptOptionLongName = "script";
 static const char* const kScriptOptionString = kScriptOptionLongName;
 static const char* const kScriptOptionMessage = "format the output such as it could be dump in a file and be used as a script";
 
+//--skip
+static const char* const kSkipOptionLongName = "skip";
+static const char* const kSkipOptionString = kSkipOptionLongName;
+static const char* const kSkipOptionMessage = "skip process if the output file already exist";
+
 }
 
 #endif

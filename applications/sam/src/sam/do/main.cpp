@@ -262,6 +262,7 @@ int main( int argc, char** argv )
 		bool disableProcess = false;
 		bool forceIdentityNodesProcess = false;
 		bool script = false;
+		bool skip = false;
 		std::vector<std::string> cl_options;
 		std::vector<std::vector<std::string> > cl_commands;
 
@@ -314,7 +315,8 @@ int main( int argc, char** argv )
 					( kRenderScaleOptionString, bpo::value<std::string >(), kRenderScaleOptionMessage )
 					( kVerboseOptionString,     bpo::value<int>()->default_value( 2 ), kVerboseOptionMessage )
 					( kQuietOptionString,       kQuietOptionMessage )
-					( kNbCoresOptionString,     bpo::value<std::size_t>(), kNbCoresOptionMessage );
+					( kNbCoresOptionString,     bpo::value<std::size_t>(), kNbCoresOptionMessage )
+					( kSkipOptionString, kSkipOptionMessage );
 
 				// describe hidden options
 				bpo::options_description hidden;
@@ -524,6 +526,10 @@ int main( int argc, char** argv )
 				if( samdo_vm.count( kStopOnMissingFileOptionLongName ) )
 				{
 					stopOnMissingFile = samdo_vm[kStopOnMissingFileOptionLongName].as< bool > ();
+				}
+				if( samdo_vm.count( kSkipOptionLongName ) )
+				{
+					skip = true;
 				}
 
 				forceIdentityNodesProcess = samdo_vm.count( kForceIdentityNodesProcessOptionLongName );
@@ -907,6 +913,7 @@ int main( int argc, char** argv )
 		options.setContinueOnError( continueOnError );
 		options.setContinueOnMissingFile( !stopOnMissingFile );
 		options.setForceIdentityNodesProcess( forceIdentityNodesProcess );
+		options.setSkip(skip);
 		
 		size_t numberOfLoop = std::numeric_limits<size_t>::max();
 		boost::ptr_vector< boost::ptr_vector< sp::FileObject > > listOfSequencesPerReaderNode;

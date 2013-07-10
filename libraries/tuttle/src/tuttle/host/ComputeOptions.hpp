@@ -236,6 +236,16 @@ public:
 	 * @brief Has someone asked to abort the process?
 	 */
 	bool getAbort() const { return _abort.load( boost::memory_order_relaxed ); }
+
+	/**
+	 * @brief Skip process if the output file already exist.
+	 */
+	This& setSkip( const bool v = true )
+	{
+		_skip = v;
+		return *this;
+	}
+	bool getSkip() const { return _skip; }
 	
 private:
 	std::list<TimeRange> _timeRanges;
@@ -251,6 +261,7 @@ private:
 	bool _forceIdentityNodesProcess;
 	bool _returnBuffers;
 	bool _isInteractive;
+	bool _skip;
 	
 	boost::atomic_bool _abort;
 };
