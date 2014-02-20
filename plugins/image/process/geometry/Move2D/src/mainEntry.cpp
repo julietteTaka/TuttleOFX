@@ -7,11 +7,9 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::move2D::Move2DPluginFactory, "tuttle.move2d" );
-}
-
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::move2D::Move2DPluginFactory,
+                       "tuttle.move2d");
 }
 }
-
+}

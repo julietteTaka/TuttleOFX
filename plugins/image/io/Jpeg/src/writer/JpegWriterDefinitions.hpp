@@ -9,13 +9,11 @@ namespace plugin {
 namespace jpeg {
 namespace writer {
 
-enum ETuttlePluginBitDepth
-{
-	eTuttlePluginBitDepth8
+enum ETuttlePluginBitDepth {
+  eTuttlePluginBitDepth8
 };
 
 static const std::string kParamQuality = "quality";
-
 }
 }
 }

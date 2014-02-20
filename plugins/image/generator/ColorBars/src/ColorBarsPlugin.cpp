@@ -8,36 +8,30 @@ namespace tuttle {
 namespace plugin {
 namespace colorBars {
 
-
-ColorBarsPlugin::ColorBarsPlugin( OfxImageEffectHandle handle )
-	: GeneratorPlugin( handle )
-{
-	mode = fetchChoiceParam( kColorBarsLevels );
+ColorBarsPlugin::ColorBarsPlugin(OfxImageEffectHandle handle)
+    : GeneratorPlugin(handle) {
+  mode = fetchChoiceParam(kColorBarsLevels);
 }
 
-ColorBarsParams ColorBarsPlugin::getProcessParams() const
-{
-	ColorBarsParams params;
-	
-	params.mode = static_cast<EColorBarsLevels>( mode->getValue() );
-	return params;
+ColorBarsParams ColorBarsPlugin::getProcessParams() const {
+  ColorBarsParams params;
+
+  params.mode = static_cast<EColorBarsLevels>(mode->getValue());
+  return params;
 }
 
-void ColorBarsPlugin::getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences )
-{
-	GeneratorPlugin::getClipPreferences( clipPreferences );
+void ColorBarsPlugin::getClipPreferences(
+    OFX::ClipPreferencesSetter &clipPreferences) {
+  GeneratorPlugin::getClipPreferences(clipPreferences);
 }
 
 /**
  * @brief The overridden render function
  * @param[in]   args     Rendering parameters
  */
-void ColorBarsPlugin::render( const OFX::RenderArguments &args )
-{
-	doGilRender<ColorBarsProcess>( *this, args );
+void ColorBarsPlugin::render(const OFX::RenderArguments &args) {
+  doGilRender<ColorBarsProcess>(*this, args);
 }
-
-
 }
 }
 }

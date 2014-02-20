@@ -13,39 +13,33 @@ namespace attribute {
 /**
  * a clip descriptor
  */
-class OfxhClipDescriptor
-	: public OfxhAttributeDescriptor
-	, virtual public OfxhClipAccessor
-{
+class OfxhClipDescriptor : public OfxhAttributeDescriptor,
+                           virtual public OfxhClipAccessor {
 public:
-	typedef OfxhClipDescriptor This;
+  typedef OfxhClipDescriptor This;
 
 public:
-	/// constructor
-	OfxhClipDescriptor();
-	OfxhClipDescriptor( const property::OfxhSet& );
+  /// constructor
+  OfxhClipDescriptor();
+  OfxhClipDescriptor(const property::OfxhSet &);
 
-	virtual ~OfxhClipDescriptor() = 0;
+  virtual ~OfxhClipDescriptor() = 0;
 
-	bool operator==( const This& other ) const
-	{
-		if( OfxhAttributeDescriptor::operator!=( other ) )
-			return false;
-		return true;
-	}
+  bool operator==(const This &other) const {
+    if (OfxhAttributeDescriptor::operator!=(other))
+      return false;
+    return true;
+  }
 
-	bool operator!=( const This& other ) const { return !This::operator==( other ); }
+  bool operator!=(const This &other) const { return !This::operator==(other); }
 
 private:
-	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize( Archive& ar, const unsigned int version )
-	{
-		ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP( OfxhAttributeDescriptor );
-	}
-
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive &ar, const unsigned int version) {
+    ar &BOOST_SERIALIZATION_BASE_OBJECT_NVP(OfxhAttributeDescriptor);
+  }
 };
-
 }
 }
 }
@@ -53,9 +47,10 @@ private:
 
 // force boost::is_virtual_base_of value (used by boost::serialization)
 namespace boost {
-template<>
-struct is_virtual_base_of<tuttle::host::ofx::attribute::OfxhAttributeDescriptor, tuttle::host::ofx::attribute::OfxhClipDescriptor>: public mpl::true_ {};
+template <>
+struct is_virtual_base_of<
+    tuttle::host::ofx::attribute::OfxhAttributeDescriptor,
+    tuttle::host::ofx::attribute::OfxhClipDescriptor> : public mpl::true_ {};
 }
 
 #endif
-

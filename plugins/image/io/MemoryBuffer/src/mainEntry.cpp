@@ -8,12 +8,13 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::inputBuffer::InputBufferPluginFactory, "tuttle.inputbuffer" );
-	mAppendPluginFactory( ids, tuttle::plugin::outputBuffer::OutputBufferPluginFactory, "tuttle.outputbuffer" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids,
+                       tuttle::plugin::inputBuffer::InputBufferPluginFactory,
+                       "tuttle.inputbuffer");
+  mAppendPluginFactory(ids,
+                       tuttle::plugin::outputBuffer::OutputBufferPluginFactory,
+                       "tuttle.outputbuffer");
 }
-
 }
 }
-

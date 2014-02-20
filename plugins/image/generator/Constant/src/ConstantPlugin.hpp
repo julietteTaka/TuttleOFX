@@ -11,19 +11,17 @@ namespace constant {
 /**
  * @brief
  */
-class ConstantPlugin : public GeneratorPlugin
-{
+class ConstantPlugin : public GeneratorPlugin {
 public:
-	ConstantPlugin( OfxImageEffectHandle handle );
+  ConstantPlugin(OfxImageEffectHandle handle);
 
 public:
-	void render( const OFX::RenderArguments& args );
-	void getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
+  void render(const OFX::RenderArguments &args);
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
 
 public:
-	OFX::RGBAParam* _color;
+  OFX::RGBAParam *_color;
 };
-
 }
 }
 }

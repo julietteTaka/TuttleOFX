@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace colorCube {
 
-mDeclarePluginFactory( ColorCubePluginFactory, { }, { } );
-
+mDeclarePluginFactory(ColorCubePluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

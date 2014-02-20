@@ -19,30 +19,28 @@ namespace colorCube {
  * @brief ColorCube process
  *
  */
-template<class View>
-class ColorCubeProcess : public ImageGilProcessor<View>
-{
+template <class View> class ColorCubeProcess : public ImageGilProcessor<View> {
 public:
-    typedef typename View::value_type Pixel;
-    typedef terry::generator::ColorCubeFunctor<Pixel> ColorCubeFunctorT;
-    typedef typename ColorCubeFunctorT::point_t ColorCubePoint;
-    typedef boost::gil::virtual_2d_locator<ColorCubeFunctorT, false> ColorCubeLocator;
-    typedef boost::gil::image_view<ColorCubeLocator> ColorCubeVirtualView;
+  typedef typename View::value_type Pixel;
+  typedef terry::generator::ColorCubeFunctor<Pixel> ColorCubeFunctorT;
+  typedef typename ColorCubeFunctorT::point_t ColorCubePoint;
+  typedef boost::gil::virtual_2d_locator<ColorCubeFunctorT, false>
+  ColorCubeLocator;
+  typedef boost::gil::image_view<ColorCubeLocator> ColorCubeVirtualView;
 
 protected:
-    ColorCubePlugin&       _plugin; ///< Rendering plugin
-    ColorCubeVirtualView   _srcColorCubeView;  ///< Source view
+  ColorCubePlugin &_plugin;               ///< Rendering plugin
+  ColorCubeVirtualView _srcColorCubeView; ///< Source view
 
-    ColorCubeProcessParams _params; ///< parameters
+  ColorCubeProcessParams _params; ///< parameters
 
 public:
-    ColorCubeProcess( ColorCubePlugin& effect );
+  ColorCubeProcess(ColorCubePlugin &effect);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-    void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

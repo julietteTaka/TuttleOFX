@@ -4,14 +4,11 @@
 #include <tuttle/plugin/Plugin.hpp>
 #include "ColorSpacePluginFactory.hpp"
 
-namespace OFX
-{
-namespace Plugin
-{
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::colorspace::ColorSpacePluginFactory, "tuttle.colorspace" );
+namespace OFX {
+namespace Plugin {
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::colorspace::ColorSpacePluginFactory,
+                       "tuttle.colorspace");
 }
-
 }
 }

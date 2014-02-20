@@ -7,10 +7,9 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::idKeyer::IdKeyerPluginFactory, "tuttle.idkeyer" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::idKeyer::IdKeyerPluginFactory,
+                       "tuttle.idkeyer");
 }
-
 }
 }

@@ -21,22 +21,19 @@ namespace lut {
 /**
  * @brief Lut process
  */
-template<class View>
-class LutProcess : public ImageGilFilterProcessor<View>
-{
+template <class View> class LutProcess : public ImageGilFilterProcessor<View> {
 private:
-	Lut3D* _lut3D;               ///< Lut3D
-	LutPlugin&  _plugin;        ///< Rendering plugin
+  Lut3D *_lut3D;      ///< Lut3D
+  LutPlugin &_plugin; ///< Rendering plugin
 
 public:
-	LutProcess<View>( LutPlugin & instance );
+  LutProcess<View>(LutPlugin &instance);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 
-	// Lut3D Transform
-	void applyLut( View& dst, View& src, const OfxRectI& procWindow );
+  // Lut3D Transform
+  void applyLut(View &dst, View &src, const OfxRectI &procWindow);
 };
-
 }
 }
 }

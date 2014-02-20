@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace thinning {
 
-mDeclarePluginFactory( ThinningPluginFactory, { }, { } );
-
+mDeclarePluginFactory(ThinningPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

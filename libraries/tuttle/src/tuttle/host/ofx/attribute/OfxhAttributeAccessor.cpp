@@ -5,13 +5,10 @@ namespace host {
 namespace ofx {
 namespace attribute {
 
-OfxhAttributeAccessor::OfxhAttributeAccessor()
-{}
+OfxhAttributeAccessor::OfxhAttributeAccessor() {}
 
 OfxhAttributeAccessor::~OfxhAttributeAccessor() {}
-
 }
 }
 }
 }
-

@@ -4,10 +4,7 @@ namespace tuttle {
 namespace plugin {
 namespace interact {
 
-IsActiveFunctor::~IsActiveFunctor()
-{}
-
+IsActiveFunctor::~IsActiveFunctor() {}
 }
 }
 }
-

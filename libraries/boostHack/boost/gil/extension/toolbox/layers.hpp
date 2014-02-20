@@ -8,28 +8,22 @@
 #include <boost/gil/gil_all.hpp>
 #include <boost/function.hpp>
 
-namespace layer
-{
+namespace layer {
 
-template <typename view_t>
-struct layers
-{
-	typedef boost::function<void (view_t&)> layer_t;	
-	std::vector<layer_t> lst;	
+template <typename view_t> struct layers {
+  typedef boost::function<void(view_t &)> layer_t;
+  std::vector<layer_t> lst;
 
-	layers(layer_t* p, int n)
-	{
-		for (int m = 0; m < n; ++m)
-			lst.push_back(p[m]);
-	}
-	
-	void operator()(view_t& view)
-	{
-		for (std::size_t n = 0; n < lst.size(); ++n)
-			lst[n](view);
-	}
+  layers(layer_t *p, int n) {
+    for (int m = 0; m < n; ++m)
+      lst.push_back(p[m]);
+  }
+
+  void operator()(view_t &view) {
+    for (std::size_t n = 0; n < lst.size(); ++n)
+      lst[n](view);
+  }
 };
-
 }
 
 #endif

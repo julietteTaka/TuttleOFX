@@ -6,20 +6,17 @@
 namespace tuttle {
 namespace plugin {
 
-class NoProgress : public IProgress
-{
+class NoProgress : public IProgress {
 public:
-	void progressBegin( const int numSteps, const std::string& msg = "" );
-	void progressEnd();
-	bool progressForward( const int nSteps );
+  void progressBegin(const int numSteps, const std::string &msg = "");
+  void progressEnd();
+  bool progressForward(const int nSteps);
 
 protected:
-	double _stepSize; ///< Step size of progess bar
-	double _counter; ///< Current position in [0; 1]
+  double _stepSize; ///< Step size of progess bar
+  double _counter;  ///< Current position in [0; 1]
 };
-
 }
 }
 
 #endif
-

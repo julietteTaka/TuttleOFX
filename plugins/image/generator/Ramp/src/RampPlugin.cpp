@@ -8,34 +8,27 @@ namespace tuttle {
 namespace plugin {
 namespace ramp {
 
+RampPlugin::RampPlugin(OfxImageEffectHandle handle) : GeneratorPlugin(handle) {
+  _direction = fetchChoiceParam(kRampDirection);
 
-RampPlugin::RampPlugin( OfxImageEffectHandle handle )
-: GeneratorPlugin( handle )
-{
-	_direction  = fetchChoiceParam( kRampDirection );
-	
-	_colorStart = fetchRGBAParam( kRampColorStart );
-	_colorEnd   = fetchRGBAParam( kRampColorEnd );
-	
-	_color      = fetchBooleanParam( kRampColor );
-	
+  _colorStart = fetchRGBAParam(kRampColorStart);
+  _colorEnd = fetchRGBAParam(kRampColorEnd);
+
+  _color = fetchBooleanParam(kRampColor);
 }
 
-void RampPlugin::getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences )
-{
-	GeneratorPlugin::getClipPreferences( clipPreferences );
+void
+RampPlugin::getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences) {
+  GeneratorPlugin::getClipPreferences(clipPreferences);
 }
 
 /**
  * @brief The overridden render function
  * @param[in]   args     Rendering parameters
  */
-void RampPlugin::render( const OFX::RenderArguments &args )
-{
-	doGilRender<RampProcess>( *this, args );
+void RampPlugin::render(const OFX::RenderArguments &args) {
+  doGilRender<RampProcess>(*this, args);
 }
-
-
 }
 }
 }

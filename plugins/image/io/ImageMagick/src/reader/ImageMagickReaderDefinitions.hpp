@@ -7,9 +7,7 @@
 namespace tuttle {
 namespace plugin {
 namespace imagemagick {
-namespace reader {
-
-}
+namespace reader {}
 }
 }
 }

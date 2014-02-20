@@ -4,8 +4,7 @@
 #include <tuttle/common/utils/global.hpp>
 
 namespace tuttle {
-namespace common {
-}
+namespace common {}
 }
 namespace tuttle {
 namespace plugin {
@@ -14,4 +13,3 @@ using namespace tuttle::common;
 }
 
 #endif
-

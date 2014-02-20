@@ -8,19 +8,17 @@ namespace tuttle {
 namespace plugin {
 namespace seExpr {
 
-static const std::string kParamTextureOffset         ( "textureOffset" );
-static const std::string kParamSeExprCode            ( "code" );
+static const std::string kParamTextureOffset("textureOffset");
+static const std::string kParamSeExprCode("code");
 
-static const std::string kParamChooseInput           ( "input" );
-static const std::string kParamChooseInputCode       ( "code" );
-static const std::string kParamChooseInputFile       ( "file" );
+static const std::string kParamChooseInput("input");
+static const std::string kParamChooseInputCode("code");
+static const std::string kParamChooseInputFile("file");
 
-enum EParamChooseInput
-{
-	eParamChooseInputCode = 0,
-	eParamChooseInputFile
+enum EParamChooseInput {
+  eParamChooseInputCode = 0,
+  eParamChooseInputFile
 };
-
 }
 }
 }

@@ -25,32 +25,30 @@ namespace tensors {
 /**
  * @brief Base class for the generic processor
  */
-template<class View>
-class AnisotropicTensorsProcess : public ImageGilFilterProcessor<View>
-{
+template <class View>
+class AnisotropicTensorsProcess : public ImageGilFilterProcessor<View> {
 public:
-    typedef typename View::value_type Pixel;
+  typedef typename View::value_type Pixel;
+
 protected:
-    TensorsPlugin& _plugin; ///< Tensor rendering plugin
-    OfxRectI _upScaledSrcBounds, _dBounds;
-    OFX::BooleanParam *_algorithm; ///< Generation algorithm
-    OFX::ChoiceParam *_stAlgo; ///< Structure tensors algorithm
-    OFX::DoubleParam *_alpha; ///< Pre-blurring (noise scale)
-    OFX::DoubleParam *_sigma; ///< Post-blurring
-    OFX::DoubleParam *_sharpness; ///< Contour preservation
-    OFX::DoubleParam *_anisotropy; ///< Anisotropic filtering
-    OFX::DoubleParam *_geom_fact; ///< Geometry factor
-    OFX::DoubleParam *_threshold; ///< Thresholding quantization factor
+  TensorsPlugin &_plugin; ///< Tensor rendering plugin
+  OfxRectI _upScaledSrcBounds, _dBounds;
+  OFX::BooleanParam *_algorithm; ///< Generation algorithm
+  OFX::ChoiceParam *_stAlgo;     ///< Structure tensors algorithm
+  OFX::DoubleParam *_alpha;      ///< Pre-blurring (noise scale)
+  OFX::DoubleParam *_sigma;      ///< Post-blurring
+  OFX::DoubleParam *_sharpness;  ///< Contour preservation
+  OFX::DoubleParam *_anisotropy; ///< Anisotropic filtering
+  OFX::DoubleParam *_geom_fact;  ///< Geometry factor
+  OFX::DoubleParam *_threshold;  ///< Thresholding quantization factor
 
 public:
-	AnisotropicTensorsProcess( TensorsPlugin &instance );
+  AnisotropicTensorsProcess(TensorsPlugin &instance);
 
-    void setup( const OFX::RenderArguments &args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
-
 }
 }
 }

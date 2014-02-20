@@ -9,9 +9,7 @@ namespace writer {
 
 static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( DPXWriterPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(DPXWriterPluginFactory, {}, {});
 }
 }
 }

@@ -1,5 +1,5 @@
 #ifndef _TERRY_COLOR_LAYOUT_LUV_HPP_
-#define	_TERRY_COLOR_LAYOUT_LUV_HPP_
+#define _TERRY_COLOR_LAYOUT_LUV_HPP_
 
 #include "rgb.hpp"
 
@@ -12,8 +12,7 @@ namespace layout {
 
 /// \addtogroup ColorNameModel
 /// \{
-namespace luv
-{
+namespace luv {
 /// \brief Lightness
 struct lightness_t {};
 /// \brief chrominance dimension u
@@ -24,14 +23,9 @@ struct v_t {};
 /// \}
 
 /// \ingroup ColorSpaceModel
-typedef boost::mpl::vector3< luv::lightness_t
-                    , luv::u_t
-                    , luv::v_t
-                    > luv_t;
-
+typedef boost::mpl::vector3<luv::lightness_t, luv::u_t, luv::v_t> luv_t;
 }
 }
 }
-
 
 #endif

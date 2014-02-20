@@ -3,7 +3,8 @@
 
 // pre-processeur directives :
 //	# : convert to string
-//	## : concatenate (or before __VA_ARGS__ to indicate that it may be empty)
+//	## : concatenate (or before __VA_ARGS__ to indicate that it may be
+//empty)
 //	__FILE__ : filename
 //	__LINE__ : line number
 //	__FUNCTION__ : function declaration
@@ -27,7 +28,7 @@
 #define TUTTLE_LOG_WITHINFOS_DEBUG TUTTLE_LOG_WITHINFOS
 
 /// @see TUTTLE_IF_DEBUG
-#define TUTTLE_IF_DEBUG(... )  __VA_ARGS__
+#define TUTTLE_IF_DEBUG(...) __VA_ARGS__
 
 #define TUTTLE_LOG_VAR_DEBUG TUTTLE_LOG_VAR
 #define TUTTLE_LOG_VAR2_DEBUG TUTTLE_LOG_VAR2
@@ -41,8 +42,7 @@
 #define TUTTLE_LOG_EXCEPTION_DEBUG TUTTLE_LOG_EXCEPTION
 
 #ifdef __WINDOWS__
- #include <tuttle/common/system/windows/MemoryLeaks.hpp>
+#include <tuttle/common/system/windows/MemoryLeaks.hpp>
 #endif
 
 #endif
-

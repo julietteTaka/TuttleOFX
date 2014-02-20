@@ -9,9 +9,7 @@ namespace writer {
 
 static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( JpegWriterPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(JpegWriterPluginFactory, {}, {});
 }
 }
 }

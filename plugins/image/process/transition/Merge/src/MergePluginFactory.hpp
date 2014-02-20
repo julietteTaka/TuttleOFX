@@ -8,8 +8,7 @@ namespace plugin {
 namespace merge {
 
 static const bool kSupportTiles = false;
-mDeclarePluginFactory( MergePluginFactory, {}, {} );
-
+mDeclarePluginFactory(MergePluginFactory, {}, {});
 }
 }
 }

@@ -8,11 +8,9 @@ namespace plugin {
 namespace imageStatistics {
 
 static const bool kSupportTiles = false;
-mDeclarePluginFactory( ImageStatisticsPluginFactory, {}, {}
-                       );
+mDeclarePluginFactory(ImageStatisticsPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-

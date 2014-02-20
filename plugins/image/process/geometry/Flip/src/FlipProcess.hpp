@@ -13,24 +13,21 @@ namespace flip {
  * @brief Base class
  *
  */
-template<class View>
-class FlipProcess : public ImageGilFilterProcessor<View>
-{
+template <class View> class FlipProcess : public ImageGilFilterProcessor<View> {
 public:
-	typedef typename View::value_type Pixel;
+  typedef typename View::value_type Pixel;
 
 protected:
-        FlipPlugin&       _plugin;  ///< Rendering plugin
-        FlipProcessParams _params;  ///< process parameters
+  FlipPlugin &_plugin;       ///< Rendering plugin
+  FlipProcessParams _params; ///< process parameters
 
 public:
-        FlipProcess<View>( FlipPlugin & instance );
+  FlipProcess<View>(FlipPlugin &instance);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }
@@ -38,4 +35,3 @@ public:
 #include "FlipProcess.tcc"
 
 #endif
-

@@ -3,9 +3,6 @@
 namespace tuttle {
 namespace plugin {
 
-IProgress::~IProgress()
-{
-}
-
+IProgress::~IProgress() {}
 }
 }

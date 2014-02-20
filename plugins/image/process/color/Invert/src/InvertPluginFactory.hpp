@@ -7,8 +7,7 @@ namespace tuttle {
 namespace plugin {
 namespace invert {
 static const bool kSupportTiles = true;
-mDeclarePluginFactory( InvertPluginFactory, {}, {}
-                       );
+mDeclarePluginFactory(InvertPluginFactory, {}, {});
 }
 }
 }

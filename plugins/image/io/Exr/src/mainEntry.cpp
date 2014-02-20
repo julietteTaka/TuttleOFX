@@ -5,15 +5,13 @@
 #include "reader/EXRReaderPluginFactory.hpp"
 #include "writer/EXRWriterPluginFactory.hpp"
 
-namespace OFX
-{
-namespace Plugin
-{
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::exr::reader::EXRReaderPluginFactory, "tuttle.exrreader" );
-	mAppendPluginFactory( ids, tuttle::plugin::exr::writer::EXRWriterPluginFactory, "tuttle.exrwriter" );
+namespace OFX {
+namespace Plugin {
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::exr::reader::EXRReaderPluginFactory,
+                       "tuttle.exrreader");
+  mAppendPluginFactory(ids, tuttle::plugin::exr::writer::EXRWriterPluginFactory,
+                       "tuttle.exrwriter");
 }
-
 }
 }

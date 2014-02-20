@@ -8,12 +8,12 @@
 typedef std::map<std::string, std::vector<std::string> > PresetParameters;
 typedef std::vector<std::string> PresetsList;
 
-enum EPresetType{
-	eMainPresetType = 0,
-	eFormatPresetType,
-	eVideoPresetType,
-	eAudioPresetType,
-	eUnknownPresetType
+enum EPresetType {
+  eMainPresetType = 0,
+  eFormatPresetType,
+  eVideoPresetType,
+  eAudioPresetType,
+  eUnknownPresetType
 };
 
 static const std::string kPresetExtension = ".avpreset";

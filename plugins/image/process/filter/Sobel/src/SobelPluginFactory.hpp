@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace sobel {
 
-mDeclarePluginFactory( SobelPluginFactory, { }, { } );
-
+mDeclarePluginFactory(SobelPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

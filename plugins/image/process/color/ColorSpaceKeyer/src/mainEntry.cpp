@@ -7,11 +7,10 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::colorSpaceKeyer::ColorSpaceKeyerPluginFactory, "tuttle.colorspacekeyer" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(
+      ids, tuttle::plugin::colorSpaceKeyer::ColorSpaceKeyerPluginFactory,
+      "tuttle.colorspacekeyer");
 }
-
 }
 }
-

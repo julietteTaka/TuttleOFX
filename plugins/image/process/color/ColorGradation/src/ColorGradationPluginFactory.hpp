@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace colorGradation {
 
-mDeclarePluginFactory( ColorGradationPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(ColorGradationPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-

@@ -3,10 +3,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace histogramKeyer {
-
-
-}
+namespace histogramKeyer {}
 }
 }
 

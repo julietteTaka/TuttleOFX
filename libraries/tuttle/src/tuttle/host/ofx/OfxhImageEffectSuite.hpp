@@ -8,12 +8,10 @@ namespace host {
 namespace ofx {
 namespace imageEffect {
 
-void* getImageEffectSuite( const int version );
-
+void *getImageEffectSuite(const int version);
 }
 }
 }
 }
 
 #endif
-

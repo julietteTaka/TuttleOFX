@@ -11,24 +11,21 @@ namespace bitDepth {
  * @brief
  *
  */
-class BitDepthPlugin : public ImageEffectGilPlugin
-{
+class BitDepthPlugin : public ImageEffectGilPlugin {
 public:
-	BitDepthPlugin( OfxImageEffectHandle handle );
+  BitDepthPlugin(OfxImageEffectHandle handle);
 
 public:
-	void getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
 
-	void render( const OFX::RenderArguments& args );
+  void render(const OFX::RenderArguments &args);
 
 private:
-	template<class sview_t>
-	void setupDestView( const OFX::RenderArguments& args );
+  template <class sview_t> void setupDestView(const OFX::RenderArguments &args);
 
 public:
-	OFX::ChoiceParam* _paramOutBitDepth;      ///< Output bit depth
+  OFX::ChoiceParam *_paramOutBitDepth; ///< Output bit depth
 };
-
 }
 }
 }

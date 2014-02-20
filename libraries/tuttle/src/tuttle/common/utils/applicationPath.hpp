@@ -7,8 +7,10 @@
 namespace tuttle {
 namespace common {
 
-boost::filesystem::path applicationFilepath( const std::string& argv0, const boost::filesystem::path& currentPath = boost::filesystem::current_path() );
-
+boost::filesystem::path
+applicationFilepath(const std::string &argv0,
+                    const boost::filesystem::path &currentPath =
+                        boost::filesystem::current_path());
 }
 }
 

@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace colorSpaceKeyer {
 
-mDeclarePluginFactory( ColorSpaceKeyerPluginFactory, { }, { } );
-
+mDeclarePluginFactory(ColorSpaceKeyerPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

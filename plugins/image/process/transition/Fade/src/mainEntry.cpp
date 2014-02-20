@@ -7,11 +7,9 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::fade::FadePluginFactory, "tuttle.fade" );
-}
-
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::fade::FadePluginFactory,
+                       "tuttle.fade");
 }
 }
-
+}

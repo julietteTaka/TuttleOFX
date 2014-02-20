@@ -13,25 +13,22 @@ namespace ramp {
 /**
  * @brief Ramp plugin
  */
-class RampPlugin : public GeneratorPlugin
-{
+class RampPlugin : public GeneratorPlugin {
 public:
-	RampPlugin( OfxImageEffectHandle handle );
+  RampPlugin(OfxImageEffectHandle handle);
 
 public:
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
+  void render(const OFX::RenderArguments &args);
 
-	void getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
-	void render( const OFX::RenderArguments &args );
-	
 public:
-	OFX::ChoiceParam*  _direction;
-	
-	OFX::RGBAParam*    _colorStart;
-	OFX::RGBAParam*    _colorEnd;
-	
-	OFX::BooleanParam* _color;
+  OFX::ChoiceParam *_direction;
+
+  OFX::RGBAParam *_colorStart;
+  OFX::RGBAParam *_colorEnd;
+
+  OFX::BooleanParam *_color;
 };
-
 }
 }
 }

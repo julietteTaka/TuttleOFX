@@ -3,10 +3,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace colorBars {
-
-
-}
+namespace colorBars {}
 }
 }
 

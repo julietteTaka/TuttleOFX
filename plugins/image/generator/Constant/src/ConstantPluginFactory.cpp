@@ -16,33 +16,29 @@ namespace constant {
  * @brief Function called to describe the plugin main features.
  * @param[in, out]   desc     Effect descriptor
  */
-void ConstantPluginFactory::describe( OFX::ImageEffectDescriptor& desc )
-{
-	desc.setLabels( "TuttleConstant", "Constant",
-			"Constant" );
-	desc.setPluginGrouping( "tuttle/image/generator" );
+void ConstantPluginFactory::describe(OFX::ImageEffectDescriptor &desc) {
+  desc.setLabels("TuttleConstant", "Constant", "Constant");
+  desc.setPluginGrouping("tuttle/image/generator");
 
-	desc.setDescription(
-	    "Constant"
-	    "\n"
-	    "is a simple generator of a color."
-	);
+  desc.setDescription("Constant"
+                      "\n"
+                      "is a simple generator of a color.");
 
-	// add the supported contexts
-	desc.addSupportedContext( OFX::eContextGenerator );
-	desc.addSupportedContext( OFX::eContextGeneral );
+  // add the supported contexts
+  desc.addSupportedContext(OFX::eContextGenerator);
+  desc.addSupportedContext(OFX::eContextGeneral);
 
-	// add supported pixel depths
-	desc.addSupportedBitDepth( OFX::eBitDepthUByte );
-	desc.addSupportedBitDepth( OFX::eBitDepthUShort );
-	desc.addSupportedBitDepth( OFX::eBitDepthFloat );
+  // add supported pixel depths
+  desc.addSupportedBitDepth(OFX::eBitDepthUByte);
+  desc.addSupportedBitDepth(OFX::eBitDepthUShort);
+  desc.addSupportedBitDepth(OFX::eBitDepthFloat);
 
-	// plugin flags
-	desc.setRenderThreadSafety( OFX::eRenderFullySafe );
-	desc.setHostFrameThreading( false );
-	desc.setSupportsMultiResolution( false );
-	desc.setSupportsMultipleClipDepths( true );
-	desc.setSupportsTiles( kSupportTiles );
+  // plugin flags
+  desc.setRenderThreadSafety(OFX::eRenderFullySafe);
+  desc.setHostFrameThreading(false);
+  desc.setSupportsMultiResolution(false);
+  desc.setSupportsMultipleClipDepths(true);
+  desc.setSupportsTiles(kSupportTiles);
 }
 
 /**
@@ -50,14 +46,13 @@ void ConstantPluginFactory::describe( OFX::ImageEffectDescriptor& desc )
  * @param[in, out]   desc       Effect descriptor
  * @param[in]        context    Application context
  */
-void ConstantPluginFactory::describeInContext( OFX::ImageEffectDescriptor& desc,
-					       OFX::EContext               context )
-{
-	describeGeneratorParamsInContext( desc, context );
+void ConstantPluginFactory::describeInContext(OFX::ImageEffectDescriptor &desc,
+                                              OFX::EContext context) {
+  describeGeneratorParamsInContext(desc, context);
 
-	OFX::RGBAParamDescriptor* color1 = desc.defineRGBAParam( kConstantColor );
-	color1->setDefault( 0, 0, 0, 1 );
-	color1->setLabel( "Color" );
+  OFX::RGBAParamDescriptor *color1 = desc.defineRGBAParam(kConstantColor);
+  color1->setDefault(0, 0, 0, 1);
+  color1->setLabel("Color");
 }
 
 /**
@@ -66,12 +61,11 @@ void ConstantPluginFactory::describeInContext( OFX::ImageEffectDescriptor& desc,
  * @param[in] context    Application context
  * @return  plugin instance
  */
-OFX::ImageEffect* ConstantPluginFactory::createInstance( OfxImageEffectHandle handle,
-							 OFX::EContext        context )
-{
-	return new ConstantPlugin( handle );
+OFX::ImageEffect *
+ConstantPluginFactory::createInstance(OfxImageEffectHandle handle,
+                                      OFX::EContext context) {
+  return new ConstantPlugin(handle);
 }
-
 }
 }
 }

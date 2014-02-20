@@ -12,10 +12,9 @@ static const std::string kParamHelpButton = "Help";
 static const std::string kParamMode = "mode";
 static const std::string kParamModeAnalyse = "analyse";
 static const std::string kParamModeCustom = "custom";
-enum EParamMode
-{
-	eParamModeAnalyse = 0,
-	eParamModeCustom
+enum EParamMode {
+  eParamModeAnalyse = 0,
+  eParamModeCustom
 };
 static const std::string kParamAnalyseNow = "analyseNow";
 
@@ -26,14 +25,13 @@ static const std::string kParamAnalyseR = "r";
 static const std::string kParamAnalyseG = "g";
 static const std::string kParamAnalyseB = "b";
 static const std::string kParamAnalyseA = "a";
-enum EParamAnalyseMode
-{
-	eParamAnalyseModePerChannel = 0,
-	eParamAnalyseModeLuminosity,
-	eParamAnalyseModeR,
-	eParamAnalyseModeG,
-	eParamAnalyseModeB,
-	eParamAnalyseModeA
+enum EParamAnalyseMode {
+  eParamAnalyseModePerChannel = 0,
+  eParamAnalyseModeLuminosity,
+  eParamAnalyseModeR,
+  eParamAnalyseModeG,
+  eParamAnalyseModeB,
+  eParamAnalyseModeA
 };
 
 static const std::string kParamSrcGroup = "srcGroup";
@@ -53,8 +51,6 @@ static const std::string kParamProcessR = "processR";
 static const std::string kParamProcessG = "processG";
 static const std::string kParamProcessB = "processB";
 static const std::string kParamProcessA = "processA";
-
-
 }
 }
 }

@@ -10,32 +10,28 @@ namespace plugin {
 namespace anisotropicFilter {
 namespace tensors {
 
-
 /**
  * @class TensorsPlugin
  * @brief Class used to render the effect
  */
-class TensorsPlugin : public ImageEffectGilPlugin
-{
+class TensorsPlugin : public ImageEffectGilPlugin {
 public:
-	TensorsPlugin( OfxImageEffectHandle handle );
-	int getMargin();
+  TensorsPlugin(OfxImageEffectHandle handle);
+  int getMargin();
 
-	void getRegionsOfInterest( const OFX::RegionsOfInterestArguments& args, OFX::RegionOfInterestSetter& rois );
-	
-	void render( const OFX::RenderArguments& args );
+  void getRegionsOfInterest(const OFX::RegionsOfInterestArguments &args,
+                            OFX::RegionOfInterestSetter &rois);
+
+  void render(const OFX::RenderArguments &args);
 
 public:
-	OFX::BooleanParam *_paramDisplayMargin; ///< Display margin boolean
-	OFX::DoubleParam *_paramAlpha;
-	OFX::DoubleParam *_paramSigma;
+  OFX::BooleanParam *_paramDisplayMargin; ///< Display margin boolean
+  OFX::DoubleParam *_paramAlpha;
+  OFX::DoubleParam *_paramSigma;
 
-	OfxRectD _renderRect; ///< Render zone
-	OfxRectD _overSizedRect; ///< Over sized render zone
-
+  OfxRectD _renderRect;    ///< Render zone
+  OfxRectD _overSizedRect; ///< Over sized render zone
 };
-
-
 }
 }
 }

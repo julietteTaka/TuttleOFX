@@ -23,30 +23,27 @@ namespace writer {
 /**
  * @brief Exr writer
  */
-template<class View>
-class EXRWriterProcess : public ImageGilFilterProcessor<View>
-{
+template <class View>
+class EXRWriterProcess : public ImageGilFilterProcessor<View> {
 public:
-	typedef typename View::value_type Pixel;
+  typedef typename View::value_type Pixel;
 
 public:
-	EXRWriterProcess( EXRWriterPlugin& instance );
+  EXRWriterProcess(EXRWriterPlugin &instance);
 
-	void setup( const OFX::RenderArguments& args );
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void setup(const OFX::RenderArguments &args);
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 
 protected:
-	EXRWriterPlugin&       _plugin;        ///< Rendering plugin
-	EXRWriterProcessParams _params;
+  EXRWriterPlugin &_plugin; ///< Rendering plugin
+  EXRWriterProcessParams _params;
 
-	template<class WPixel>
-	void writeGrayImage( View& src, std::string& filepath, Imf::PixelType pixType );
+  template <class WPixel>
+  void writeGrayImage(View &src, std::string &filepath, Imf::PixelType pixType);
 
-	template<class WPixel>
-	void writeImage( View& src, std::string& filepath, Imf::PixelType pixType );
-
+  template <class WPixel>
+  void writeImage(View &src, std::string &filepath, Imf::PixelType pixType);
 };
-
 }
 }
 }

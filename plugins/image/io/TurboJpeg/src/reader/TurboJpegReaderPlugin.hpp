@@ -10,36 +10,35 @@ namespace plugin {
 namespace turboJpeg {
 namespace reader {
 
-struct TurboJpegReaderProcessParams
-{
-	std::string            filepath;
-	ETurboJpegOptimization optimization;
-	bool                   fastUpsampling;
+struct TurboJpegReaderProcessParams {
+  std::string filepath;
+  ETurboJpegOptimization optimization;
+  bool fastUpsampling;
 };
 
 /**
  * @brief TurboJpeg plugin
  */
-class TurboJpegReaderPlugin : public ReaderPlugin
-{
+class TurboJpegReaderPlugin : public ReaderPlugin {
 public:
-    TurboJpegReaderPlugin( OfxImageEffectHandle handle );
-
-public:
-	TurboJpegReaderProcessParams getProcessParams( const OfxTime time ) const;
-
-	void changedParam( const OFX::InstanceChangedArgs &args, const std::string &paramName );
-	bool getRegionOfDefinition( const OFX::RegionOfDefinitionArguments& args, OfxRectD& rod );
-	void getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
-
-	void render( const OFX::RenderArguments &args );
+  TurboJpegReaderPlugin(OfxImageEffectHandle handle);
 
 public:
-	OFX::ChoiceParam*    _optimization;   ///< TurboJpeg SIMD optimization
-	OFX::BooleanParam*   _fastUpsampling; ///< TurboJpeg fast upsampling for U,V channels
-	
+  TurboJpegReaderProcessParams getProcessParams(const OfxTime time) const;
+
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
+  bool getRegionOfDefinition(const OFX::RegionOfDefinitionArguments &args,
+                             OfxRectD &rod);
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
+
+  void render(const OFX::RenderArguments &args);
+
+public:
+  OFX::ChoiceParam *_optimization;    ///< TurboJpeg SIMD optimization
+  OFX::BooleanParam *_fastUpsampling; ///< TurboJpeg fast upsampling for U,V
+                                      ///channels
 };
-
 }
 }
 }

@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace ramp {
 
-mDeclarePluginFactory( RampPluginFactory, { }, { } );
-
+mDeclarePluginFactory(RampPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

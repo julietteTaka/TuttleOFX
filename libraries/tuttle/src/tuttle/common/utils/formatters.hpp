@@ -10,7 +10,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 
-
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/log/expressions.hpp>
@@ -24,36 +23,34 @@
 #include <boost/log/expressions/attr.hpp>
 #include <boost/log/expressions/message.hpp>
 
-
 namespace tuttle {
 namespace common {
 namespace formatters {
 
-class Formatter : boost::noncopyable
-{
-	typedef boost::log::sinks::synchronous_sink< boost::log::sinks::text_ostream_backend > sink_t;
+class Formatter : boost::noncopyable {
+  typedef boost::log::sinks::synchronous_sink<
+      boost::log::sinks::text_ostream_backend> sink_t;
 
 private:
-	Formatter();
+  Formatter();
 
 public:
-	static boost::shared_ptr<Formatter> get();
-	~Formatter() { }
-	
-	void init_logging();
-	
-	void setLogLevel( const boost::log::trivial::severity_level level );
-	
-	void setLogLevel_int( const int level );
-	void setLogLevel_string( const std::string& level );
+  static boost::shared_ptr<Formatter> get();
+  ~Formatter() {}
 
-	void displayLogLevel( bool display );
+  void init_logging();
+
+  void setLogLevel(const boost::log::trivial::severity_level level);
+
+  void setLogLevel_int(const int level);
+  void setLogLevel_string(const std::string &level);
+
+  void displayLogLevel(bool display);
 
 public:
-	static boost::shared_ptr< Formatter > _formatter;
-	boost::shared_ptr< sink_t > _sink;
+  static boost::shared_ptr<Formatter> _formatter;
+  boost::shared_ptr<sink_t> _sink;
 };
-
 }
 }
 }

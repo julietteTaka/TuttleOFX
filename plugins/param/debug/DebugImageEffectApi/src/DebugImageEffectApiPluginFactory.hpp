@@ -6,12 +6,10 @@ namespace tuttle {
 namespace plugin {
 namespace debugImageEffectApi {
 
-static const bool kSupportTiles              = false;
+static const bool kSupportTiles = false;
 static const bool kSupportTemporalClipAccess = false;
 
-mDeclarePluginFactory( DebugImageEffectApiPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(DebugImageEffectApiPluginFactory, {}, {});
 }
 }
 }

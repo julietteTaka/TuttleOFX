@@ -8,38 +8,34 @@ namespace plugin {
 namespace png {
 namespace writer {
 
-
-
 using namespace boost::gil;
 
-PngWriterPlugin::PngWriterPlugin( OfxImageEffectHandle handle )
-	: WriterPlugin( handle )
-{
-	_paramOutputComponents = fetchChoiceParam( kTuttlePluginChannel );
+PngWriterPlugin::PngWriterPlugin(OfxImageEffectHandle handle)
+    : WriterPlugin(handle) {
+  _paramOutputComponents = fetchChoiceParam(kTuttlePluginChannel);
 }
 
-PngWriterProcessParams PngWriterPlugin::getProcessParams( const OfxTime time )
-{
-	PngWriterProcessParams params;
+PngWriterProcessParams PngWriterPlugin::getProcessParams(const OfxTime time) {
+  PngWriterProcessParams params;
 
-	params._filepath   = getAbsoluteFilenameAt( time );
-	params._components = static_cast<ETuttlePluginComponents>( this->_paramOutputComponents->getValue() );
-	params._bitDepth   = static_cast<ETuttlePluginBitDepth>( this->_paramBitDepth->getValue() );
+  params._filepath = getAbsoluteFilenameAt(time);
+  params._components = static_cast<ETuttlePluginComponents>(
+      this->_paramOutputComponents->getValue());
+  params._bitDepth =
+      static_cast<ETuttlePluginBitDepth>(this->_paramBitDepth->getValue());
 
-	return params;
+  return params;
 }
 
 /**
  * @brief The overridden render function
  * @param[in]   args     Rendering parameters
  */
-void PngWriterPlugin::render( const OFX::RenderArguments& args )
-{
-	WriterPlugin::render( args );
+void PngWriterPlugin::render(const OFX::RenderArguments &args) {
+  WriterPlugin::render(args);
 
-	doGilRender<PngWriterProcess>( *this, args );
+  doGilRender<PngWriterProcess>(*this, args);
 }
-
 }
 }
 }

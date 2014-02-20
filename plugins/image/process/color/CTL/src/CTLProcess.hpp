@@ -13,27 +13,25 @@ namespace ctl {
  * @brief CTL process
  *
  */
-template<class View>
-class CTLProcess : public ImageGilFilterProcessor<View>
-{
+template <class View> class CTLProcess : public ImageGilFilterProcessor<View> {
 public:
-	typedef typename View::value_type Pixel;
-	typedef typename boost::gil::channel_type<View>::type Channel;
-	typedef float Scalar;
+  typedef typename View::value_type Pixel;
+  typedef typename boost::gil::channel_type<View>::type Channel;
+  typedef float Scalar;
+
 protected:
-    CTLPlugin&    _plugin;            ///< Rendering plugin
-	CTLProcessParams<Scalar> _params; ///< parameters
+  CTLPlugin &_plugin;               ///< Rendering plugin
+  CTLProcessParams<Scalar> _params; ///< parameters
 
-	Ctl::SimdInterpreter _interpreter;
+  Ctl::SimdInterpreter _interpreter;
 
 public:
-    CTLProcess( CTLPlugin& effect );
+  CTLProcess(CTLPlugin &effect);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-    void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

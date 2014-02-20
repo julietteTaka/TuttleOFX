@@ -8,9 +8,7 @@ namespace plugin {
 namespace basicKeyer {
 
 static const bool kSupportTiles = true;
-mDeclarePluginFactory( BasicKeyerPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(BasicKeyerPluginFactory, {}, {});
 }
 }
 }

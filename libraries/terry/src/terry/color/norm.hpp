@@ -9,30 +9,23 @@ namespace color {
 /**
  * @brief Compute the norm from the (x, y) coordinates of the input vector.
  */
-template<typename Channel>
-struct channel_norm_t
-{
-	GIL_FORCEINLINE
-	void operator()( const Channel& a, const Channel& b, Channel& res ) const
-	{
-		res = std::sqrt( boost::math::pow<2>(a) + boost::math::pow<2>(b) );
-	}
+template <typename Channel> struct channel_norm_t {
+  GIL_FORCEINLINE
+  void operator()(const Channel &a, const Channel &b, Channel &res) const {
+    res = std::sqrt(boost::math::pow<2>(a) + boost::math::pow<2>(b));
+  }
 };
 
 /**
- * @brief Compute the Manhattan norm from the (x, y) coordinates of the input vector.
+ * @brief Compute the Manhattan norm from the (x, y) coordinates of the input
+ * vector.
  */
-template<typename Channel>
-struct channel_normManhattan_t
-{
-	GIL_FORCEINLINE
-	void operator()( const Channel& a, const Channel& b, Channel& res ) const
-	{
-		res = std::abs(a) + std::abs(b);
-	}
+template <typename Channel> struct channel_normManhattan_t {
+  GIL_FORCEINLINE
+  void operator()(const Channel &a, const Channel &b, Channel &res) const {
+    res = std::abs(a) + std::abs(b);
+  }
 };
-
-
 }
 }
 

@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace mathOperator {
 
-mDeclarePluginFactory( MathOperatorPluginFactory, { }, { } );
-
+mDeclarePluginFactory(MathOperatorPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

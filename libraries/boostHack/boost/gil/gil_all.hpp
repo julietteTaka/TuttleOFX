@@ -1,11 +1,13 @@
 /*
     Copyright 2005-2007 Adobe Systems Incorporated
-   
-    Use, modification and distribution are subject to the Boost Software License,
+
+    Use, modification and distribution are subject to the Boost Software
+   License,
     Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt).
 
-    See http://opensource.adobe.com/gil for most recent version including documentation.
+    See http://opensource.adobe.com/gil for most recent version including
+   documentation.
 */
 
 /*************************************************************************************************/
@@ -14,7 +16,7 @@
 #define GIL_ALL_HPP
 
 ////////////////////////////////////////////////////////////////////////////////////////
-/// \file               
+/// \file
 /// \brief  Includes all GIL files for convenience
 /// \author Lubomir Bourdev and Hailin Jin \n
 ///         Adobe Systems Incorporated

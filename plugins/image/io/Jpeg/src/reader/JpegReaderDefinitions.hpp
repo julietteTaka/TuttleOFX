@@ -7,9 +7,7 @@
 namespace tuttle {
 namespace plugin {
 namespace jpeg {
-namespace reader {
-
-}
+namespace reader {}
 }
 }
 }

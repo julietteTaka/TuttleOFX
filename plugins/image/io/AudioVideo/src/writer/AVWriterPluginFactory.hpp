@@ -9,8 +9,7 @@ namespace writer {
 
 static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( AVWriterPluginFactory, {}, {} );
-
+mDeclarePluginFactory(AVWriterPluginFactory, {}, {});
 }
 }
 }

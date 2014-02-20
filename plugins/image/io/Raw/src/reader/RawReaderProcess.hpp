@@ -13,33 +13,30 @@ namespace reader {
 /**
  *
  */
-template<class View>
-class RawReaderProcess : public ImageGilProcessor<View>
-{
-	typedef float Scalar;
+template <class View> class RawReaderProcess : public ImageGilProcessor<View> {
+  typedef float Scalar;
+
 public:
-	RawReaderProcess( RawReaderPlugin& instance );
+  RawReaderProcess(RawReaderPlugin &instance);
 
-	void setup( const OFX::RenderArguments& args );
-	void preProcess();
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void setup(const OFX::RenderArguments &args);
+  void preProcess();
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 
-	View& readImage( View& dst, const std::string& filepath );
+  View &readImage(View &dst, const std::string &filepath);
 
 private:
-	RawReaderPlugin&    _plugin;        ///< Rendering plugin
-	RawReaderProcessParams<Scalar> _params;
+  RawReaderPlugin &_plugin; ///< Rendering plugin
+  RawReaderProcessParams<Scalar> _params;
 
-	LibRaw _rawProcessor;
-	libraw_iparams_t& _p1;
-	libraw_image_sizes_t& _size;
-	libraw_colordata_t& _color;
-	libraw_thumbnail_t& _thumbnail;
-	libraw_imgother_t& _p2;
-	libraw_output_params_t& _out;
-
+  LibRaw _rawProcessor;
+  libraw_iparams_t &_p1;
+  libraw_image_sizes_t &_size;
+  libraw_colordata_t &_color;
+  libraw_thumbnail_t &_thumbnail;
+  libraw_imgother_t &_p2;
+  libraw_output_params_t &_out;
 };
-
 }
 }
 }

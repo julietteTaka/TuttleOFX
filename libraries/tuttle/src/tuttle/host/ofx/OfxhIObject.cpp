@@ -4,9 +4,7 @@ namespace tuttle {
 namespace host {
 namespace ofx {
 
-OfxhIObject::~OfxhIObject()
-{}
-
+OfxhIObject::~OfxhIObject() {}
 }
 }
 }

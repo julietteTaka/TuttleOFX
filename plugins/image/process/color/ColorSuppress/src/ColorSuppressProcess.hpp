@@ -16,7 +16,6 @@
 #include <vector>
 #include <iostream>
 
-
 namespace tuttle {
 namespace plugin {
 namespace colorSuppress {
@@ -25,22 +24,20 @@ namespace colorSuppress {
  * @brief ColorSuppress process
  *
  */
-template<class View>
-class ColorSuppressProcess : public ImageGilFilterProcessor<View>
-{
-protected :
-    ColorSuppressPlugin&    _plugin;        ///< Rendering plugin
-	ColorSuppressProcessParams _params;
-	
+template <class View>
+class ColorSuppressProcess : public ImageGilFilterProcessor<View> {
+protected:
+  ColorSuppressPlugin &_plugin; ///< Rendering plugin
+  ColorSuppressProcessParams _params;
+
 public:
-    ColorSuppressProcess( ColorSuppressPlugin& instance );
+  ColorSuppressProcess(ColorSuppressPlugin &instance);
 
-	void setup( const OFX::RenderArguments& args );
-	
-    // Do some processing
-    void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void setup(const OFX::RenderArguments &args);
+
+  // Do some processing
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }
@@ -48,4 +45,3 @@ public:
 #include "ColorSuppressProcess.tcc"
 
 #endif
-

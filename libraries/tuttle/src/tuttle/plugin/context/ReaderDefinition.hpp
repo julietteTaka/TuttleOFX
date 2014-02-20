@@ -6,24 +6,20 @@
 namespace tuttle {
 namespace plugin {
 
-enum EParamReaderBitDepth
-{
-	eParamReaderBitDepthAuto = 0,
-	eParamReaderBitDepthByte,
-	eParamReaderBitDepthShort,
-	eParamReaderBitDepthFloat
+enum EParamReaderBitDepth {
+  eParamReaderBitDepthAuto = 0,
+  eParamReaderBitDepthByte,
+  eParamReaderBitDepthShort,
+  eParamReaderBitDepthFloat
 };
 
-enum EParamReaderChannel
-{
-	eParamReaderChannelAuto = 0,
-	eParamReaderChannelGray,
-	eParamReaderChannelRGB,
-	eParamReaderChannelRGBA
+enum EParamReaderChannel {
+  eParamReaderChannelAuto = 0,
+  eParamReaderChannelGray,
+  eParamReaderChannelRGB,
+  eParamReaderChannelRGBA
 };
-
 }
 }
 
 #endif
-

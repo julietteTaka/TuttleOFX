@@ -9,12 +9,10 @@ namespace ofx {
 namespace property {
 
 /// return the OFX function suite that manages properties
-void* getPropertySuite( const int version );
-
+void *getPropertySuite(const int version);
 }
 }
 }
 }
 
 #endif
-

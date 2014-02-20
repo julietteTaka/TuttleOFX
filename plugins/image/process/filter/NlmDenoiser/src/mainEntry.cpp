@@ -7,10 +7,10 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::nlmDenoiser::NLMDenoiserPluginFactory, "tuttle.nlmdenoiser" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids,
+                       tuttle::plugin::nlmDenoiser::NLMDenoiserPluginFactory,
+                       "tuttle.nlmdenoiser");
 }
-
 }
 }

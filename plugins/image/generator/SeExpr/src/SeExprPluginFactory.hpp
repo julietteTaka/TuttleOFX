@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace seExpr {
 
-mDeclarePluginFactory( SeExprPluginFactory, { }, { } );
-
+mDeclarePluginFactory(SeExprPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace resize {
 
-mDeclarePluginFactory( ResizePluginFactory, { }, { } );
-
+mDeclarePluginFactory(ResizePluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

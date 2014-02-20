@@ -9,17 +9,16 @@ namespace tuttle {
 namespace host {
 namespace attribute {
 
-class ParamPushButton : public Param
-	, public ofx::attribute::OfxhParamPushButton
-{
+class ParamPushButton : public Param,
+                        public ofx::attribute::OfxhParamPushButton {
 public:
-	ParamPushButton( INode& effect, const std::string& name, const ofx::attribute::OfxhParamDescriptor& descriptor );
-	ParamPushButton* clone() const { return new ParamPushButton( *this ); }
+  ParamPushButton(INode &effect, const std::string &name,
+                  const ofx::attribute::OfxhParamDescriptor &descriptor);
+  ParamPushButton *clone() const { return new ParamPushButton(*this); }
 
-	void copy( const ParamPushButton& p ) OFX_EXCEPTION_SPEC;
-	void copy( const OfxhParam& p ) OFX_EXCEPTION_SPEC;
+  void copy(const ParamPushButton &p) OFX_EXCEPTION_SPEC;
+  void copy(const OfxhParam &p) OFX_EXCEPTION_SPEC;
 };
-
 }
 }
 }

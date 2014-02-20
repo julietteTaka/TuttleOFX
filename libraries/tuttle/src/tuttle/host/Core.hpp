@@ -12,78 +12,79 @@
 
 #include <boost/preprocessor/stringize.hpp>
 
-
 #define TUTTLE_HOST_VERSION_MAJOR 0
 #define TUTTLE_HOST_VERSION_MINOR 8
 #define TUTTLE_HOST_VERSION_MICRO 0
 
-#define TUTTLE_HOST_VERSION_STR BOOST_PP_STRINGIZE(TUTTLE_HOST_VERSION_MAJOR) "." BOOST_PP_STRINGIZE(TUTTLE_HOST_VERSION_MINOR) "." BOOST_PP_STRINGIZE(TUTTLE_HOST_VERSION_MICRO)
-
+#define TUTTLE_HOST_VERSION_STR                                                \
+  BOOST_PP_STRINGIZE(TUTTLE_HOST_VERSION_MAJOR) "." BOOST_PP_STRINGIZE(        \
+      TUTTLE_HOST_VERSION_MINOR) "." BOOST_PP_STRINGIZE(TUTTLE_HOST_VERSION_MICRO)
 
 namespace tuttle {
 namespace host {
 
-class Core : public Singleton<Core>
-{
+class Core : public Singleton<Core> {
 public:
-	typedef Core This;
-	friend class Singleton<Core>;
+  typedef Core This;
+  friend class Singleton<Core>;
 
 private:
-	Core();
-	~Core();
+  Core();
+  ~Core();
 
 private:
-	Host _host;
-	ofx::imageEffect::OfxhImageEffectPluginCache _imageEffectPluginCache;
-	ofx::OfxhPluginCache _pluginCache;
-	memory::IMemoryPool& _memoryPool;
-	memory::IMemoryCache& _memoryCache;
-	bool _isPreloaded;
-	
-	Preferences _preferences;
+  Host _host;
+  ofx::imageEffect::OfxhImageEffectPluginCache _imageEffectPluginCache;
+  ofx::OfxhPluginCache _pluginCache;
+  memory::IMemoryPool &_memoryPool;
+  memory::IMemoryCache &_memoryCache;
+  bool _isPreloaded;
+
+  Preferences _preferences;
 
 public:
-	      ofx::OfxhPluginCache& getPluginCache()       { return _pluginCache; }
-	const ofx::OfxhPluginCache& getPluginCache() const { return _pluginCache; }
-	
-	const std::list<ofx::OfxhPlugin*>& getPlugins() const { return getPluginCache().getPlugins(); }
+  ofx::OfxhPluginCache &getPluginCache() { return _pluginCache; }
+  const ofx::OfxhPluginCache &getPluginCache() const { return _pluginCache; }
 
-	const Host&                 getHost() const        { return _host; }
+  const std::list<ofx::OfxhPlugin *> &getPlugins() const {
+    return getPluginCache().getPlugins();
+  }
 
-	      Preferences& getPreferences()       { return _preferences; }
-	const Preferences& getPreferences() const { return _preferences; }
+  const Host &getHost() const { return _host; }
 
-public:
-	const ofx::imageEffect::OfxhImageEffectPluginCache& getImageEffectPluginCache() const { return _imageEffectPluginCache; }
-
-	memory::IMemoryPool&        getMemoryPool()        { return _memoryPool; }
-	const memory::IMemoryPool&  getMemoryPool() const  { return _memoryPool; }
-	memory::IMemoryCache&       getMemoryCache()       { return _memoryCache; }
-	const memory::IMemoryCache& getMemoryCache() const { return _memoryCache; }
+  Preferences &getPreferences() { return _preferences; }
+  const Preferences &getPreferences() const { return _preferences; }
 
 public:
-	ofx::imageEffect::OfxhImageEffectPlugin* getImageEffectPluginById( const std::string& id, int vermaj = -1, int vermin = -1 )
-	{
-		return _imageEffectPluginCache.getPluginById( id, vermaj, vermin );
-	}
+  const ofx::imageEffect::OfxhImageEffectPluginCache &
+  getImageEffectPluginCache() const {
+    return _imageEffectPluginCache;
+  }
 
+  memory::IMemoryPool &getMemoryPool() { return _memoryPool; }
+  const memory::IMemoryPool &getMemoryPool() const { return _memoryPool; }
+  memory::IMemoryCache &getMemoryCache() { return _memoryCache; }
+  const memory::IMemoryCache &getMemoryCache() const { return _memoryCache; }
 
 public:
-	void preload( const bool useCache = true );
+  ofx::imageEffect::OfxhImageEffectPlugin *
+  getImageEffectPluginById(const std::string &id, int vermaj = -1,
+                           int vermin = -1) {
+    return _imageEffectPluginCache.getPluginById(id, vermaj, vermin);
+  }
 
-	const ofx::OfxhPlugin& operator[]( const std::string& name ) const
-	{
-		return *( this->getPluginCache().getPluginById( name ) );
-	}
+public:
+  void preload(const bool useCache = true);
 
-	friend std::ostream& operator<<( std::ostream& os, const This& v );
+  const ofx::OfxhPlugin &operator[](const std::string &name) const {
+    return *(this->getPluginCache().getPluginById(name));
+  }
+
+  friend std::ostream &operator<<(std::ostream &os, const This &v);
 };
 
-inline Core& core() { return Core::instance(); }
-
+inline Core &core() { return Core::instance(); }
 }
 }
 
 #endif
-

@@ -19,19 +19,17 @@ namespace writer {
  * @brief FFMpeg process
  *
  */
-template<class View>
-class AVWriterProcess : public ImageGilFilterProcessor<View>
-{
+template <class View>
+class AVWriterProcess : public ImageGilFilterProcessor<View> {
 protected:
-	AVWriterPlugin& _plugin;        ///< Rendering plugin
-	AVProcessParams _params;
+  AVWriterPlugin &_plugin; ///< Rendering plugin
+  AVProcessParams _params;
 
 public:
-	AVWriterProcess( AVWriterPlugin& instance );
+  AVWriterProcess(AVWriterPlugin &instance);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

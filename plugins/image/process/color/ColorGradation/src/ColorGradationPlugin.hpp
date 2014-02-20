@@ -8,64 +8,63 @@ namespace tuttle {
 namespace plugin {
 namespace colorGradation {
 
-template<typename Scalar>
-struct ColorGradationProcessParams
-{
-	EParamGradation   _in;
-	EParamGradation   _out;
+template <typename Scalar> struct ColorGradationProcessParams {
+  EParamGradation _in;
+  EParamGradation _out;
 
-	double            _GammaValueIn;
-	double            _BlackPointIn;
-	double            _WhitePointIn;
-	double            _GammaSensitoIn;
+  double _GammaValueIn;
+  double _BlackPointIn;
+  double _WhitePointIn;
+  double _GammaSensitoIn;
 
-	double            _GammaValueOut;
-	double            _BlackPointOut;
-	double            _WhitePointOut;
-	double            _GammaSensitoOut;
+  double _GammaValueOut;
+  double _BlackPointOut;
+  double _WhitePointOut;
+  double _GammaSensitoOut;
 
-	bool              _processAlpha;
+  bool _processAlpha;
 };
 
 /**
  * @brief ColorGradation plugin
  */
-class ColorGradationPlugin : public ImageEffectGilPlugin
-{
+class ColorGradationPlugin : public ImageEffectGilPlugin {
 public:
-	typedef float Scalar;
-
-public:
-	ColorGradationPlugin( OfxImageEffectHandle handle );
+  typedef float Scalar;
 
 public:
-	ColorGradationProcessParams<Scalar> getProcessParams( const OfxPointD& renderScale = OFX::kNoRenderScale ) const;
+  ColorGradationPlugin(OfxImageEffectHandle handle);
 
-	void changedParam( const OFX::InstanceChangedArgs& args, const std::string& paramName );
+public:
+  ColorGradationProcessParams<Scalar>
+  getProcessParams(const OfxPointD &renderScale = OFX::kNoRenderScale) const;
 
-	bool isIdentity( const OFX::RenderArguments& args, OFX::Clip*& identityClip, double& identityTime );
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
 
-	void render( const OFX::RenderArguments& args );
+  bool isIdentity(const OFX::RenderArguments &args, OFX::Clip *&identityClip,
+                  double &identityTime);
+
+  void render(const OFX::RenderArguments &args);
 
 private:
-	void updateParameters();
+  void updateParameters();
 
 public:
-	OFX::ChoiceParam*       _paramIn;
-	OFX::ChoiceParam*       _paramOut;
+  OFX::ChoiceParam *_paramIn;
+  OFX::ChoiceParam *_paramOut;
 
-	OFX::DoubleParam*       _paramInGamma;
-	OFX::DoubleParam*       _paramOutGamma;
-	OFX::DoubleParam*       _paramInBlackPoint;
-	OFX::DoubleParam*       _paramOutBlackPoint;
-	OFX::DoubleParam*       _paramInWhitePoint;
-	OFX::DoubleParam*       _paramOutWhitePoint;
-	OFX::DoubleParam*       _paramInGammaSensito;
-	OFX::DoubleParam*       _paramOutGammaSensito;
+  OFX::DoubleParam *_paramInGamma;
+  OFX::DoubleParam *_paramOutGamma;
+  OFX::DoubleParam *_paramInBlackPoint;
+  OFX::DoubleParam *_paramOutBlackPoint;
+  OFX::DoubleParam *_paramInWhitePoint;
+  OFX::DoubleParam *_paramOutWhitePoint;
+  OFX::DoubleParam *_paramInGammaSensito;
+  OFX::DoubleParam *_paramOutGammaSensito;
 
-	OFX::BooleanParam*      _paramProcessAlpha;
+  OFX::BooleanParam *_paramProcessAlpha;
 };
-
 }
 }
 }

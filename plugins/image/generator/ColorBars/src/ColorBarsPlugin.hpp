@@ -9,29 +9,26 @@ namespace tuttle {
 namespace plugin {
 namespace colorBars {
 
-struct ColorBarsParams
-{
-	EColorBarsLevels mode;
+struct ColorBarsParams {
+  EColorBarsLevels mode;
 };
 
 /**
  * @brief ColorBars plugin
  */
-class ColorBarsPlugin : public GeneratorPlugin
-{
+class ColorBarsPlugin : public GeneratorPlugin {
 public:
-	ColorBarsPlugin( OfxImageEffectHandle handle );
+  ColorBarsPlugin(OfxImageEffectHandle handle);
 
 public:
-	ColorBarsParams getProcessParams() const ;
-	
-	void getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
-	void render( const OFX::RenderArguments &args );
+  ColorBarsParams getProcessParams() const;
+
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
+  void render(const OFX::RenderArguments &args);
 
 public:
-	OFX::ChoiceParam* mode;
+  OFX::ChoiceParam *mode;
 };
-
 }
 }
 }

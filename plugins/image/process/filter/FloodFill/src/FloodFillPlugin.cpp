@@ -8,41 +8,36 @@ namespace tuttle {
 namespace plugin {
 namespace floodFill {
 
-
-FloodFillPlugin::FloodFillPlugin( OfxImageEffectHandle handle )
-: ImageEffectGilPlugin( handle )
-{
-	_paramUpperThres = fetchDoubleParam( kParamUpperThres );
-	_paramLowerThres = fetchDoubleParam( kParamLowerThres );
-	_paramRelativeMinMax = fetchBooleanParam( kParamMinMaxRelative );
-	_paramMethod = fetchChoiceParam( kParamMethod );
+FloodFillPlugin::FloodFillPlugin(OfxImageEffectHandle handle)
+    : ImageEffectGilPlugin(handle) {
+  _paramUpperThres = fetchDoubleParam(kParamUpperThres);
+  _paramLowerThres = fetchDoubleParam(kParamLowerThres);
+  _paramRelativeMinMax = fetchBooleanParam(kParamMinMaxRelative);
+  _paramMethod = fetchChoiceParam(kParamMethod);
 }
 
-FloodFillProcessParams<FloodFillPlugin::Scalar> FloodFillPlugin::getProcessParams( const OfxPointD& renderScale ) const
-{
-	FloodFillProcessParams<Scalar> params;
+FloodFillProcessParams<FloodFillPlugin::Scalar>
+FloodFillPlugin::getProcessParams(const OfxPointD &renderScale) const {
+  FloodFillProcessParams<Scalar> params;
 
-	params._upperThres = _paramUpperThres->getValue();
-	params._lowerThres = _paramLowerThres->getValue();
-	params._relativeMinMax = _paramRelativeMinMax->getValue();
-	params._method = static_cast<EParamMethod>( _paramMethod->getValue() );
+  params._upperThres = _paramUpperThres->getValue();
+  params._lowerThres = _paramLowerThres->getValue();
+  params._relativeMinMax = _paramRelativeMinMax->getValue();
+  params._method = static_cast<EParamMethod>(_paramMethod->getValue());
 
-	return params;
+  return params;
 }
 
-void FloodFillPlugin::changedParam( const OFX::InstanceChangedArgs &args, const std::string &paramName )
-{
-}
+void FloodFillPlugin::changedParam(const OFX::InstanceChangedArgs &args,
+                                   const std::string &paramName) {}
 
 /**
  * @brief The overridden render function
  * @param[in]   args     Rendering parameters
  */
-void FloodFillPlugin::render( const OFX::RenderArguments& args )
-{
-	doGilRender<FloodFillProcess>( *this, args );
+void FloodFillPlugin::render(const OFX::RenderArguments &args) {
+  doGilRender<FloodFillProcess>(*this, args);
 }
-
 }
 }
 }

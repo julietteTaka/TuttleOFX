@@ -14,34 +14,32 @@ namespace tuttle {
 namespace plugin {
 namespace imageStatistics {
 
-class ImageStatisticsOverlayInteract : public OFX::OverlayInteract
-{
-typedef double Scalar;
+class ImageStatisticsOverlayInteract : public OFX::OverlayInteract {
+  typedef double Scalar;
 
-ImageStatisticsPlugin* _plugin;
+  ImageStatisticsPlugin *_plugin;
 
-interact::InteractInfos _infos;
-interact::InteractScene _interactScene;
+  interact::InteractInfos _infos;
+  interact::InteractScene _interactScene;
 
 public:
-	ImageStatisticsOverlayInteract( OfxInteractHandle handle, OFX::ImageEffect* effect );
+  ImageStatisticsOverlayInteract(OfxInteractHandle handle,
+                                 OFX::ImageEffect *effect);
 
-	bool draw( const OFX::DrawArgs& args );
-	bool penDown( const OFX::PenArgs& args );
-	bool penUp( const OFX::PenArgs& args );
-	bool penMotion( const OFX::PenArgs& args );
+  bool draw(const OFX::DrawArgs &args);
+  bool penDown(const OFX::PenArgs &args);
+  bool penUp(const OFX::PenArgs &args);
+  bool penMotion(const OFX::PenArgs &args);
 };
 
-class ImageStatisticsEffectOverlayDescriptor : public OFX::EffectOverlayDescriptor
-{
+class ImageStatisticsEffectOverlayDescriptor
+    : public OFX::EffectOverlayDescriptor {
 public:
-	OFX::Interact* createInstance( OfxInteractHandle handle, OFX::ImageEffect* effect )
-	{
-		return new ImageStatisticsOverlayInteract( handle, effect );
-	}
-
+  OFX::Interact *createInstance(OfxInteractHandle handle,
+                                OFX::ImageEffect *effect) {
+    return new ImageStatisticsOverlayInteract(handle, effect);
+  }
 };
-
 }
 }
 }

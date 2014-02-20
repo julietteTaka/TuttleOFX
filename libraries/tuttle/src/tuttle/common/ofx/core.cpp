@@ -7,43 +7,55 @@
 namespace tuttle {
 namespace ofx {
 
-std::string mapStatusToString( const OfxStatus stat )
-{
-	switch( stat )
-	{
-		case kOfxStatOK: return "kOfxStatOK";
-		case kOfxStatFailed: return "kOfxStatFailed";
-		case kOfxStatErrFatal: return "kOfxStatErrFatal";
-		case kOfxStatErrUnknown: return "kOfxStatErrUnknown";
-		case kOfxStatErrMissingHostFeature: return "kOfxStatErrMissingHostFeature";
-		case kOfxStatErrUnsupported: return "kOfxStatErrUnsupported";
-		case kOfxStatErrExists: return "kOfxStatErrExists";
-		case kOfxStatErrFormat: return "kOfxStatErrFormat";
-		case kOfxStatErrMemory: return "kOfxStatErrMemory";
-		case kOfxStatErrBadHandle: return "kOfxStatErrBadHandle";
-		case kOfxStatErrBadIndex: return "kOfxStatErrBadIndex";
-		case kOfxStatErrValue: return "kOfxStatErrValue";
-		case kOfxStatReplyYes: return "kOfxStatReplyYes";
-		case kOfxStatReplyNo: return "kOfxStatReplyNo";
-		case kOfxStatReplyDefault: return "kOfxStatReplyDefault";
-		case kOfxStatErrImageFormat: return "kOfxStatErrImageFormat";
-	}
-	return "UNKNOWN STATUS CODE: " + boost::lexical_cast<std::string>( stat );
+std::string mapStatusToString(const OfxStatus stat) {
+  switch (stat) {
+  case kOfxStatOK:
+    return "kOfxStatOK";
+  case kOfxStatFailed:
+    return "kOfxStatFailed";
+  case kOfxStatErrFatal:
+    return "kOfxStatErrFatal";
+  case kOfxStatErrUnknown:
+    return "kOfxStatErrUnknown";
+  case kOfxStatErrMissingHostFeature:
+    return "kOfxStatErrMissingHostFeature";
+  case kOfxStatErrUnsupported:
+    return "kOfxStatErrUnsupported";
+  case kOfxStatErrExists:
+    return "kOfxStatErrExists";
+  case kOfxStatErrFormat:
+    return "kOfxStatErrFormat";
+  case kOfxStatErrMemory:
+    return "kOfxStatErrMemory";
+  case kOfxStatErrBadHandle:
+    return "kOfxStatErrBadHandle";
+  case kOfxStatErrBadIndex:
+    return "kOfxStatErrBadIndex";
+  case kOfxStatErrValue:
+    return "kOfxStatErrValue";
+  case kOfxStatReplyYes:
+    return "kOfxStatReplyYes";
+  case kOfxStatReplyNo:
+    return "kOfxStatReplyNo";
+  case kOfxStatReplyDefault:
+    return "kOfxStatReplyDefault";
+  case kOfxStatErrImageFormat:
+    return "kOfxStatErrImageFormat";
+  }
+  return "UNKNOWN STATUS CODE: " + boost::lexical_cast<std::string>(stat);
+}
+}
 }
 
-}
-}
-
-std::ostream& operator<<( std::ostream& os, const OfxPlugin& v )
-{
-	os << "OfxPlugin {" << std::endl;
-	os << "  pluginApi" << v.pluginApi << std::endl;
-	os << "  apiVersion" << v.apiVersion << std::endl;
-	os << "  pluginIdentifier" << v.pluginIdentifier << std::endl;
-	os << "  pluginVersionMajor" << v.pluginVersionMajor << std::endl;
-	os << "  pluginVersionMinor" << v.pluginVersionMinor << std::endl;
-	os << "}" << std::endl;
-	return os;
+std::ostream &operator<<(std::ostream &os, const OfxPlugin &v) {
+  os << "OfxPlugin {" << std::endl;
+  os << "  pluginApi" << v.pluginApi << std::endl;
+  os << "  apiVersion" << v.apiVersion << std::endl;
+  os << "  pluginIdentifier" << v.pluginIdentifier << std::endl;
+  os << "  pluginVersionMajor" << v.pluginVersionMajor << std::endl;
+  os << "  pluginVersionMinor" << v.pluginVersionMinor << std::endl;
+  os << "}" << std::endl;
+  return os;
 }
 
 /*
@@ -142,4 +154,3 @@ std::ostream& operator<<( std::ostream& os, const OfxPlugin& v )
     float y, u, v, a;
    }OfxYUVAColourF;
  */
-

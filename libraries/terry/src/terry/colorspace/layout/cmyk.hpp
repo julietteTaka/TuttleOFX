@@ -1,5 +1,5 @@
 #ifndef _TERRY_COLOR_LAYOUT_CMYK_HPP_
-#define	_TERRY_COLOR_LAYOUT_CMYK_HPP_
+#define _TERRY_COLOR_LAYOUT_CMYK_HPP_
 
 #include "rgb.hpp"
 
@@ -11,8 +11,7 @@ namespace layout {
 
 /// \addtogroup ColorNameModel
 /// \{
-namespace cmyk
-{
+namespace cmyk {
 /// \brief Cyan
 using boost::gil::cyan_t;
 /// \brief Magenta
@@ -29,12 +28,8 @@ using boost::gil::black_t;
 using boost::gil::cmyk_t;
 using boost::gil::cmyk_layout_t;
 /// \}
-
-
-
 }
 }
 }
-
 
 #endif

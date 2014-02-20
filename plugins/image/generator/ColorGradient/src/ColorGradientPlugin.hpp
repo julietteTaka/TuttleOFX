@@ -10,50 +10,47 @@ namespace tuttle {
 namespace plugin {
 namespace colorGradient {
 
-template<class View>
-struct ColorGradientProcessParams
-{
-	typedef typename View::value_type Pixel;
-	typedef boost::gil::point2<double> Point2;
-	Point2 _cornerA;
-	Point2 _cornerB;
-	std::vector<Point2> _points;
-	std::vector<Pixel>  _colors;
+template <class View> struct ColorGradientProcessParams {
+  typedef typename View::value_type Pixel;
+  typedef boost::gil::point2<double> Point2;
+  Point2 _cornerA;
+  Point2 _cornerB;
+  std::vector<Point2> _points;
+  std::vector<Pixel> _colors;
 };
 
 /**
  * @brief ColorGradient plugin
  */
-class ColorGradientPlugin : public GeneratorPlugin
-{
+class ColorGradientPlugin : public GeneratorPlugin {
 public:
-	typedef boost::gil::point2<double> Point2;
+  typedef boost::gil::point2<double> Point2;
 
 public:
-	ColorGradientPlugin( OfxImageEffectHandle handle );
+  ColorGradientPlugin(OfxImageEffectHandle handle);
 
 private:
-	template<template<typename> class Functor>
-	void renderFunctor( const OFX::RenderArguments& args );
+  template <template <typename> class Functor>
+  void renderFunctor(const OFX::RenderArguments &args);
 
 public:
-	void render( const OFX::RenderArguments& args );
-	void changedParam( const OFX::InstanceChangedArgs& args, const std::string& paramName );
-	void getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
+  void render(const OFX::RenderArguments &args);
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
 
-	template<class View>
-	ColorGradientProcessParams<View> getProcessParams() const;
+  template <class View>
+  ColorGradientProcessParams<View> getProcessParams() const;
 
 public:
-	typedef std::vector<OFX::Double2DParam*> Double2DParamVector;
-	typedef std::vector<OFX::RGBAParam*> RGBAParamVector;
+  typedef std::vector<OFX::Double2DParam *> Double2DParamVector;
+  typedef std::vector<OFX::RGBAParam *> RGBAParamVector;
 
-	Double2DParamVector _points;
-	RGBAParamVector _colors;
-	OFX::ChoiceParam* _gradientType;
-	OFX::IntParam* _nbPoints;
+  Double2DParamVector _points;
+  RGBAParamVector _colors;
+  OFX::ChoiceParam *_gradientType;
+  OFX::IntParam *_nbPoints;
 };
-
 }
 }
 }

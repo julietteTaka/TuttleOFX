@@ -8,7 +8,6 @@ namespace plugin {
 namespace timeShift {
 
 static const std::string kParamOffset = "offset";
-
 }
 }
 }

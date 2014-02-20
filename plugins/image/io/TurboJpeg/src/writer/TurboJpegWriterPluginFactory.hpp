@@ -8,13 +8,10 @@ namespace plugin {
 namespace turboJpeg {
 namespace writer {
 
-mDeclarePluginFactory( TurboJpegWriterPluginFactory, { }, { } );
-
+mDeclarePluginFactory(TurboJpegWriterPluginFactory, {}, {});
 }
 }
 }
 }
 
 #endif
-
-

@@ -8,7 +8,6 @@ namespace plugin {
 namespace exception {
 
 using namespace tuttle::exception;
-
 }
 }
 }

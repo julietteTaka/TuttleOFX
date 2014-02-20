@@ -7,11 +7,9 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::colorBars::ColorBarsPluginFactory, "tuttle.colorbars" );
-}
-
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::colorBars::ColorBarsPluginFactory,
+                       "tuttle.colorbars");
 }
 }
-
+}

@@ -9,9 +9,7 @@ namespace reader {
 
 static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( DPXReaderPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(DPXReaderPluginFactory, {}, {});
 }
 }
 }

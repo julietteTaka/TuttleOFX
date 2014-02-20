@@ -13,58 +13,46 @@ namespace av {
 
 namespace bfs = boost::filesystem;
 
-class LibAVPreset
-{
+class LibAVPreset {
 public:
-	LibAVPreset( const std::string& id )
-		: presetID( id )
-	{
-		BOOST_FOREACH( const std::string& presetPath, LibAVPresetParser::researchPresetsFiles() )
-		{
-			bfs::path f = presetPath;
-			if( f.extension() == kPresetExtension )
-			{
-				LibAVPresetFileParser fp( presetPath );
-				if( presetID == fp.getId() )
-				{
-					params = fp.getParameters();
-				}
-			}
-		}
-		//TUTTLE_TLOG_VAR( TUTTLE_INFO, presetID );
-	}
-	
-	~LibAVPreset()
-	{
-		
-	}
-	
-	static void getPresetList( std::vector<std::string>& presetID )
-	{
-		LibAVPresetParser::getPresetList( presetID, kPresetExtension );
-	}
-	
-	static void getPresetList( std::vector<std::string>& presetID, std::vector<std::string>& presetLabelID )
-	{
-		LibAVPresetParser::getPresetList( presetID, presetLabelID, kPresetExtension );
-	}
-	
-	std::string getPresetID() { return presetID; }
-	std::string getFormatID() { return params.find( "format" )->second.at(0); }
-	std::string getVideoID()  { return params.find( "video" )->second.at(0); }
-	std::string getAudioID()  { return params.find( "audio" )->second.at(0); }
-	
-	PresetsList getPresetsPathList()
-	{
-		return LibAVPresetParser::getPresetsPathList( kPresetExtension );
-	}
-	
-private:
-	std::string      presetID;
-	PresetParameters params;
-	
-};
+  LibAVPreset(const std::string &id) : presetID(id) {
+    BOOST_FOREACH(const std::string & presetPath,
+                  LibAVPresetParser::researchPresetsFiles()) {
+      bfs::path f = presetPath;
+      if (f.extension() == kPresetExtension) {
+        LibAVPresetFileParser fp(presetPath);
+        if (presetID == fp.getId()) {
+          params = fp.getParameters();
+        }
+      }
+    }
+    // TUTTLE_TLOG_VAR( TUTTLE_INFO, presetID );
+  }
 
+  ~LibAVPreset() {}
+
+  static void getPresetList(std::vector<std::string> &presetID) {
+    LibAVPresetParser::getPresetList(presetID, kPresetExtension);
+  }
+
+  static void getPresetList(std::vector<std::string> &presetID,
+                            std::vector<std::string> &presetLabelID) {
+    LibAVPresetParser::getPresetList(presetID, presetLabelID, kPresetExtension);
+  }
+
+  std::string getPresetID() { return presetID; }
+  std::string getFormatID() { return params.find("format")->second.at(0); }
+  std::string getVideoID() { return params.find("video")->second.at(0); }
+  std::string getAudioID() { return params.find("audio")->second.at(0); }
+
+  PresetsList getPresetsPathList() {
+    return LibAVPresetParser::getPresetsPathList(kPresetExtension);
+  }
+
+private:
+  std::string presetID;
+  PresetParameters params;
+};
 }
 }
 }

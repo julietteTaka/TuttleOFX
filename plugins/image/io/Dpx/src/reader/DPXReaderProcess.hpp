@@ -17,32 +17,28 @@ namespace reader {
 /**
  * @brief Base class to read dpx files
  */
-template<class View>
-class DPXReaderProcess : public ImageGilProcessor<View>
-{
+template <class View> class DPXReaderProcess : public ImageGilProcessor<View> {
 public:
-	DPXReaderProcess( DPXReaderPlugin& instance );
-	~DPXReaderProcess();
+  DPXReaderProcess(DPXReaderPlugin &instance);
+  ~DPXReaderProcess();
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 
-	// Read dpx image
-	View& readImage( View& dst );
-
-protected:
-	template<class T, class DST_V>
-	void bitStreamToView( DST_V& dst, const int nc, const int channelSize );
+  // Read dpx image
+  View &readImage(View &dst);
 
 protected:
-	DPXReaderPlugin&    _plugin;        ///< Rendering plugin
-	DPXReaderProcessParams _params;
-	
-	tuttle::io::DpxImage _dpxImage;
+  template <class T, class DST_V>
+  void bitStreamToView(DST_V &dst, const int nc, const int channelSize);
 
+protected:
+  DPXReaderPlugin &_plugin; ///< Rendering plugin
+  DPXReaderProcessParams _params;
+
+  tuttle::io::DpxImage _dpxImage;
 };
-
 }
 }
 }

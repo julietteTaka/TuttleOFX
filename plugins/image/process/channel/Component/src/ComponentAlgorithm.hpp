@@ -3,10 +3,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace component {
-
-
-}
+namespace component {}
 }
 }
 

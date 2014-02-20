@@ -7,61 +7,51 @@
 
 #include <boost/gil/gil_all.hpp>
 
-namespace layer
-{
+namespace layer {
 
-template <typename view_t>
-struct border
-{
-	typedef typename view_t::value_type color_t;
-	color_t clr;
-	
-	border(color_t clr) : clr(clr) {}
+template <typename view_t> struct border {
+  typedef typename view_t::value_type color_t;
+  color_t clr;
 
-	void operator()(view_t& view)
-	{
-		using namespace boost::gil;		
-		
-		for (int x = 0; x < view.width(); ++x)
-		{
-			view(x,0) = clr;
-			view(x,view.height()-1) = clr;
-		}
+  border(color_t clr) : clr(clr) {}
 
-		for (int y = 0; y < view.height(); ++y)
-		{
-			view(0,y) = clr;
-			view(view.width()-1,y) = clr;
-		}
-	}
-};	
+  void operator()(view_t &view) {
+    using namespace boost::gil;
 
-template <typename view_t>
-struct raised_border
-{
-	typedef typename view_t::value_type color_t;
-	color_t dark,light;
-	
-	raised_border(color_t light, color_t dark) : dark(dark), light(light) {}
+    for (int x = 0; x < view.width(); ++x) {
+      view(x, 0) = clr;
+      view(x, view.height() - 1) = clr;
+    }
 
-	void operator()(view_t& view)
-	{
-		using namespace boost::gil;		
-		
-		for (int x = 0; x < view.width(); ++x)
-			view(x,0) = light;
+    for (int y = 0; y < view.height(); ++y) {
+      view(0, y) = clr;
+      view(view.width() - 1, y) = clr;
+    }
+  }
+};
 
-		for (int y = 0; y < view.height(); ++y)
-			view(0,y) = light;	
+template <typename view_t> struct raised_border {
+  typedef typename view_t::value_type color_t;
+  color_t dark, light;
 
-		for (int y = 1; y < view.height(); ++y)
-			view(view.width()-1,y) = dark;	
+  raised_border(color_t light, color_t dark) : dark(dark), light(light) {}
 
-		for (int x = 0; x < view.width(); ++x)
-			view(x,view.height()-1) = dark;	
-	}
-};	
+  void operator()(view_t &view) {
+    using namespace boost::gil;
 
+    for (int x = 0; x < view.width(); ++x)
+      view(x, 0) = light;
+
+    for (int y = 0; y < view.height(); ++y)
+      view(0, y) = light;
+
+    for (int y = 1; y < view.height(); ++y)
+      view(view.width() - 1, y) = dark;
+
+    for (int x = 0; x < view.width(); ++x)
+      view(x, view.height() - 1) = dark;
+  }
+};
 }
 
 #endif

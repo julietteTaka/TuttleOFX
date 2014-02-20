@@ -5,15 +5,13 @@
 //#include "reader/DPXReaderPluginFactory.hpp"
 #include "writer/DPXWriterPluginFactory.hpp"
 
-namespace OFX
-{
-namespace Plugin
-{
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	//mAppendPluginFactory( ids, tuttle::plugin::dpx::reader::DPXReaderPluginFactory, "tuttle.dpxreader" );
-	mAppendPluginFactory( ids, tuttle::plugin::dpx::writer::DPXWriterPluginFactory, "tuttle.dpxwriter" );
+namespace OFX {
+namespace Plugin {
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  // mAppendPluginFactory( ids,
+  // tuttle::plugin::dpx::reader::DPXReaderPluginFactory, "tuttle.dpxreader" );
+  mAppendPluginFactory(ids, tuttle::plugin::dpx::writer::DPXWriterPluginFactory,
+                       "tuttle.dpxwriter");
 }
-
 }
 }

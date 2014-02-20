@@ -7,9 +7,7 @@
 namespace tuttle {
 namespace plugin {
 namespace openImageIO {
-namespace reader {
-
-}
+namespace reader {}
 }
 }
 }

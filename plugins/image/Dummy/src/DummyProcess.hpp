@@ -11,25 +11,24 @@ namespace dummy {
  * @brief Dummy process
  *
  */
-template<class View>
-class DummyProcess : public ImageGilFilterProcessor<View>
-{
+template <class View>
+class DummyProcess : public ImageGilFilterProcessor<View> {
 public:
-	typedef typename View::value_type Pixel;
-	typedef typename boost::gil::channel_type<View>::type Channel;
-	typedef float Scalar;
+  typedef typename View::value_type Pixel;
+  typedef typename boost::gil::channel_type<View>::type Channel;
+  typedef float Scalar;
+
 protected:
-	DummyPlugin&    _plugin;            ///< Rendering plugin
-	DummyProcessParams<Scalar> _params; ///< parameters
+  DummyPlugin &_plugin;               ///< Rendering plugin
+  DummyProcessParams<Scalar> _params; ///< parameters
 
 public:
-	DummyProcess( DummyPlugin& effect );
+  DummyProcess(DummyPlugin &effect);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

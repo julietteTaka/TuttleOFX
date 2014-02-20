@@ -12,25 +12,24 @@ namespace component {
  * @brief Component process
  *
  */
-template<class SView, class DView>
-class ComponentProcess : public ImageGilFilterProcessor<SView, DView>
-{
+template <class SView, class DView>
+class ComponentProcess : public ImageGilFilterProcessor<SView, DView> {
 public:
-	typedef typename SView::value_type Pixel;
-	typedef typename boost::gil::channel_type<SView>::type Channel;
-	typedef float Scalar;
+  typedef typename SView::value_type Pixel;
+  typedef typename boost::gil::channel_type<SView>::type Channel;
+  typedef float Scalar;
+
 protected:
-	ComponentPlugin&    _plugin;            ///< Rendering plugin
-	terry::color::components::ConvertionParameters _params; ///< parameters
+  ComponentPlugin &_plugin;                               ///< Rendering plugin
+  terry::color::components::ConvertionParameters _params; ///< parameters
 
 public:
-	ComponentProcess( ComponentPlugin& effect );
+  ComponentProcess(ComponentPlugin &effect);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

@@ -10,57 +10,58 @@ namespace tuttle {
 namespace plugin {
 namespace resize {
 
-template<typename Scalar>
-struct ResizeProcessParams
-{
-	bool                                       _changeCenter;
-	boost::gil::point2<Scalar>                 _centerPoint;
+template <typename Scalar> struct ResizeProcessParams {
+  bool _changeCenter;
+  boost::gil::point2<Scalar> _centerPoint;
 
-	SamplerProcessParams                       _samplerProcessParams;
+  SamplerProcessParams _samplerProcessParams;
 };
 
 /**
  * @brief Resize plugin
  */
-class ResizePlugin : public SamplerPlugin
-{
+class ResizePlugin : public SamplerPlugin {
 public:
-	typedef float Scalar;
-	typedef boost::gil::point2<double> Point2;
-
-public:
-	ResizePlugin( OfxImageEffectHandle handle );
+  typedef float Scalar;
+  typedef boost::gil::point2<double> Point2;
 
 public:
-	ResizeProcessParams<Scalar> getProcessParams( const OfxPointD& renderScale = OFX::kNoRenderScale ) const;
-
-	void updateVisibleTools();
-
-	void changedParam          ( const OFX::InstanceChangedArgs &args, const std::string &paramName );
-
-	bool getRegionOfDefinition ( const OFX::RegionOfDefinitionArguments& args, OfxRectD& rod );
-	void getRegionsOfInterest  ( const OFX::RegionsOfInterestArguments& args, OFX::RegionOfInterestSetter& rois );
-	bool isIdentity            ( const OFX::RenderArguments& args, OFX::Clip*& identityClip, double& identityTime );
-
-	void render                ( const OFX::RenderArguments &args );
+  ResizePlugin(OfxImageEffectHandle handle);
 
 public:
-	OFX::ChoiceParam*       _paramMode;
+  ResizeProcessParams<Scalar> getProcessParams(const OfxPointD &renderScale =
+                                                   OFX::kNoRenderScale) const;
 
-	OFX::ChoiceParam*       _paramFormat;
+  void updateVisibleTools();
 
-	OFX::Int2DParam*        _paramSize;
-	OFX::IntParam*          _paramSizeWidth;
-	OFX::IntParam*          _paramSizeHeight;
-	OFX::BooleanParam*      _paramSizeKeepRatio;
-	OFX::ChoiceParam*       _paramSizeOrientation;
-	
-	OFX::Double2DParam*     _paramScale;
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
 
-	OFX::BooleanParam*      _paramCenter;
-	OFX::Double2DParam*     _paramCenterPoint;
+  bool getRegionOfDefinition(const OFX::RegionOfDefinitionArguments &args,
+                             OfxRectD &rod);
+  void getRegionsOfInterest(const OFX::RegionsOfInterestArguments &args,
+                            OFX::RegionOfInterestSetter &rois);
+  bool isIdentity(const OFX::RenderArguments &args, OFX::Clip *&identityClip,
+                  double &identityTime);
+
+  void render(const OFX::RenderArguments &args);
+
+public:
+  OFX::ChoiceParam *_paramMode;
+
+  OFX::ChoiceParam *_paramFormat;
+
+  OFX::Int2DParam *_paramSize;
+  OFX::IntParam *_paramSizeWidth;
+  OFX::IntParam *_paramSizeHeight;
+  OFX::BooleanParam *_paramSizeKeepRatio;
+  OFX::ChoiceParam *_paramSizeOrientation;
+
+  OFX::Double2DParam *_paramScale;
+
+  OFX::BooleanParam *_paramCenter;
+  OFX::Double2DParam *_paramCenterPoint;
 };
-
 }
 }
 }

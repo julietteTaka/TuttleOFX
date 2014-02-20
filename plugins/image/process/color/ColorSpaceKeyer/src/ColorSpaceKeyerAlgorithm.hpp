@@ -3,11 +3,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace colorSpaceKeyer {
-
-
-
-}
+namespace colorSpaceKeyer {}
 }
 }
 

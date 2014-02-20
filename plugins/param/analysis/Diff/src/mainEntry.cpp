@@ -7,10 +7,9 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::quality::DiffPluginFactory, "tuttle.diff" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::quality::DiffPluginFactory,
+                       "tuttle.diff");
 }
-
 }
 }

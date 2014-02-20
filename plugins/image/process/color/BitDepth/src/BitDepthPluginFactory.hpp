@@ -9,9 +9,7 @@ namespace bitDepth {
 
 static const bool kSupportTiles = true;
 
-mDeclarePluginFactory( BitDepthPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(BitDepthPluginFactory, {}, {});
 }
 }
 }

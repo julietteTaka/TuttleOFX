@@ -11,10 +11,8 @@ namespace host {
 namespace ofx {
 
 using namespace tuttle::ofx;
-
 }
 }
 }
 
 #endif
-

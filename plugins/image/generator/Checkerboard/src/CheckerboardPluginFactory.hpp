@@ -6,9 +6,7 @@ namespace tuttle {
 namespace plugin {
 namespace checkerboard {
 
-mDeclarePluginFactory( CheckerboardPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(CheckerboardPluginFactory, {}, {});
 }
 }
 }

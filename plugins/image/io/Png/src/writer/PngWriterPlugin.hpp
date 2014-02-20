@@ -9,30 +9,27 @@ namespace plugin {
 namespace png {
 namespace writer {
 
-struct PngWriterProcessParams
-{
-	std::string             _filepath;   ///< filepath
-	ETuttlePluginComponents _components; ///< output components
-	ETuttlePluginBitDepth   _bitDepth;   ///< Output bit depth
+struct PngWriterProcessParams {
+  std::string _filepath;               ///< filepath
+  ETuttlePluginComponents _components; ///< output components
+  ETuttlePluginBitDepth _bitDepth;     ///< Output bit depth
 };
 
 /**
  * @brief Png writer
  */
-class PngWriterPlugin : public WriterPlugin
-{
+class PngWriterPlugin : public WriterPlugin {
 public:
-	PngWriterPlugin( OfxImageEffectHandle handle );
+  PngWriterPlugin(OfxImageEffectHandle handle);
 
 public:
-	PngWriterProcessParams getProcessParams( const OfxTime time );
+  PngWriterProcessParams getProcessParams(const OfxTime time);
 
-	void                   render( const OFX::RenderArguments& args );
+  void render(const OFX::RenderArguments &args);
 
 public:
-	OFX::ChoiceParam* _paramOutputComponents;     ///< Choose components RGBA or RGB
+  OFX::ChoiceParam *_paramOutputComponents; ///< Choose components RGBA or RGB
 };
-
 }
 }
 }

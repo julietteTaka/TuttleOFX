@@ -9,11 +9,10 @@ namespace terry {
 using namespace boost::gil;
 
 template <typename View, typename T>
-inline View subimage_view( const View& src, const Rect<T>& region )
-{
-	return View( region.x2-region.x1, region.y2-region.y1, src.xy_at(region.x1, region.y1) );
+inline View subimage_view(const View &src, const Rect<T> &region) {
+  return View(region.x2 - region.x1, region.y2 - region.y1,
+              src.xy_at(region.x1, region.y1));
 }
-
 }
 
 #endif

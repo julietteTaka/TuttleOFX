@@ -10,7 +10,6 @@ namespace dpx {
 namespace reader {
 
 static const std::string kParamDisplayHeader = "displayHeader";
-
 }
 }
 }

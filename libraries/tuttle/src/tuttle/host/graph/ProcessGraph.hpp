@@ -14,7 +14,8 @@
 #include <string>
 
 /**
- * @brief If there is a define PROCESSGRAPH_USE_LINK, we don't create a copy of all nodes and
+ * @brief If there is a define PROCESSGRAPH_USE_LINK, we don't create a copy of
+ * all nodes and
  * The ProcessGraph only contains link to the node in the original Graph.
  */
 #define PROCESSGRAPH_USE_LINK
@@ -24,70 +25,73 @@ namespace host {
 namespace graph {
 
 /**
- * @brief Created from a user Graph, this class allows you to launch the process.
+ * @brief Created from a user Graph, this class allows you to launch the
+ *process.
  *
- * Internally this class use multiple graphs with different representation of the graph.
+ * Internally this class use multiple graphs with different representation of
+ *the graph.
  * It create a new graph with a vertex for each node at each time.
  * It reorder the nodes to optimise memory usage.
  */
-class ProcessGraph
-{
+class ProcessGraph {
 public:
-	typedef Graph::Node Node; /// @todo tuttle ProcessNode...
-	typedef graph::ProcessVertex Vertex;
-	typedef graph::ProcessVertexAtTime VertexAtTime;
-	typedef graph::ProcessEdge Edge;
-	typedef graph::ProcessEdgeAtTime EdgeAtTime;
-	typedef Graph::Attribute Attribute;
-	typedef InternalGraph<Vertex, Edge> InternalGraphImpl;
-	typedef InternalGraph<ProcessVertexAtTime, ProcessEdgeAtTime> InternalGraphAtTimeImpl;
+  typedef Graph::Node Node; /// @todo tuttle ProcessNode...
+  typedef graph::ProcessVertex Vertex;
+  typedef graph::ProcessVertexAtTime VertexAtTime;
+  typedef graph::ProcessEdge Edge;
+  typedef graph::ProcessEdgeAtTime EdgeAtTime;
+  typedef Graph::Attribute Attribute;
+  typedef InternalGraph<Vertex, Edge> InternalGraphImpl;
+  typedef InternalGraph<ProcessVertexAtTime, ProcessEdgeAtTime>
+  InternalGraphAtTimeImpl;
 #ifdef PROCESSGRAPH_USE_LINK
-	typedef std::map<std::string, Node*> NodeMap;
+  typedef std::map<std::string, Node *> NodeMap;
 #else
-	typedef Graph::NodeMap NodeMap;
+  typedef Graph::NodeMap NodeMap;
 #endif
-	typedef Graph::InstanceCountMap InstanceCountMap;
+  typedef Graph::InstanceCountMap InstanceCountMap;
 
 public:
-	ProcessGraph( const ComputeOptions& options, Graph& graph, const std::list<std::string>& nodes ); ///@ todo: const Graph, no ?
-	~ProcessGraph();
+  ProcessGraph(const ComputeOptions &options, Graph &graph,
+               const std::list<std::string> &nodes); ///@ todo: const Graph, no
+                                                     ///?
+  ~ProcessGraph();
 
 private:
-	VertexAtTime::Key getOutputKeyAtTime( const OfxTime time );
-	InternalGraphAtTimeImpl::vertex_descriptor getOutputVertexAtTime( const OfxTime time );
-	
-	void relink();
-	void bakeGraphInformationToNodes( InternalGraphAtTimeImpl& renderGraphAtTime );
+  VertexAtTime::Key getOutputKeyAtTime(const OfxTime time);
+  InternalGraphAtTimeImpl::vertex_descriptor
+  getOutputVertexAtTime(const OfxTime time);
+
+  void relink();
+  void bakeGraphInformationToNodes(InternalGraphAtTimeImpl &renderGraphAtTime);
 
 public:
-	void updateGraph( Graph& userGraph, const std::list<std::string>& outputNodes );
+  void updateGraph(Graph &userGraph, const std::list<std::string> &outputNodes);
 
-	void setup();
-	std::list<TimeRange> computeTimeRange();
-	void computeHashAtTime( NodeHashContainer& outNodesHash, const OfxTime time );
+  void setup();
+  std::list<TimeRange> computeTimeRange();
+  void computeHashAtTime(NodeHashContainer &outNodesHash, const OfxTime time);
 
-	void beginSequence( const TimeRange& timeRange );
-	void setupAtTime( const OfxTime time );
-	void processAtTime( memory::MemoryCache& outCache, const OfxTime time );
-	void endSequence();
+  void beginSequence(const TimeRange &timeRange);
+  void setupAtTime(const OfxTime time);
+  void processAtTime(memory::MemoryCache &outCache, const OfxTime time);
+  void endSequence();
 
-	bool process( memory::MemoryCache& outCache );
+  bool process(memory::MemoryCache &outCache);
 
 private:
-	InternalGraphImpl _renderGraph;
-	InternalGraphAtTimeImpl _renderGraphAtTime;
-	NodeMap _nodes;
-	InstanceCountMap _instanceCount;
+  InternalGraphImpl _renderGraph;
+  InternalGraphAtTimeImpl _renderGraphAtTime;
+  NodeMap _nodes;
+  InstanceCountMap _instanceCount;
 
-	static const std::string _outputId;
-	
-	const ComputeOptions& _options;
-	ProcessVertexData _procOptions;
+  static const std::string _outputId;
+
+  const ComputeOptions &_options;
+  ProcessVertexData _procOptions;
 };
-
 }
 }
 }
 
 #endif
-

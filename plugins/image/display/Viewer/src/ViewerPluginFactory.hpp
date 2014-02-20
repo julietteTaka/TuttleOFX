@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace viewer {
 
-mDeclarePluginFactory( ViewerPluginFactory, { }, { } );
-
+mDeclarePluginFactory(ViewerPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

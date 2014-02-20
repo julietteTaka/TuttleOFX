@@ -7,10 +7,9 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-        mAppendPluginFactory( ids, tuttle::plugin::flip::FlipPluginFactory, "tuttle.flip" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::flip::FlipPluginFactory,
+                       "tuttle.flip");
 }
-
 }
 }

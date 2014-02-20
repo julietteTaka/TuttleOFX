@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace histogram {
 
-mDeclarePluginFactory( HistogramPluginFactory, { }, { } );
-
+mDeclarePluginFactory(HistogramPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

@@ -13,23 +13,21 @@ namespace swscale {
  * @brief Swscale process
  *
  */
-class SwscaleProcess : public ImageFilterProcessor
-{
+class SwscaleProcess : public ImageFilterProcessor {
 protected:
-	SwscalePlugin&       _plugin; ///< Rendering plugin
-	SwscaleProcessParams _params; ///< parameters
-	struct SwsContext*   _context;
+  SwscalePlugin &_plugin;       ///< Rendering plugin
+  SwscaleProcessParams _params; ///< parameters
+  struct SwsContext *_context;
 
 public:
-	SwscaleProcess( SwscalePlugin& effect );
+  SwscaleProcess(SwscalePlugin &effect);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
-	
-	void postProcess();
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
+
+  void postProcess();
 };
-
 }
 }
 }

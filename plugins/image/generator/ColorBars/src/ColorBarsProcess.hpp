@@ -19,28 +19,25 @@ namespace colorBars {
  * @brief ColorBars process
  *
  */
-template<class View>
-class ColorBarsProcess : public ImageGilProcessor<View>
-{
+template <class View> class ColorBarsProcess : public ImageGilProcessor<View> {
 public:
-	typedef typename View::value_type Pixel;
-	typedef terry::generator::ColorBarsFunctor<Pixel> ColorBarsFunctorT;
-	typedef typename ColorBarsFunctorT::point_t Point;
-	typedef boost::gil::virtual_2d_locator<ColorBarsFunctorT, false> Locator;
-	typedef boost::gil::image_view<Locator> ColorBarsVirtualView;
-	
+  typedef typename View::value_type Pixel;
+  typedef terry::generator::ColorBarsFunctor<Pixel> ColorBarsFunctorT;
+  typedef typename ColorBarsFunctorT::point_t Point;
+  typedef boost::gil::virtual_2d_locator<ColorBarsFunctorT, false> Locator;
+  typedef boost::gil::image_view<Locator> ColorBarsVirtualView;
+
 protected:
-	ColorBarsPlugin&     _plugin;   ///< Rendering plugin
-	ColorBarsVirtualView _srcView;  ///< Source view
+  ColorBarsPlugin &_plugin;      ///< Rendering plugin
+  ColorBarsVirtualView _srcView; ///< Source view
 
 public:
-	ColorBarsProcess( ColorBarsPlugin& instance );
+  ColorBarsProcess(ColorBarsPlugin &instance);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

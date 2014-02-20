@@ -19,40 +19,37 @@ namespace writer {
  * @brief Function called to describe the plugin main features.
  * @param[in, out]   desc     Effect descriptor
  */
-void JpegWriterPluginFactory::describe( OFX::ImageEffectDescriptor& desc )
-{
-    desc.setLabels( "TuttleJpegWriter", "JpegWriter",
-		    "Jpeg file writer" );
-    desc.setPluginGrouping( "tuttle/image/io" );
+void JpegWriterPluginFactory::describe(OFX::ImageEffectDescriptor &desc) {
+  desc.setLabels("TuttleJpegWriter", "JpegWriter", "Jpeg file writer");
+  desc.setPluginGrouping("tuttle/image/io");
 
-	using namespace boost::assign;
-	std::vector<std::string> supportedExtensions;
-	supportedExtensions += "jpeg", "jpg", "jpe", "jfif", "jfi";
+  using namespace boost::assign;
+  std::vector<std::string> supportedExtensions;
+  supportedExtensions += "jpeg", "jpg", "jpe", "jfif", "jfi";
 
-	desc.setDescription( "JPEG File writer\n"
-			 "Plugin is used to write jpeg files.\n\n"
-			 "supported extensions: \n" +
-			 boost::algorithm::join( supportedExtensions, ", " )
-	);
+  desc.setDescription("JPEG File writer\n"
+                      "Plugin is used to write jpeg files.\n\n"
+                      "supported extensions: \n" +
+                      boost::algorithm::join(supportedExtensions, ", "));
 
-    // add the supported contexts
-    desc.addSupportedContext( OFX::eContextWriter );
-    desc.addSupportedContext( OFX::eContextGeneral );
+  // add the supported contexts
+  desc.addSupportedContext(OFX::eContextWriter);
+  desc.addSupportedContext(OFX::eContextGeneral);
 
-    // add supported pixel depths
-    desc.addSupportedBitDepth( OFX::eBitDepthUByte );
-    desc.addSupportedBitDepth( OFX::eBitDepthUShort );
-    desc.addSupportedBitDepth( OFX::eBitDepthFloat );
+  // add supported pixel depths
+  desc.addSupportedBitDepth(OFX::eBitDepthUByte);
+  desc.addSupportedBitDepth(OFX::eBitDepthUShort);
+  desc.addSupportedBitDepth(OFX::eBitDepthFloat);
 
-    // add supported extensions
-	desc.addSupportedExtensions( supportedExtensions );
+  // add supported extensions
+  desc.addSupportedExtensions(supportedExtensions);
 
-    // plugin flags
-    desc.setRenderThreadSafety( OFX::eRenderFullySafe );
-    desc.setHostFrameThreading( false );
-    desc.setSupportsMultiResolution( false );
-    desc.setSupportsMultipleClipDepths( true );
-    desc.setSupportsTiles( kSupportTiles );
+  // plugin flags
+  desc.setRenderThreadSafety(OFX::eRenderFullySafe);
+  desc.setHostFrameThreading(false);
+  desc.setSupportsMultiResolution(false);
+  desc.setSupportsMultipleClipDepths(true);
+  desc.setSupportsTiles(kSupportTiles);
 }
 
 /**
@@ -60,45 +57,52 @@ void JpegWriterPluginFactory::describe( OFX::ImageEffectDescriptor& desc )
  * @param[in, out]   desc       Effect descriptor
  * @param[in]        context    Application context
  */
-void JpegWriterPluginFactory::describeInContext( OFX::ImageEffectDescriptor& desc,
-						 OFX::EContext               context )
-{
-    OFX::ClipDescriptor* srcClip = desc.defineClip( kOfxImageEffectSimpleSourceClipName );
+void
+JpegWriterPluginFactory::describeInContext(OFX::ImageEffectDescriptor &desc,
+                                           OFX::EContext context) {
+  OFX::ClipDescriptor *srcClip =
+      desc.defineClip(kOfxImageEffectSimpleSourceClipName);
 
-    srcClip->addSupportedComponent( OFX::ePixelComponentRGBA );
-    srcClip->addSupportedComponent( OFX::ePixelComponentRGB );
-    srcClip->addSupportedComponent( OFX::ePixelComponentAlpha );
-    srcClip->setSupportsTiles( kSupportTiles );
+  srcClip->addSupportedComponent(OFX::ePixelComponentRGBA);
+  srcClip->addSupportedComponent(OFX::ePixelComponentRGB);
+  srcClip->addSupportedComponent(OFX::ePixelComponentAlpha);
+  srcClip->setSupportsTiles(kSupportTiles);
 
-    OFX::ClipDescriptor* dstClip = desc.defineClip( kOfxImageEffectOutputClipName );
-    dstClip->addSupportedComponent( OFX::ePixelComponentRGBA );
-    dstClip->addSupportedComponent( OFX::ePixelComponentRGB );
-    dstClip->addSupportedComponent( OFX::ePixelComponentAlpha );
-    dstClip->setSupportsTiles( kSupportTiles );
+  OFX::ClipDescriptor *dstClip = desc.defineClip(kOfxImageEffectOutputClipName);
+  dstClip->addSupportedComponent(OFX::ePixelComponentRGBA);
+  dstClip->addSupportedComponent(OFX::ePixelComponentRGB);
+  dstClip->addSupportedComponent(OFX::ePixelComponentAlpha);
+  dstClip->setSupportsTiles(kSupportTiles);
 
-	// Controls
-	describeWriterParamsInContext( desc, context );
-	
-	OFX::ChoiceParamDescriptor* bitDepth = static_cast<OFX::ChoiceParamDescriptor*>( desc.getParamDescriptor( kTuttlePluginBitDepth ) );
-	bitDepth->resetOptions();
-	bitDepth->appendOption( kTuttlePluginBitDepth8 );
-	bitDepth->setDefault( eTuttlePluginBitDepth8 );
-	bitDepth->setEnabled( false );
+  // Controls
+  describeWriterParamsInContext(desc, context);
 
-	OFX::ChoiceParamDescriptor* channel = static_cast<OFX::ChoiceParamDescriptor*>( desc.getParamDescriptor( kTuttlePluginChannel ) );
-	channel->resetOptions();
-	channel->appendOption( kTuttlePluginChannelRGB );
-	channel->setDefault( 0 );
-	channel->setEnabled( false );
-	
-	OFX::BooleanParamDescriptor* premult = static_cast<OFX::BooleanParamDescriptor*>( desc.getParamDescriptor( kParamPremultiplied ) );
-	premult->setDefault( true );
+  OFX::ChoiceParamDescriptor *bitDepth =
+      static_cast<OFX::ChoiceParamDescriptor *>(
+          desc.getParamDescriptor(kTuttlePluginBitDepth));
+  bitDepth->resetOptions();
+  bitDepth->appendOption(kTuttlePluginBitDepth8);
+  bitDepth->setDefault(eTuttlePluginBitDepth8);
+  bitDepth->setEnabled(false);
 
-	OFX::IntParamDescriptor* quality = desc.defineIntParam( kParamQuality );
-	quality->setLabel( "Quality" );
-	quality->setRange( 0, 100 );
-	quality->setDisplayRange( 0, 100 );
-	quality->setDefault( 80 );
+  OFX::ChoiceParamDescriptor *channel =
+      static_cast<OFX::ChoiceParamDescriptor *>(
+          desc.getParamDescriptor(kTuttlePluginChannel));
+  channel->resetOptions();
+  channel->appendOption(kTuttlePluginChannelRGB);
+  channel->setDefault(0);
+  channel->setEnabled(false);
+
+  OFX::BooleanParamDescriptor *premult =
+      static_cast<OFX::BooleanParamDescriptor *>(
+          desc.getParamDescriptor(kParamPremultiplied));
+  premult->setDefault(true);
+
+  OFX::IntParamDescriptor *quality = desc.defineIntParam(kParamQuality);
+  quality->setLabel("Quality");
+  quality->setRange(0, 100);
+  quality->setDisplayRange(0, 100);
+  quality->setDefault(80);
 }
 
 /**
@@ -107,12 +111,11 @@ void JpegWriterPluginFactory::describeInContext( OFX::ImageEffectDescriptor& des
  * @param[in] context    Application context
  * @return  plugin instance
  */
-OFX::ImageEffect* JpegWriterPluginFactory::createInstance( OfxImageEffectHandle handle,
-							   OFX::EContext        context )
-{
-    return new JpegWriterPlugin( handle );
+OFX::ImageEffect *
+JpegWriterPluginFactory::createInstance(OfxImageEffectHandle handle,
+                                        OFX::EContext context) {
+  return new JpegWriterPlugin(handle);
 }
-
 }
 }
 }

@@ -9,8 +9,7 @@ namespace ofx {
 namespace attribute {
 
 /// fetch the param suite
-void* getParameterSuite( const int version );
-
+void *getParameterSuite(const int version);
 }
 }
 }

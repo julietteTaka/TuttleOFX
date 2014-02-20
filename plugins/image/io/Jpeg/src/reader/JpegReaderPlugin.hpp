@@ -8,30 +8,29 @@ namespace plugin {
 namespace jpeg {
 namespace reader {
 
-struct JpegReaderProcessParams
-{
-	std::string _filepath;       ///< filepath
+struct JpegReaderProcessParams {
+  std::string _filepath; ///< filepath
 };
 
 /**
  * @brief Jpeg reader
  *
  */
-class JpegReaderPlugin : public ReaderPlugin
-{
+class JpegReaderPlugin : public ReaderPlugin {
 public:
-	JpegReaderPlugin( OfxImageEffectHandle handle );
+  JpegReaderPlugin(OfxImageEffectHandle handle);
 
 public:
-	JpegReaderProcessParams getProcessParams( const OfxTime time );
+  JpegReaderProcessParams getProcessParams(const OfxTime time);
 
-	void changedParam( const OFX::InstanceChangedArgs& args, const std::string& paramName );
-	bool getRegionOfDefinition( const OFX::RegionOfDefinitionArguments& args, OfxRectD& rod );
-	void getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
+  bool getRegionOfDefinition(const OFX::RegionOfDefinitionArguments &args,
+                             OfxRectD &rod);
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
 
-	void render( const OFX::RenderArguments& args );
+  void render(const OFX::RenderArguments &args);
 };
-
 }
 }
 }

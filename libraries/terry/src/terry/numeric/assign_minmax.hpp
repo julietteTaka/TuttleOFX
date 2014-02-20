@@ -15,52 +15,41 @@ using namespace boost::gil;
 
 namespace numeric {
 
-
 /// \ingroup PixelNumericOperations
-/// \brief construct for setting a pixel to the min channel value (see channel_traits::min_value)
+/// \brief construct for setting a pixel to the min channel value (see
+/// channel_traits::min_value)
 template <typename PixelR> // models pixel concept
-struct pixel_assigns_min_t
-{
-	typedef typename boost::gil::channel_type<PixelR>::type Channel;
-	GIL_FORCEINLINE
-    PixelR& operator()(PixelR& dst) const
-	{
-		pixel_assigns_scalar_t<Channel,PixelR>()( channel_traits<Channel>::min_value(), dst);
-        return dst;
-    }
+struct pixel_assigns_min_t {
+  typedef typename boost::gil::channel_type<PixelR>::type Channel;
+  GIL_FORCEINLINE
+  PixelR &operator()(PixelR &dst) const {
+    pixel_assigns_scalar_t<Channel, PixelR>()(
+        channel_traits<Channel>::min_value(), dst);
+    return dst;
+  }
 };
 
-template <typename Pixel>
-GIL_FORCEINLINE
-void pixel_assigns_min(Pixel& p)
-{
-    pixel_assigns_min_t<Pixel>()(p);
+template <typename Pixel> GIL_FORCEINLINE void pixel_assigns_min(Pixel &p) {
+  pixel_assigns_min_t<Pixel>()(p);
 }
 
 /// \ingroup PixelNumericOperations
-/// \brief construct for setting a pixel to the max channel value (see channel_traits::max_value)
+/// \brief construct for setting a pixel to the max channel value (see
+/// channel_traits::max_value)
 template <typename PixelR> // models pixel concept
-struct pixel_assigns_max_t
-{
-	typedef typename boost::gil::channel_type<PixelR>::type Channel;
-	GIL_FORCEINLINE
-    PixelR& operator() (PixelR& dst) const
-	{
-		pixel_assigns_scalar_t<Channel,PixelR>()( channel_traits<Channel>::max_value() , dst);
-        return dst;
-    }
+struct pixel_assigns_max_t {
+  typedef typename boost::gil::channel_type<PixelR>::type Channel;
+  GIL_FORCEINLINE
+  PixelR &operator()(PixelR &dst) const {
+    pixel_assigns_scalar_t<Channel, PixelR>()(
+        channel_traits<Channel>::max_value(), dst);
+    return dst;
+  }
 };
 
-template <typename Pixel>
-GIL_FORCEINLINE
-void pixel_assigns_max(Pixel& p)
-{
-    pixel_assigns_max_t<Pixel>()(p);
+template <typename Pixel> GIL_FORCEINLINE void pixel_assigns_max(Pixel &p) {
+  pixel_assigns_max_t<Pixel>()(p);
 }
-
-
-
-
 }
 }
 

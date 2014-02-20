@@ -23,444 +23,554 @@ namespace bpo = boost::program_options;
 namespace bfs = boost::filesystem;
 namespace bal = boost::algorithm;
 
+int firstImage = 0;
+int lastImage = 0;
 
-int	firstImage	= 0;
-int	lastImage	= 0;
-
-namespace sam
-{
-	bool wasSthgDumped = false;
+namespace sam {
+bool wasSthgDumped = false;
 }
 
+void printImageProperties(std::string path) {
+  try {
+    Image *image;
+    ImageInfo *image_info;
 
-void printImageProperties( std::string path )
-{
-	try
-	{
-		Image         *image;
-		ImageInfo     *image_info;
-		
-		// Read a file into image object
-		image_info = AcquireImageInfo();
-		GetImageInfo( image_info );
+    // Read a file into image object
+    image_info = AcquireImageInfo();
+    GetImageInfo(image_info);
 
-		strcpy( image_info -> filename, path.c_str() );
+    strcpy(image_info->filename, path.c_str());
 
-		ExceptionInfo* exceptionsInfo = AcquireExceptionInfo();
-		GetExceptionInfo( exceptionsInfo );
-		
-		image = ReadImage( image_info, exceptionsInfo );
-		
-		std::string imageType;
-		switch( image->type )
-		{
-			case UndefinedType             : imageType = "Undefined type of image"; break;
-			case BilevelType               : imageType = "Bilevel image"; break;
-			case GrayscaleType             : imageType = "Grayscale image"; break;
-			case GrayscaleMatteType        : imageType = "Grayscale image with opacity"; break;
-			case PaletteType               : imageType = "Indexed color image"; break;
-			case PaletteMatteType          : imageType = "Indexed color image with opacity"; break;
-			case TrueColorType             : imageType = "Truecolor image"; break;
-			case TrueColorMatteType        : imageType = "Truecolor image with opacity"; break;
-			case ColorSeparationType       : imageType = "Cyan/Yellow/Magenta/Black (CYMK) image"; break;
-			case ColorSeparationMatteType  : imageType = "Cyan/Yellow/Magenta/Black (CYMK) image with opacity"; break;
-			case OptimizeType              : imageType = "Optimize image"; break;
-			case 11                        : imageType = "Indexed bilevel image with opacity"; break; // PaletteBilevelMatteType
-		}
+    ExceptionInfo *exceptionsInfo = AcquireExceptionInfo();
+    GetExceptionInfo(exceptionsInfo);
 
-		std::string resolutionType;
-		switch( image->units )
-		{
-			case UndefinedResolution            : resolutionType = " [unknown units]"; break;
-			case PixelsPerInchResolution        : resolutionType = " [dpi]"; break;
-			case PixelsPerCentimeterResolution  : resolutionType = " [pixels/cm]"; break;
-		}
+    image = ReadImage(image_info, exceptionsInfo);
 
-		std::string colorSpaceType;
-		switch( image->colorspace )
-		{
-			case UndefinedColorspace      : colorSpaceType = "unknown color space"; break;
-			case RGBColorspace            : colorSpaceType = "RGB"; break;
-			case GRAYColorspace           : colorSpaceType = "Gray"; break;
-			case TransparentColorspace    : colorSpaceType = "Transparent"; break;
-			case OHTAColorspace           : colorSpaceType = "OHTA"; break;
-			case XYZColorspace            : colorSpaceType = "XYZ"; break;
-			case YCbCrColorspace          : colorSpaceType = "Y Cb Cr"; break;
-			case YCCColorspace            : colorSpaceType = "YCC"; break;
-			case YIQColorspace            : colorSpaceType = "YIQ"; break;
-			case YPbPrColorspace          : colorSpaceType = "Y Pb Pr"; break;
-			case YUVColorspace            : colorSpaceType = "YUV"; break;
-			case CMYKColorspace           : colorSpaceType = "CMYK"; break;
-			case sRGBColorspace           : colorSpaceType = "sRGB"; break;
-			case LabColorspace            : colorSpaceType = "Lab"; break;
-			case 14                       : colorSpaceType = "HSB"; break; // HSBColorspace
-			case HSLColorspace            : colorSpaceType = "HSL"; break;
-			case HWBColorspace            : colorSpaceType = "HWB"; break;
-			case Rec601LumaColorspace     : colorSpaceType = "Rec601 Luma"; break;
-			case 18                       : colorSpaceType = "Rec601 Y Cb Cr"; break; // Rec601YCbCrColorspace
-			case Rec709LumaColorspace     : colorSpaceType = "Rec709 Luma"; break;
-			case 20                       : colorSpaceType = "Rec709 Y Cb Cr"; break; //  Rec709YCbCrColorspace
-			case LogColorspace            : colorSpaceType = "Log"; break;
-			case 22                       : colorSpaceType = "CMY"; break; // CMYColorspace
+    std::string imageType;
+    switch (image->type) {
+    case UndefinedType:
+      imageType = "Undefined type of image";
+      break;
+    case BilevelType:
+      imageType = "Bilevel image";
+      break;
+    case GrayscaleType:
+      imageType = "Grayscale image";
+      break;
+    case GrayscaleMatteType:
+      imageType = "Grayscale image with opacity";
+      break;
+    case PaletteType:
+      imageType = "Indexed color image";
+      break;
+    case PaletteMatteType:
+      imageType = "Indexed color image with opacity";
+      break;
+    case TrueColorType:
+      imageType = "Truecolor image";
+      break;
+    case TrueColorMatteType:
+      imageType = "Truecolor image with opacity";
+      break;
+    case ColorSeparationType:
+      imageType = "Cyan/Yellow/Magenta/Black (CYMK) image";
+      break;
+    case ColorSeparationMatteType:
+      imageType = "Cyan/Yellow/Magenta/Black (CYMK) image with opacity";
+      break;
+    case OptimizeType:
+      imageType = "Optimize image";
+      break;
+    case 11:
+      imageType = "Indexed bilevel image with opacity";
+      break; // PaletteBilevelMatteType
+    }
+
+    std::string resolutionType;
+    switch (image->units) {
+    case UndefinedResolution:
+      resolutionType = " [unknown units]";
+      break;
+    case PixelsPerInchResolution:
+      resolutionType = " [dpi]";
+      break;
+    case PixelsPerCentimeterResolution:
+      resolutionType = " [pixels/cm]";
+      break;
+    }
+
+    std::string colorSpaceType;
+    switch (image->colorspace) {
+    case UndefinedColorspace:
+      colorSpaceType = "unknown color space";
+      break;
+    case RGBColorspace:
+      colorSpaceType = "RGB";
+      break;
+    case GRAYColorspace:
+      colorSpaceType = "Gray";
+      break;
+    case TransparentColorspace:
+      colorSpaceType = "Transparent";
+      break;
+    case OHTAColorspace:
+      colorSpaceType = "OHTA";
+      break;
+    case XYZColorspace:
+      colorSpaceType = "XYZ";
+      break;
+    case YCbCrColorspace:
+      colorSpaceType = "Y Cb Cr";
+      break;
+    case YCCColorspace:
+      colorSpaceType = "YCC";
+      break;
+    case YIQColorspace:
+      colorSpaceType = "YIQ";
+      break;
+    case YPbPrColorspace:
+      colorSpaceType = "Y Pb Pr";
+      break;
+    case YUVColorspace:
+      colorSpaceType = "YUV";
+      break;
+    case CMYKColorspace:
+      colorSpaceType = "CMYK";
+      break;
+    case sRGBColorspace:
+      colorSpaceType = "sRGB";
+      break;
+    case LabColorspace:
+      colorSpaceType = "Lab";
+      break;
+    case 14:
+      colorSpaceType = "HSB";
+      break; // HSBColorspace
+    case HSLColorspace:
+      colorSpaceType = "HSL";
+      break;
+    case HWBColorspace:
+      colorSpaceType = "HWB";
+      break;
+    case Rec601LumaColorspace:
+      colorSpaceType = "Rec601 Luma";
+      break;
+    case 18:
+      colorSpaceType = "Rec601 Y Cb Cr";
+      break; // Rec601YCbCrColorspace
+    case Rec709LumaColorspace:
+      colorSpaceType = "Rec709 Luma";
+      break;
+    case 20:
+      colorSpaceType = "Rec709 Y Cb Cr";
+      break; //  Rec709YCbCrColorspace
+    case LogColorspace:
+      colorSpaceType = "Log";
+      break;
+    case 22:
+      colorSpaceType = "CMY";
+      break; // CMYColorspace
 #if MagickLibVersion > 0x677
-			case LuvColorspace            : colorSpaceType = "Luv"; break;
-			case HCLColorspace            : colorSpaceType = "HCL"; break;
-			case LCHColorspace            : colorSpaceType = "LCH"; break;
-			case LMSColorspace            : colorSpaceType = "LMS"; break;
+    case LuvColorspace:
+      colorSpaceType = "Luv";
+      break;
+    case HCLColorspace:
+      colorSpaceType = "HCL";
+      break;
+    case LCHColorspace:
+      colorSpaceType = "LCH";
+      break;
+    case LMSColorspace:
+      colorSpaceType = "LMS";
+      break;
 #endif
 #if MagickLibVersion > 0x684
-			case LCHabColorspace          : colorSpaceType = "LCHab"; break;
-			case LCHuvColorspace          : colorSpaceType = "LCHuv"; break;
-			case scRGBColorspace          : colorSpaceType = "scRGB"; break;
-			case HSIColorspace            : colorSpaceType = "HSI"; break;
-			case HSVColorspace            : colorSpaceType = "HSV"; break;
-			case HCLpColorspace           : colorSpaceType = "HCLp"; break;
-			case YDbDrColorspace          : colorSpaceType = "YDbDr"; break;
+    case LCHabColorspace:
+      colorSpaceType = "LCHab";
+      break;
+    case LCHuvColorspace:
+      colorSpaceType = "LCHuv";
+      break;
+    case scRGBColorspace:
+      colorSpaceType = "scRGB";
+      break;
+    case HSIColorspace:
+      colorSpaceType = "HSI";
+      break;
+    case HSVColorspace:
+      colorSpaceType = "HSV";
+      break;
+    case HCLpColorspace:
+      colorSpaceType = "HCLp";
+      break;
+    case YDbDrColorspace:
+      colorSpaceType = "YDbDr";
+      break;
 #endif
-		}
+    }
 
-		std::string interlaceType;
-		switch( image->interlace )
-		{
-			case UndefinedInterlace    : interlaceType = "undefined"; break;
-			case NoInterlace           : interlaceType = "no interlacing"; break;
-			case LineInterlace         : interlaceType = "line interlacing"; break;
-			case PlaneInterlace        : interlaceType = "plane interlacing"; break;
-			case PartitionInterlace    : interlaceType = "partition interlacing"; break;
-			case 5                     : interlaceType = "GIF interlacing"; break; // GIFInterlace
-			case 6                     : interlaceType = "Jpeg interlacing"; break; // JPEGInterlace
-			case 7                     : interlaceType = "PNG interlacing"; break; // PNGInterlace
-		}
+    std::string interlaceType;
+    switch (image->interlace) {
+    case UndefinedInterlace:
+      interlaceType = "undefined";
+      break;
+    case NoInterlace:
+      interlaceType = "no interlacing";
+      break;
+    case LineInterlace:
+      interlaceType = "line interlacing";
+      break;
+    case PlaneInterlace:
+      interlaceType = "plane interlacing";
+      break;
+    case PartitionInterlace:
+      interlaceType = "partition interlacing";
+      break;
+    case 5:
+      interlaceType = "GIF interlacing";
+      break; // GIFInterlace
+    case 6:
+      interlaceType = "Jpeg interlacing";
+      break; // JPEGInterlace
+    case 7:
+      interlaceType = "PNG interlacing";
+      break; // PNGInterlace
+    }
 
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "width"                 << image->columns                                                                         );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "height"                << image->rows                                                                            );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "bit-depth"             << image->depth  << " bits"                                                               );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "compression quality"   << image->quality                                                                         );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "image type"            << imageType                                                                              );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "" );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "x resolution"          << image->x_resolution  << resolutionType                                                 );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "y resolution"          << image->y_resolution  << resolutionType                                                 );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "interlacing"           << interlaceType                                                                          );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "" );
-		//TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "format"                << image->format()                                                                        );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "channels"              << colorSpaceType << ( GetImageAlphaChannel(image)==MagickTrue ? std::string("A") : "" )  );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "color space"           << colorSpaceType                                                                         );
-		TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "gamma"                 << image->gamma                                                                           );
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "width" << image->columns);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "height" << image->rows);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "bit-depth" << image->depth
+                                              << " bits");
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "compression quality"
+                                              << image->quality);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "image type" << imageType);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "");
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH)
+                << "x resolution" << image->x_resolution << resolutionType);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH)
+                << "y resolution" << image->y_resolution << resolutionType);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "interlacing"
+                                              << interlaceType);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "");
+    // TUTTLE_COUT( std::setw(FIRST_COLUMN_WIDTH) << "format"                <<
+    // image->format() );
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH)
+                << "channels" << colorSpaceType
+                << (GetImageAlphaChannel(image) == MagickTrue ? std::string("A")
+                                                              : ""));
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "color space"
+                                              << colorSpaceType);
+    TUTTLE_COUT(std::setw(FIRST_COLUMN_WIDTH) << "gamma" << image->gamma);
 
-		TUTTLE_COUT( "" );
-	}
-	catch( ... )
-	{
-		TUTTLE_LOG_ERROR( "Caught exception" << "\n" );
-	}
-	
+    TUTTLE_COUT("");
+  }
+  catch (...) {
+    TUTTLE_LOG_ERROR("Caught exception"
+                     << "\n");
+  }
 }
 
-void dumpImageProperties( const sequenceParser::File& s )
-{
-	TUTTLE_COUT(s);
-	printImageProperties( s.getAbsoluteFilename() );
-	sam::wasSthgDumped = true;
+void dumpImageProperties(const sequenceParser::File &s) {
+  TUTTLE_COUT(s);
+  printImageProperties(s.getAbsoluteFilename());
+  sam::wasSthgDumped = true;
 }
 
-void dumpImageProperties( const sequenceParser::Sequence& s )
-{
-	TUTTLE_COUT(s);
-	printImageProperties( s.getAbsoluteFirstFilename() );
-	sam::wasSthgDumped = true;
+void dumpImageProperties(const sequenceParser::Sequence &s) {
+  TUTTLE_COUT(s);
+  printImageProperties(s.getAbsoluteFirstFilename());
+  sam::wasSthgDumped = true;
 }
 
-
-void dumpImageProperties( boost::ptr_vector<sequenceParser::FileObject>& listing )
-{
-	BOOST_FOREACH( const sequenceParser::FileObject& sequence, listing )
-	{
-		switch( sequence.getMaskType () )
-		{
-			case sequenceParser::eMaskTypeSequence	: dumpImageProperties( static_cast<const sequenceParser::Sequence&>( sequence ) ); break;
-			case sequenceParser::eMaskTypeFile		: dumpImageProperties( static_cast<const sequenceParser::File&>( sequence ) ); break;
-			case sequenceParser::eMaskTypeDirectory	: break;
-			case sequenceParser::eMaskTypeUndefined	: break;
-		}
-	}
-	listing.clear();
+void
+dumpImageProperties(boost::ptr_vector<sequenceParser::FileObject> &listing) {
+  BOOST_FOREACH(const sequenceParser::FileObject & sequence, listing) {
+    switch (sequence.getMaskType()) {
+    case sequenceParser::eMaskTypeSequence:
+      dumpImageProperties(
+          static_cast<const sequenceParser::Sequence &>(sequence));
+      break;
+    case sequenceParser::eMaskTypeFile:
+      dumpImageProperties(static_cast<const sequenceParser::File &>(sequence));
+      break;
+    case sequenceParser::eMaskTypeDirectory:
+      break;
+    case sequenceParser::eMaskTypeUndefined:
+      break;
+    }
+  }
+  listing.clear();
 }
 
+int main(int argc, char **argv) {
+  signal(SIGINT, signal_callback_handler);
 
-int main( int argc, char** argv )
-{
-	signal(SIGINT, signal_callback_handler);
+  using namespace tuttle::common;
+  using namespace sam;
 
-	using namespace tuttle::common;
-	using namespace sam;
-	
-	boost::shared_ptr<formatters::Formatter> formatter( formatters::Formatter::get() );
-	boost::shared_ptr<Color>                 color( Color::get() );
+  boost::shared_ptr<formatters::Formatter> formatter(
+      formatters::Formatter::get());
+  boost::shared_ptr<Color> color(Color::get());
 
-	sequenceParser::EMaskType researchMask       = sequenceParser::eMaskTypeSequence; // by default show sequences
-	sequenceParser::EMaskOptions descriptionMask = sequenceParser::eMaskOptionsColor; // by default show nothing
-	bool recursiveListing = false;
-	std::string availableExtensions;
-	std::vector<std::string> paths;
-	std::vector<std::string> filters;
+  sequenceParser::EMaskType researchMask =
+      sequenceParser::eMaskTypeSequence; // by default show sequences
+  sequenceParser::EMaskOptions descriptionMask =
+      sequenceParser::eMaskOptionsColor; // by default show nothing
+  bool recursiveListing = false;
+  std::string availableExtensions;
+  std::vector<std::string> paths;
+  std::vector<std::string> filters;
 
-	formatter->init_logging();
-	
-	// Declare the supported options.
-	bpo::options_description mainOptions;
-	mainOptions.add_options()
-		( kAllOptionString, kAllOptionMessage )
-		( kExpressionOptionString, bpo::value<std::string>(), kExpressionOptionMessage )
-		( kFilesOptionString,      kFilesOptionMessage )
-		( kHelpOptionString,       kHelpOptionMessage )
-		( kIgnoreOptionString,     kIgnoreOptionMessage )
-		( kPathOptionString,       kPathOptionMessage )
-		( kRecursiveOptionString,  kRecursiveOptionMessage )
-		( kVerboseOptionString,    bpo::value<std::string>()->default_value( kVerboseOptionDefaultValue ), kVerboseOptionMessage )
-		( kQuietOptionString,      kQuietOptionMessage )
-		( kColorOptionString,      kColorOptionMessage )
-		( kFirstImageOptionString, bpo::value<unsigned int>(), kFirstImageOptionMessage )
-		( kLastImageOptionString,  bpo::value<unsigned int>(), kLastImageOptionMessage )
-		( kBriefOptionString,      kBriefOptionMessage );
+  formatter->init_logging();
 
-	// describe hidden options
-	bpo::options_description hidden;
-	hidden.add_options()
-		( kInputDirOptionString, bpo::value< std::vector<std::string> >(), kInputDirOptionMessage )
-		( kEnableColorOptionString, bpo::value<std::string>(), kEnableColorOptionMessage );
+  // Declare the supported options.
+  bpo::options_description mainOptions;
+  mainOptions.add_options()(kAllOptionString, kAllOptionMessage)(
+      kExpressionOptionString, bpo::value<std::string>(),
+      kExpressionOptionMessage)(kFilesOptionString, kFilesOptionMessage)(
+      kHelpOptionString, kHelpOptionMessage)(kIgnoreOptionString,
+                                             kIgnoreOptionMessage)(
+      kPathOptionString, kPathOptionMessage)(kRecursiveOptionString,
+                                             kRecursiveOptionMessage)(
+      kVerboseOptionString,
+      bpo::value<std::string>()->default_value(kVerboseOptionDefaultValue),
+      kVerboseOptionMessage)(kQuietOptionString, kQuietOptionMessage)(
+      kColorOptionString, kColorOptionMessage)(kFirstImageOptionString,
+                                               bpo::value<unsigned int>(),
+                                               kFirstImageOptionMessage)(
+      kLastImageOptionString, bpo::value<unsigned int>(),
+      kLastImageOptionMessage)(kBriefOptionString, kBriefOptionMessage);
 
-	// define default options
-	bpo::positional_options_description pod;
-	pod.add(kInputDirOptionLongName, -1);
+  // describe hidden options
+  bpo::options_description hidden;
+  hidden.add_options()(kInputDirOptionString,
+                       bpo::value<std::vector<std::string> >(),
+                       kInputDirOptionMessage)(kEnableColorOptionString,
+                                               bpo::value<std::string>(),
+                                               kEnableColorOptionMessage);
 
-	bpo::options_description cmdline_options;
-	cmdline_options.add(mainOptions).add(hidden);
+  // define default options
+  bpo::positional_options_description pod;
+  pod.add(kInputDirOptionLongName, -1);
 
-	bpo::positional_options_description pd;
-	pd.add("", -1);
+  bpo::options_description cmdline_options;
+  cmdline_options.add(mainOptions).add(hidden);
 
-	//parse the command line, and put the result in vm
-	bpo::variables_map vm;
+  bpo::positional_options_description pd;
+  pd.add("", -1);
 
-	try
-	{
-		//parse the command line, and put the result in vm
-		bpo::store(bpo::command_line_parser(argc, argv).options(cmdline_options).positional(pod).run(), vm);
+  // parse the command line, and put the result in vm
+  bpo::variables_map vm;
 
-		// get environment options and parse them
-		if( const char* env_info_options = std::getenv("SAM_INFO_OPTIONS") )
-		{
-			const std::vector<std::string> envOptions = bpo::split_unix( env_info_options, " " );
-			bpo::store(bpo::command_line_parser(envOptions).options(cmdline_options).positional(pod).run(), vm);
-		}
-		if( const char* env_info_options = std::getenv("SAM_OPTIONS") )
-		{
-			const std::vector<std::string> envOptions = bpo::split_unix( env_info_options, " " );
-			bpo::store(bpo::command_line_parser(envOptions).options(cmdline_options).positional(pod).run(), vm);
-		}
-		bpo::notify(vm);
-	}
-	catch( const bpo::error& e)
-	{
-		TUTTLE_LOG_ERROR( "error in command line: " << e.what() );
-		exit( 254 );
-	}
-	catch(...)
-	{
-		TUTTLE_LOG_ERROR( "unknown error in command line." );
-		exit( 254 );
-	}
+  try {
+    // parse the command line, and put the result in vm
+    bpo::store(bpo::command_line_parser(argc, argv)
+                   .options(cmdline_options)
+                   .positional(pod)
+                   .run(),
+               vm);
 
-	if( vm.count( kColorOptionLongName ) )
-	{
-		color->enable();
-	}
-	
-	if( vm.count( kEnableColorOptionLongName ) )
-	{
-		const std::string str = vm[kEnableColorOptionLongName].as<std::string>();
-		if( string_to_boolean(str) )
-		{
-			color->enable();
-		}
-		else
-		{
-			color->disable();
-		}
-	}
+    // get environment options and parse them
+    if (const char *env_info_options = std::getenv("SAM_INFO_OPTIONS")) {
+      const std::vector<std::string> envOptions =
+          bpo::split_unix(env_info_options, " ");
+      bpo::store(bpo::command_line_parser(envOptions)
+                     .options(cmdline_options)
+                     .positional(pod)
+                     .run(),
+                 vm);
+    }
+    if (const char *env_info_options = std::getenv("SAM_OPTIONS")) {
+      const std::vector<std::string> envOptions =
+          bpo::split_unix(env_info_options, " ");
+      bpo::store(bpo::command_line_parser(envOptions)
+                     .options(cmdline_options)
+                     .positional(pod)
+                     .run(),
+                 vm);
+    }
+    bpo::notify(vm);
+  }
+  catch (const bpo::error &e) {
+    TUTTLE_LOG_ERROR("error in command line: " << e.what());
+    exit(254);
+  }
+  catch (...) {
+    TUTTLE_LOG_ERROR("unknown error in command line.");
+    exit(254);
+  }
 
-	if( vm.count( kHelpOptionLongName ) )
-	{
-		TUTTLE_COUT( color->_blue  << "TuttleOFX project [" << kUrlTuttleofxProject << "]" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "NAME" << color->_std );
-		TUTTLE_COUT( color->_green << "\tsam-info - get informations about a sequence" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "SYNOPSIS" << color->_std );
-		TUTTLE_COUT( color->_green << "\tsam-info [options] [sequences]" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "DESCRIPTION\n" << color->_std );
-		TUTTLE_COUT( "Print informations from Sequence (or file) like resolution, colorspace, etc." );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "OPTIONS" << color->_std);
-		TUTTLE_COUT( mainOptions );
-		TUTTLE_COUT( "" );
-		return 0;
-	}
+  if (vm.count(kColorOptionLongName)) {
+    color->enable();
+  }
 
-	if ( vm.count(kBriefOptionLongName) )
-	{
-		TUTTLE_COUT( color->_green << "get informations about a sequence" << color->_std );
-		return 0;
-	}
+  if (vm.count(kEnableColorOptionLongName)) {
+    const std::string str = vm[kEnableColorOptionLongName].as<std::string>();
+    if (string_to_boolean(str)) {
+      color->enable();
+    } else {
+      color->disable();
+    }
+  }
 
-	if (vm.count(kExpressionOptionLongName))
-	{
-		bal::split( filters, vm[kExpressionOptionLongName].as<std::string>(), bal::is_any_of(","));
-	}
+  if (vm.count(kHelpOptionLongName)) {
+    TUTTLE_COUT(color->_blue << "TuttleOFX project [" << kUrlTuttleofxProject
+                             << "]" << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "NAME" << color->_std);
+    TUTTLE_COUT(
+        color->_green << "\tsam-info - get informations about a sequence"
+                      << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "SYNOPSIS" << color->_std);
+    TUTTLE_COUT(color->_green << "\tsam-info [options] [sequences]"
+                              << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "DESCRIPTION\n" << color->_std);
+    TUTTLE_COUT("Print informations from Sequence (or file) like resolution, "
+                "colorspace, etc.");
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "OPTIONS" << color->_std);
+    TUTTLE_COUT(mainOptions);
+    TUTTLE_COUT("");
+    return 0;
+  }
 
-	if (vm.count(kDirectoriesOptionLongName))
-	{
-		researchMask |= sequenceParser::eMaskTypeDirectory;
-	}
+  if (vm.count(kBriefOptionLongName)) {
+    TUTTLE_COUT(color->_green << "get informations about a sequence"
+                              << color->_std);
+    return 0;
+  }
 
-	if (vm.count(kFilesOptionLongName))
-	{
-		researchMask |= sequenceParser::eMaskTypeFile;
-	}
+  if (vm.count(kExpressionOptionLongName)) {
+    bal::split(filters, vm[kExpressionOptionLongName].as<std::string>(),
+               bal::is_any_of(","));
+  }
 
-	if (vm.count(kIgnoreOptionLongName))
-	{
-		researchMask &= ~sequenceParser::eMaskTypeSequence;
-	}
+  if (vm.count(kDirectoriesOptionLongName)) {
+    researchMask |= sequenceParser::eMaskTypeDirectory;
+  }
 
-	formatter->setLogLevel_string( vm[ kVerboseOptionLongName ].as<std::string>() );
-	
-	if( vm.count(kQuietOptionLongName) )
-	{
-		formatter->setLogLevel( boost::log::trivial::fatal );
-	}
+  if (vm.count(kFilesOptionLongName)) {
+    researchMask |= sequenceParser::eMaskTypeFile;
+  }
 
-	if (vm.count(kFirstImageOptionLongName))
-	{
-		firstImage  = vm[kFirstImageOptionLongName].as< unsigned int >();
-	}
+  if (vm.count(kIgnoreOptionLongName)) {
+    researchMask &= ~sequenceParser::eMaskTypeSequence;
+  }
 
-	if (vm.count(kLastImageOptionLongName))
-	{
-		lastImage  = vm[kLastImageOptionLongName].as< unsigned int >();
-	}
+  formatter->setLogLevel_string(vm[kVerboseOptionLongName].as<std::string>());
 
-	if (vm.count(kFullRMPathOptionLongName))
-	{
-		researchMask |= sequenceParser::eMaskTypeDirectory;
-		researchMask |= sequenceParser::eMaskTypeFile;
-		researchMask |= sequenceParser::eMaskTypeSequence;
-	}
+  if (vm.count(kQuietOptionLongName)) {
+    formatter->setLogLevel(boost::log::trivial::fatal);
+  }
 
-	if (vm.count(kAllOptionLongName))
-	{
-		// add .* files
-		descriptionMask |= sequenceParser::eMaskOptionsDotFile;
-	}
+  if (vm.count(kFirstImageOptionLongName)) {
+    firstImage = vm[kFirstImageOptionLongName].as<unsigned int>();
+  }
 
-	if (vm.count(kPathOptionLongName))
-	{
-		 descriptionMask |= sequenceParser::eMaskOptionsPath;
-	}
+  if (vm.count(kLastImageOptionLongName)) {
+    lastImage = vm[kLastImageOptionLongName].as<unsigned int>();
+  }
 
-	// defines paths, but if no directory specify in command line, we add the current path
-	if (vm.count(kInputDirOptionLongName))
-	{
-		paths = vm[kInputDirOptionLongName].as< std::vector<std::string> >();
-	}
-	else
-	{
-		paths.push_back( "./" );
-	}
+  if (vm.count(kFullRMPathOptionLongName)) {
+    researchMask |= sequenceParser::eMaskTypeDirectory;
+    researchMask |= sequenceParser::eMaskTypeFile;
+    researchMask |= sequenceParser::eMaskTypeSequence;
+  }
 
-	if (vm.count(kRecursiveOptionLongName))
-	{
-		recursiveListing = true;
-	}
-// 	for(unsigned int i=0; i<filters.size(); i++)
-// 	TUTTLE_LOG_TRACE( "filters = " << filters.at(i) );
-// 	TUTTLE_LOG_TRACE( "research mask = " << researchMask );
-// 	TUTTLE_LOG_TRACE( "options  mask = " << descriptionMask );
+  if (vm.count(kAllOptionLongName)) {
+    // add .* files
+    descriptionMask |= sequenceParser::eMaskOptionsDotFile;
+  }
 
+  if (vm.count(kPathOptionLongName)) {
+    descriptionMask |= sequenceParser::eMaskOptionsPath;
+  }
 
-	try
-	{
-		std::vector<boost::filesystem::path> pathsNoRemoved;
-		
-		BOOST_FOREACH( bfs::path path, paths )
-		{
-//			TUTTLE_LOG_TRACE( "path: "<< path );
-			if( bfs::exists( path ) )
-			{
-				if( bfs::is_directory( path ) )
-				{
-//					TUTTLE_LOG_TRACE( "is a directory" );
-					if( recursiveListing )
-					{
-						for ( bfs::recursive_directory_iterator end, dir(path); dir != end; ++dir )
-						{
-							if( bfs::is_directory( *dir ) )
-							{
-//								TUTTLE_LOG_TRACE *dir );
-								boost::ptr_vector<sequenceParser::FileObject> listing = sequenceParser::fileObjectInDirectory( ( (bfs::path)*dir ).string() , filters, researchMask, descriptionMask );
-								dumpImageProperties( listing );
-							}
-						}
-					}
-					boost::ptr_vector<sequenceParser::FileObject> listing = sequenceParser::fileObjectInDirectory( path.string(), filters, researchMask, descriptionMask );
-					dumpImageProperties( listing );
-				}
-				else
-				{
-					if( std::strcmp( path.branch_path().string().c_str(),"" ) == 0 )
-						path = "."/path.leaf();
-					//TUTTLE_LOG_TRACE( "is NOT a directory "<< path.branch_path() << " | "<< path.leaf() );
-					filters.push_back( path.leaf().string() );
-					boost::ptr_vector<sequenceParser::FileObject> listing = sequenceParser::fileObjectInDirectory( path.branch_path().string(), filters, researchMask, descriptionMask );
-					dumpImageProperties( listing );
-					filters.pop_back( );
-				}
-			}
-			else
-			{
-//				TUTTLE_LOG_TRACE( "not exist ...." );
-				try
-				{
-					sequenceParser::Sequence s(path.branch_path(), descriptionMask );
-					s.initFromDetection( path.string(), sequenceParser::Sequence::ePatternDefault );
-					if( s.getNbFiles() )
-					{
-						//TUTTLE_LOG_TRACE(s);
-						dumpImageProperties( s );
-					}
-				}
-				catch(... )
-				{
-					TUTTLE_LOG_ERROR( "Unrecognized pattern \"" << path << "\"" );
-				}
-			}
-		}
-	}
-	catch (bfs::filesystem_error &ex)
-	{
-		TUTTLE_LOG_ERROR( ex.what() );
-	}
-	catch(... )
-	{
-		TUTTLE_LOG_ERROR( boost::current_exception_diagnostic_information() );
-	}
-	
-	if( !wasSthgDumped )
-	{
-		TUTTLE_LOG_ERROR( "No sequence found here." );
-	}
-	
-	return 0;
+  // defines paths, but if no directory specify in command line, we add the
+  // current path
+  if (vm.count(kInputDirOptionLongName)) {
+    paths = vm[kInputDirOptionLongName].as<std::vector<std::string> >();
+  } else {
+    paths.push_back("./");
+  }
+
+  if (vm.count(kRecursiveOptionLongName)) {
+    recursiveListing = true;
+  }
+  // 	for(unsigned int i=0; i<filters.size(); i++)
+  // 	TUTTLE_LOG_TRACE( "filters = " << filters.at(i) );
+  // 	TUTTLE_LOG_TRACE( "research mask = " << researchMask );
+  // 	TUTTLE_LOG_TRACE( "options  mask = " << descriptionMask );
+
+  try {
+    std::vector<boost::filesystem::path> pathsNoRemoved;
+
+    BOOST_FOREACH(bfs::path path, paths) {
+      //			TUTTLE_LOG_TRACE( "path: "<< path );
+      if (bfs::exists(path)) {
+        if (bfs::is_directory(path)) {
+          //					TUTTLE_LOG_TRACE( "is a directory"
+          //);
+          if (recursiveListing) {
+            for (bfs::recursive_directory_iterator end, dir(path); dir != end;
+                 ++dir) {
+              if (bfs::is_directory(*dir)) {
+                //								TUTTLE_LOG_TRACE
+                //*dir );
+                boost::ptr_vector<sequenceParser::FileObject> listing =
+                    sequenceParser::fileObjectInDirectory(
+                        ((bfs::path) * dir).string(), filters, researchMask,
+                        descriptionMask);
+                dumpImageProperties(listing);
+              }
+            }
+          }
+          boost::ptr_vector<sequenceParser::FileObject> listing =
+              sequenceParser::fileObjectInDirectory(
+                  path.string(), filters, researchMask, descriptionMask);
+          dumpImageProperties(listing);
+        } else {
+          if (std::strcmp(path.branch_path().string().c_str(), "") == 0)
+            path = "." / path.leaf();
+          // TUTTLE_LOG_TRACE( "is NOT a directory "<< path.branch_path() << " |
+          // "<< path.leaf() );
+          filters.push_back(path.leaf().string());
+          boost::ptr_vector<sequenceParser::FileObject> listing =
+              sequenceParser::fileObjectInDirectory(path.branch_path().string(),
+                                                    filters, researchMask,
+                                                    descriptionMask);
+          dumpImageProperties(listing);
+          filters.pop_back();
+        }
+      } else {
+        //				TUTTLE_LOG_TRACE( "not exist ...." );
+        try {
+          sequenceParser::Sequence s(path.branch_path(), descriptionMask);
+          s.initFromDetection(path.string(),
+                              sequenceParser::Sequence::ePatternDefault);
+          if (s.getNbFiles()) {
+            // TUTTLE_LOG_TRACE(s);
+            dumpImageProperties(s);
+          }
+        }
+        catch (...) {
+          TUTTLE_LOG_ERROR("Unrecognized pattern \"" << path << "\"");
+        }
+      }
+    }
+  }
+  catch (bfs::filesystem_error &ex) {
+    TUTTLE_LOG_ERROR(ex.what());
+  }
+  catch (...) {
+    TUTTLE_LOG_ERROR(boost::current_exception_diagnostic_information());
+  }
+
+  if (!wasSthgDumped) {
+    TUTTLE_LOG_ERROR("No sequence found here.");
+  }
+
+  return 0;
 }
-

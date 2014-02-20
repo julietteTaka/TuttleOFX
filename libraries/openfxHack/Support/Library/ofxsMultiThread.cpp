@@ -1,5 +1,6 @@
 /*
- * OFX Support Library, a library that skins the OFX plug-in API with C++ classes.
+ * OFX Support Library, a library that skins the OFX plug-in API with C++
+ *classes.
  * Copyright (C) 2004-2005 The Open Effects Association Ltd
  * Author Bruno Nicoletti bruno@thefoundry.co.uk
  *
@@ -15,13 +16,17 @@
  * contributors may be used to endorse or promote products derived from this
  * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ *FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ *DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *ON
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -46,123 +51,108 @@ namespace MultiThread {
 // SMP class
 
 /** @brief ctor */
-Processor::Processor( void )
-{}
+Processor::Processor(void) {}
 
 /** @brief dtor */
-Processor::~Processor()
-{}
+Processor::~Processor() {}
 
 /** @brief Function to pass to the multi thread suite */
-void Processor::staticMultiThreadFunction( unsigned int threadIndex, unsigned int threadMax, void* customArg )
-{
-	// cast the custom arg to one of me
-	Processor* me = (Processor*)  customArg;
+void Processor::staticMultiThreadFunction(unsigned int threadIndex,
+                                          unsigned int threadMax,
+                                          void *customArg) {
+  // cast the custom arg to one of me
+  Processor *me = (Processor *)customArg;
 
-	// and call my thread function
-	me->multiThreadFunction( threadIndex, threadMax );
+  // and call my thread function
+  me->multiThreadFunction(threadIndex, threadMax);
 }
 
 /** @brief Function to pass to the multi thread suite */
-void Processor::multiThread( const unsigned int nCPUs )
-{
-	unsigned int realNbCPUs = nCPUs;
-	// if 0, use all the CPUs we can
-	if( realNbCPUs == 0 )
-		realNbCPUs = OFX::MultiThread::getNumCPUs();
+void Processor::multiThread(const unsigned int nCPUs) {
+  unsigned int realNbCPUs = nCPUs;
+  // if 0, use all the CPUs we can
+  if (realNbCPUs == 0)
+    realNbCPUs = OFX::MultiThread::getNumCPUs();
 
-	if( realNbCPUs == 0 )
-	{
-		OFXS_COUT_ERROR( "Run process on 0 cpus... it seems to be a problem." );
-	}
-	else if( realNbCPUs == 1 ) // if 1 cpu, don't bother with the threading
-	{
-		multiThreadFunction( 0, 1 );
-	}
-	else
-	{
-		// OK do it
-		OfxStatus stat = OFX::Private::gThreadSuite->multiThread( staticMultiThreadFunction, realNbCPUs, (void*)this );
+  if (realNbCPUs == 0) {
+    OFXS_COUT_ERROR("Run process on 0 cpus... it seems to be a problem.");
+  } else if (realNbCPUs == 1) // if 1 cpu, don't bother with the threading
+  {
+    multiThreadFunction(0, 1);
+  } else {
+    // OK do it
+    OfxStatus stat = OFX::Private::gThreadSuite->multiThread(
+        staticMultiThreadFunction, realNbCPUs, (void *)this);
 
-		// did we do it?
-		throwSuiteStatusException( stat );
-	}
+    // did we do it?
+    throwSuiteStatusException(stat);
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // futility functions
 
 /** @brief Has the current thread been spawned from an MP */
-bool isSpawnedThread( void )
-{
-	int v = OFX::Private::gThreadSuite->multiThreadIsSpawnedThread();
+bool isSpawnedThread(void) {
+  int v = OFX::Private::gThreadSuite->multiThreadIsSpawnedThread();
 
-	return v != 0;
+  return v != 0;
 }
 
 /** @brief The number of CPUs that can be used for MP-ing */
-unsigned int getNumCPUs( void )
-{
-	unsigned int n = 1;
-	OfxStatus stat = OFX::Private::gThreadSuite->multiThreadNumCPUs( &n );
+unsigned int getNumCPUs(void) {
+  unsigned int n = 1;
+  OfxStatus stat = OFX::Private::gThreadSuite->multiThreadNumCPUs(&n);
 
-	if( stat != kOfxStatOK )
-		n = 1;
-	return n;
+  if (stat != kOfxStatOK)
+    n = 1;
+  return n;
 }
 
 /** @brief The index of the current thread. From 0 to numCPUs() - 1 */
-unsigned int getThreadIndex( void )
-{
-	unsigned int n = 0;
-	OfxStatus stat = OFX::Private::gThreadSuite->multiThreadIndex( &n );
+unsigned int getThreadIndex(void) {
+  unsigned int n = 0;
+  OfxStatus stat = OFX::Private::gThreadSuite->multiThreadIndex(&n);
 
-	if( stat != kOfxStatOK )
-		n = 0;
-	return n;
+  if (stat != kOfxStatOK)
+    n = 0;
+  return n;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // MUTEX class
 
 /** @brief ctor */
-Mutex::Mutex( int lockCount )
-	: _handle( 0 )
-{
-	OfxStatus stat = OFX::Private::gThreadSuite->mutexCreate( &_handle, lockCount );
+Mutex::Mutex(int lockCount) : _handle(0) {
+  OfxStatus stat = OFX::Private::gThreadSuite->mutexCreate(&_handle, lockCount);
 
-	throwSuiteStatusException( stat );
+  throwSuiteStatusException(stat);
 }
 
 /** @brief dtor */
-Mutex::~Mutex( void )
-{
-	/*OfxStatus stat = */OFX::Private::gThreadSuite->mutexDestroy( _handle );
+Mutex::~Mutex(void) {
+  /*OfxStatus stat = */ OFX::Private::gThreadSuite->mutexDestroy(_handle);
 }
 
 /** @brief lock it, blocks until lock is gained */
-void Mutex::lock()
-{
-	OfxStatus stat = OFX::Private::gThreadSuite->mutexLock( _handle );
+void Mutex::lock() {
+  OfxStatus stat = OFX::Private::gThreadSuite->mutexLock(_handle);
 
-	throwSuiteStatusException( stat );
+  throwSuiteStatusException(stat);
 }
 
 /** @brief unlock it */
-void Mutex::unlock()
-{
-	OfxStatus stat = OFX::Private::gThreadSuite->mutexUnLock( _handle );
+void Mutex::unlock() {
+  OfxStatus stat = OFX::Private::gThreadSuite->mutexUnLock(_handle);
 
-	throwSuiteStatusException( stat );
+  throwSuiteStatusException(stat);
 }
 
 /** @brief attempt to lock, non-blocking */
-bool Mutex::tryLock()
-{
-	OfxStatus stat = OFX::Private::gThreadSuite->mutexTryLock( _handle );
+bool Mutex::tryLock() {
+  OfxStatus stat = OFX::Private::gThreadSuite->mutexTryLock(_handle);
 
-	return stat == kOfxStatOK;
+  return stat == kOfxStatOK;
 }
-
 };
 };

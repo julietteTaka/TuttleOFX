@@ -9,11 +9,13 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::jpeg2000::reader::Jpeg2000ReaderPluginFactory, "tuttle.jpeg2000reader" );
-	mAppendPluginFactory( ids, tuttle::plugin::jpeg2000::writer::Jpeg2000WriterPluginFactory, "tuttle.jpeg2000writer" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(
+      ids, tuttle::plugin::jpeg2000::reader::Jpeg2000ReaderPluginFactory,
+      "tuttle.jpeg2000reader");
+  mAppendPluginFactory(
+      ids, tuttle::plugin::jpeg2000::writer::Jpeg2000WriterPluginFactory,
+      "tuttle.jpeg2000writer");
 }
-
 }
 }

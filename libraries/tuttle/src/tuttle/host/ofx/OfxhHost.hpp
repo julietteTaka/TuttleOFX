@@ -1,7 +1,8 @@
 /*
  * Software License :
  *
- * Copyright (c) 2007-2009, The Open Effects Association Ltd.  All Rights Reserved.
+ * Copyright (c) 2007-2009, The Open Effects Association Ltd.  All Rights
+ *Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -15,13 +16,17 @@
  *    contributors may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ *FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ *DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *ON
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -53,50 +58,46 @@ class OfxhParamDescriptor;
  * Base class for all objects passed to a plugin by the 'setHost' function
  * passed back by any plug-in.
  */
-class OfxhHost
-{
+class OfxhHost {
 protected:
-	OfxHost _host;
-	property::OfxhSet _properties;
+  OfxHost _host;
+  property::OfxhSet _properties;
 
 public:
-	OfxhHost();
-	virtual ~OfxhHost() = 0;
+  OfxhHost();
+  virtual ~OfxhHost() = 0;
 
-	/// get the props on this host
-	const property::OfxhSet& getProperties() const { return _properties; }
-	property::OfxhSet&       getProperties()       { return _properties; }
+  /// get the props on this host
+  const property::OfxhSet &getProperties() const { return _properties; }
+  property::OfxhSet &getProperties() { return _properties; }
 
-	/**
-	 * fetch a suite
-	 * The base class returns the following suites
-	 *    PropertySuite
-	 *    MemorySuite
-	 */
-	virtual void* fetchSuite( const char* suiteName, const int suiteVersion );
+  /**
+   * fetch a suite
+   * The base class returns the following suites
+   *    PropertySuite
+   *    MemorySuite
+   */
+  virtual void *fetchSuite(const char *suiteName, const int suiteVersion);
 
-	/// get the C API handle that is passed across the API to represent this host
-	OfxHost* getHandle();
+  /// get the C API handle that is passed across the API to represent this host
+  OfxHost *getHandle();
 
-	/// is my magic number valid?
-	bool verifyMagic() { return true; }
+  /// is my magic number valid?
+  bool verifyMagic() { return true; }
 
-	#ifndef SWIG
+#ifndef SWIG
 
-	/// override this to handle do post-construction initialisation on a Param::Descriptor
-	virtual void initDescriptor( attribute::OfxhParamDescriptor& ) const {}
+  /// override this to handle do post-construction initialisation on a
+  /// Param::Descriptor
+  virtual void initDescriptor(attribute::OfxhParamDescriptor &) const {}
 
-	/// vmessage
-	virtual OfxStatus vmessage( const char* type,
-	                            const char* id,
-	                            const char* format,
-	                            va_list     args ) const = 0;
-	#endif
+  /// vmessage
+  virtual OfxStatus vmessage(const char *type, const char *id,
+                             const char *format, va_list args) const = 0;
+#endif
 };
-
 }
 }
 }
 
 #endif
-

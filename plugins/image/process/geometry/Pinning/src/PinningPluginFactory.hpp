@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace pinning {
 
-mDeclarePluginFactory( PinningPluginFactory, { }, { } );
-
+mDeclarePluginFactory(PinningPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

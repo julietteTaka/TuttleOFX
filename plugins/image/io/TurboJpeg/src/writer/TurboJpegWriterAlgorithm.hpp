@@ -4,9 +4,7 @@
 namespace tuttle {
 namespace plugin {
 namespace turboJpeg {
-namespace writer {
-
-}
+namespace writer {}
 }
 }
 }

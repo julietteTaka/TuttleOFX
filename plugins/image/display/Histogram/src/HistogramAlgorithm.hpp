@@ -3,10 +3,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace histogram {
-
-
-}
+namespace histogram {}
 }
 }
 

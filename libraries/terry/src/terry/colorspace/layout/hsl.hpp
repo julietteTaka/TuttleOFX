@@ -1,5 +1,5 @@
 #ifndef _TERRY_COLOR_LAYOUT_HSL_HPP_
-#define	_TERRY_COLOR_LAYOUT_HSL_HPP_
+#define _TERRY_COLOR_LAYOUT_HSL_HPP_
 
 #include "rgb.hpp"
 
@@ -9,8 +9,7 @@ namespace layout {
 
 /// \addtogroup ColorNameModel
 /// \{
-namespace hsl
-{
+namespace hsl {
 /// \brief Hue
 struct hue_t {};
 /// \brief Saturation
@@ -20,15 +19,11 @@ struct lightness_t {};
 }
 
 /// \ingroup ColorSpaceModel
-typedef boost::mpl::vector3< hsl::hue_t
-                    , hsl::saturation_t
-                    , hsl::lightness_t
-                    > hsl_t;
+typedef boost::mpl::vector3<hsl::hue_t, hsl::saturation_t, hsl::lightness_t>
+hsl_t;
 /// \}
-
 }
 }
 }
-
 
 #endif

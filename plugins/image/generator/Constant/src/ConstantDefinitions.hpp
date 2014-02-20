@@ -9,7 +9,6 @@ namespace plugin {
 namespace constant {
 
 static const std::string kConstantColor = "color";
-
 }
 }
 }

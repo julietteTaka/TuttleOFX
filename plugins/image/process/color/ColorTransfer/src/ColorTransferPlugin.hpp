@@ -9,43 +9,42 @@ namespace tuttle {
 namespace plugin {
 namespace colorTransfer {
 
-template<typename Scalar>
-struct ColorTransferProcessParams
-{
-	EColorspace _colorspace;
-	Scalar      _averageCoef;
-	Scalar      _dynamicCoef;
+template <typename Scalar> struct ColorTransferProcessParams {
+  EColorspace _colorspace;
+  Scalar _averageCoef;
+  Scalar _dynamicCoef;
 };
 
 /**
  * @brief ColorTransfer plugin
  */
-class ColorTransferPlugin : public ImageEffectGilPlugin
-{
+class ColorTransferPlugin : public ImageEffectGilPlugin {
 public:
-	typedef double Scalar;
-public:
-	ColorTransferPlugin( OfxImageEffectHandle handle );
+  typedef double Scalar;
 
 public:
-	ColorTransferProcessParams<Scalar> getProcessParams( const OfxPointD& renderScale = OFX::kNoRenderScale ) const;
+  ColorTransferPlugin(OfxImageEffectHandle handle);
 
-	void changedParam( const OFX::InstanceChangedArgs &args, const std::string &paramName );
-
-	void getRegionsOfInterest( const OFX::RegionsOfInterestArguments& args, OFX::RegionOfInterestSetter& rois );
-
-	void render( const OFX::RenderArguments &args );
-	
 public:
-	OFX::Clip* _clipSrcRef; ///< Source reference
-	OFX::Clip* _clipDstRef; ///< Dest reference
+  ColorTransferProcessParams<Scalar>
+  getProcessParams(const OfxPointD &renderScale = OFX::kNoRenderScale) const;
 
-	OFX::ChoiceParam* _paramColospace;
-	OFX::DoubleParam* _paramAverageCoef;
-	OFX::DoubleParam* _paramDynamicCoef;
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
 
+  void getRegionsOfInterest(const OFX::RegionsOfInterestArguments &args,
+                            OFX::RegionOfInterestSetter &rois);
+
+  void render(const OFX::RenderArguments &args);
+
+public:
+  OFX::Clip *_clipSrcRef; ///< Source reference
+  OFX::Clip *_clipDstRef; ///< Dest reference
+
+  OFX::ChoiceParam *_paramColospace;
+  OFX::DoubleParam *_paramAverageCoef;
+  OFX::DoubleParam *_paramDynamicCoef;
 };
-
 }
 }
 }

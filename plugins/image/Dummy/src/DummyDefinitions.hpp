@@ -3,13 +3,9 @@
 
 #include <tuttle/plugin/global.hpp>
 
-
 namespace tuttle {
 namespace plugin {
-namespace dummy {
-
-
-}
+namespace dummy {}
 }
 }
 

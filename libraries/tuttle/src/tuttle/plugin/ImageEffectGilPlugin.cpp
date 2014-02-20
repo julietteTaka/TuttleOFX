@@ -8,15 +8,12 @@
 namespace tuttle {
 namespace plugin {
 
-ImageEffectGilPlugin::ImageEffectGilPlugin( OfxImageEffectHandle handle )
-: OFX::ImageEffect( handle )
-{
-	_clipSrc = fetchClip( kOfxImageEffectSimpleSourceClipName );
-	_clipDst = fetchClip( kOfxImageEffectOutputClipName );
+ImageEffectGilPlugin::ImageEffectGilPlugin(OfxImageEffectHandle handle)
+    : OFX::ImageEffect(handle) {
+  _clipSrc = fetchClip(kOfxImageEffectSimpleSourceClipName);
+  _clipDst = fetchClip(kOfxImageEffectOutputClipName);
 }
 
-ImageEffectGilPlugin::~ImageEffectGilPlugin()
-{}
-
+ImageEffectGilPlugin::~ImageEffectGilPlugin() {}
 }
 }

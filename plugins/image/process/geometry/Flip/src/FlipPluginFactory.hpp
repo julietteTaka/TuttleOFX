@@ -9,8 +9,7 @@ namespace flip {
 
 static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( FlipPluginFactory, {}, {}
-                       );
+mDeclarePluginFactory(FlipPluginFactory, {}, {});
 }
 }
 }

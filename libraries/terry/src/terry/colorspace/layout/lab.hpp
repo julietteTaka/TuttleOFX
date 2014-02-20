@@ -1,5 +1,5 @@
 #ifndef _TERRY_COLOR_LAYOUT_LAB_HPP_
-#define	_TERRY_COLOR_LAYOUT_LAB_HPP_
+#define _TERRY_COLOR_LAYOUT_LAB_HPP_
 
 #include "rgb.hpp"
 
@@ -12,8 +12,7 @@ namespace layout {
 
 /// \addtogroup ColorNameModel
 /// \{
-namespace lab
-{
+namespace lab {
 /// \brief Lightness
 struct lightness_t {};
 /// \brief chrominance dimension a: green -> magenta
@@ -24,14 +23,9 @@ struct b_t {};
 /// \}
 
 /// \ingroup ColorSpaceModel
-typedef boost::mpl::vector3< lab::lightness_t
-                    , lab::a_t
-                    , lab::b_t
-                    > lab_t;
-
+typedef boost::mpl::vector3<lab::lightness_t, lab::a_t, lab::b_t> lab_t;
 }
 }
 }
-
 
 #endif

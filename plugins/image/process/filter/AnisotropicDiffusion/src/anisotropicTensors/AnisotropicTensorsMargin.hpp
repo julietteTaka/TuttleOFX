@@ -9,33 +9,24 @@ namespace plugin {
 namespace anisotropicFilter {
 namespace tensors {
 
-
-class TensorsMargin : public OFX::OverlayInteract
-{
+class TensorsMargin : public OFX::OverlayInteract {
 public:
-
-    TensorsMargin( OfxInteractHandle handle, OFX::ImageEffect *effect ) : OFX::OverlayInteract( handle )
-    {
-        _effect = effect;
-    }
-    virtual bool draw( const OFX::DrawArgs &args );
+  TensorsMargin(OfxInteractHandle handle, OFX::ImageEffect *effect)
+      : OFX::OverlayInteract(handle) {
+    _effect = effect;
+  }
+  virtual bool draw(const OFX::DrawArgs &args);
 };
 
-class TensorsMarginOverlay : public OFX::EffectOverlayDescriptor
-{
+class TensorsMarginOverlay : public OFX::EffectOverlayDescriptor {
 public:
+  OFX::Interact *createInstance(OfxInteractHandle handle,
+                                OFX::ImageEffect *effect) {
+    return new TensorsMargin(handle, effect);
+  }
 
-    OFX::Interact* createInstance( OfxInteractHandle handle, OFX::ImageEffect *effect )
-    {
-        return new TensorsMargin( handle, effect );
-    }
-
-    OfxPluginEntryPoint* getMainEntry( )
-    {
-        return NULL;
-    }
+  OfxPluginEntryPoint *getMainEntry() { return NULL; }
 };
-
 }
 }
 }

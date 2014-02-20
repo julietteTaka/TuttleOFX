@@ -1,5 +1,5 @@
 #ifndef _TERRY_COLOR_PRIMARIES_HPP_
-#define	_TERRY_COLOR_PRIMARIES_HPP_
+#define _TERRY_COLOR_PRIMARIES_HPP_
 
 namespace terry {
 namespace color {
@@ -7,13 +7,9 @@ namespace color {
 /**
  * @brief All supported primaries
  */
-namespace primaries {
-
-}
+namespace primaries {}
 
 ////////////////////////////////////////////////////////////////////////////////
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -85,9 +81,7 @@ void primaries_convert_pixel( const Pixel& src, Pixel& dst, const PrimariesIN& p
 }
 
 #endif
-
 }
 }
 
 #endif
-

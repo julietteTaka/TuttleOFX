@@ -12,27 +12,25 @@ namespace tuttle {
 namespace plugin {
 namespace bitDepth {
 
-template<class SView, class DView>
-class BitDepthProcess : public ImageGilProcessor<DView>
-{
-typedef typename SView::value_type sPixel;
-typedef typename DView::value_type dPixel;
+template <class SView, class DView>
+class BitDepthProcess : public ImageGilProcessor<DView> {
+  typedef typename SView::value_type sPixel;
+  typedef typename DView::value_type dPixel;
 
 protected:
-	BitDepthPlugin& _plugin;        ///< Rendering plugin
-	OFX::Clip* _clipSrc;       ///< Source image clip
-	boost::scoped_ptr<OFX::Image> _src;
-	OfxRectI _srcPixelRod;
-	SView _srcView; ///< @brief source clip (filters have only one input)
+  BitDepthPlugin &_plugin; ///< Rendering plugin
+  OFX::Clip *_clipSrc;     ///< Source image clip
+  boost::scoped_ptr<OFX::Image> _src;
+  OfxRectI _srcPixelRod;
+  SView _srcView; ///< @brief source clip (filters have only one input)
 
 public:
-	BitDepthProcess( BitDepthPlugin& instance );
+  BitDepthProcess(BitDepthPlugin &instance);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

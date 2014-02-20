@@ -7,11 +7,9 @@ namespace tuttle {
 namespace host {
 namespace ofx {
 
-void* getMemorySuite( const int version );
-
+void *getMemorySuite(const int version);
 }
 }
 }
 
 #endif
-

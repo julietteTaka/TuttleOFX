@@ -6,8 +6,7 @@
 namespace tuttle {
 namespace plugin {
 namespace crop {
-mDeclarePluginFactory( CropPluginFactory, {}, {}
-                       );
+mDeclarePluginFactory(CropPluginFactory, {}, {});
 }
 }
 }

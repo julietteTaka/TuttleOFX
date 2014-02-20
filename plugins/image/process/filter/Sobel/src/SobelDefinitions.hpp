@@ -3,7 +3,6 @@
 
 #include <tuttle/plugin/global.hpp>
 
-
 namespace tuttle {
 namespace plugin {
 namespace sobel {
@@ -19,11 +18,10 @@ static const std::string kParamPassFull = "full";
 static const std::string kParamPass1 = "1";
 static const std::string kParamPass2 = "2";
 
-enum EParamPass
-{
-	eParamPassFull = 0,
-	eParamPass1,
-	eParamPass2
+enum EParamPass {
+  eParamPassFull = 0,
+  eParamPass1,
+  eParamPass2
 };
 
 static const std::string kParamBorder = "border";
@@ -32,32 +30,29 @@ static const std::string kParamBorderConstant = "Constant";
 static const std::string kParamBorderBlack = "Black";
 static const std::string kParamBorderPadded = "Padded";
 
-enum EParamBorder
-{
-	eParamBorderMirror = 0,
-	eParamBorderConstant,
-	eParamBorderBlack,
-	eParamBorderPadded
+enum EParamBorder {
+  eParamBorderMirror = 0,
+  eParamBorderConstant,
+  eParamBorderBlack,
+  eParamBorderPadded
 };
 
 static const std::string kParamComputeGradientNorm = "computeGradientNorm";
 static const std::string kParamGradientNormManhattan = "gradientNormManhattan";
-static const std::string kParamComputeGradientDirection = "computeGradientDirection";
+static const std::string kParamComputeGradientDirection =
+    "computeGradientDirection";
 static const std::string kParamGradientDirectionAbs = "gradientDirectionAbs";
 
 static const std::string kParamOutputComponent = "outputComponent";
 static const std::string kParamOutputComponentRGBA = "RGBA";
 static const std::string kParamOutputComponentRGB = "RGB";
 
-enum EParamOutputComponent
-{
-	eParamOutputComponentRGBA = 0,
-	eParamOutputComponentRGB,
+enum EParamOutputComponent {
+  eParamOutputComponentRGBA = 0,
+  eParamOutputComponentRGB,
 };
 
 static const std::string kParamInfos = "infos";
-
-
 }
 }
 }

@@ -9,12 +9,13 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::av::reader::AVReaderPluginFactory, "tuttle.avreader" );
-	mAppendPluginFactory( ids, tuttle::plugin::av::writer::AVWriterPluginFactory, "tuttle.avwriter" );
-	mAppendPluginFactory( ids, tuttle::plugin::swscale::SwscalePluginFactory, "tuttle.swscale" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::av::reader::AVReaderPluginFactory,
+                       "tuttle.avreader");
+  mAppendPluginFactory(ids, tuttle::plugin::av::writer::AVWriterPluginFactory,
+                       "tuttle.avwriter");
+  mAppendPluginFactory(ids, tuttle::plugin::swscale::SwscalePluginFactory,
+                       "tuttle.swscale");
 }
-
 }
 }

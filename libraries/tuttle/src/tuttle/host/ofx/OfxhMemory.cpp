@@ -1,7 +1,8 @@
 /*
  * Software License :
  *
- * Copyright (c) 2007-2009, The Open Effects Association Ltd. All rights reserved.
+ * Copyright (c) 2007-2009, The Open Effects Association Ltd. All rights
+ *reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -15,13 +16,17 @@
  * contributors may be used to endorse or promote products derived from this
  * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ *FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ *DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *ON
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -38,56 +43,34 @@ namespace tuttle {
 namespace host {
 namespace ofx {
 
-OfxhMemory::OfxhMemory()
-	: _ptr( 0 )
-	, _locked( false )
-{}
+OfxhMemory::OfxhMemory() : _ptr(0), _locked(false) {}
 
-OfxhMemory::~OfxhMemory()
-{
-	delete [] _ptr;
-}
+OfxhMemory::~OfxhMemory() { delete[] _ptr; }
 
-bool OfxhMemory::alloc( size_t nBytes )
-{
-	if( !_locked )
-	{
-		if( _ptr )
-			freeMem();
-		_ptr = new char[nBytes];
-		return true;
-	}
-	else
-		return false;
+bool OfxhMemory::alloc(size_t nBytes) {
+  if (!_locked) {
+    if (_ptr)
+      freeMem();
+    _ptr = new char[nBytes];
+    return true;
+  } else
+    return false;
 }
 
-OfxImageMemoryHandle OfxhMemory::getHandle()
-{
-	return ( OfxImageMemoryHandle ) this;
+OfxImageMemoryHandle OfxhMemory::getHandle() {
+  return (OfxImageMemoryHandle) this;
 }
 
-void OfxhMemory::freeMem()
-{
-	delete [] _ptr;
-	_ptr = 0;
+void OfxhMemory::freeMem() {
+  delete[] _ptr;
+  _ptr = 0;
 }
 
-void* OfxhMemory::getPtr()
-{
-	return _ptr;
-}
+void *OfxhMemory::getPtr() { return _ptr; }
 
-void OfxhMemory::lock()
-{
-	_locked = true;
-}
+void OfxhMemory::lock() { _locked = true; }
 
-void OfxhMemory::unlock()
-{
-	_locked = false;
-}
-
+void OfxhMemory::unlock() { _locked = false; }
 }
 }
 }
-

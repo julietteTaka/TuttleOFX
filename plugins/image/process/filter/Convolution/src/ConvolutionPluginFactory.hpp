@@ -7,11 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace convolution {
 static const bool kSupportTiles = false;
-mDeclarePluginFactory( ConvolutionPluginFactory, {}, {}
-                       );
+mDeclarePluginFactory(ConvolutionPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-

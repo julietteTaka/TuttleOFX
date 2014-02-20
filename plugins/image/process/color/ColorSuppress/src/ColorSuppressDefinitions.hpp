@@ -24,14 +24,12 @@ const static std::string kParamPreserveLuma = "preserveLuma";
 const static std::string kParamObeyAlpha = "obeyAlpha";
 
 enum EOutputType {
-	eOutputTypeImage = 0,
-	eOutputTypeAlpha = 1,
-	eOutputTypeAlphaImage = 2
+  eOutputTypeImage = 0,
+  eOutputTypeAlpha = 1,
+  eOutputTypeAlphaImage = 2
 };
-
 }
 }
 }
 
 #endif
-

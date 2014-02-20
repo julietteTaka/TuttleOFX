@@ -7,11 +7,9 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-        mAppendPluginFactory( ids, tuttle::plugin::viewer::ViewerPluginFactory, "tuttle.viewer" );
-}
-
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::viewer::ViewerPluginFactory,
+                       "tuttle.viewer");
 }
 }
-
+}

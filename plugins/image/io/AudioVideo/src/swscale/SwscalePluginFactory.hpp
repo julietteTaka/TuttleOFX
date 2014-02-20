@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace swscale {
 
-mDeclarePluginFactory( SwscalePluginFactory, { }, { } );
-
+mDeclarePluginFactory(SwscalePluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

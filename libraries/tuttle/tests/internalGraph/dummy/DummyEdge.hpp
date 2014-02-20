@@ -6,42 +6,35 @@
 namespace tuttle {
 namespace test {
 
-class DummyEdge
-{
+class DummyEdge {
 public:
-	DummyEdge() {}
+  DummyEdge() {}
 
-	DummyEdge( const std::string& name )
-		: _name( name ) {}
+  DummyEdge(const std::string &name) : _name(name) {}
 
-	DummyEdge( const DummyEdge& e )
-		: _name( e.getName() ) {}
+  DummyEdge(const DummyEdge &e) : _name(e.getName()) {}
 
-	virtual ~DummyEdge()
-	{}
+  virtual ~DummyEdge() {}
 
-	// operators
-	DummyEdge& operator=( const DummyEdge& e )
-	{
-		if( this == &e )
-			return *this;
-		_name = e.getName();
-		return *this;
-	}
+  // operators
+  DummyEdge &operator=(const DummyEdge &e) {
+    if (this == &e)
+      return *this;
+    _name = e.getName();
+    return *this;
+  }
 
-	const std::string& getName() const                { return _name; }
-	const std::string& getInAttrName() const          { return _inAttrName; }
-	void               setName( const std::string s ) { _name = s; }
+  const std::string &getName() const { return _name; }
+  const std::string &getInAttrName() const { return _inAttrName; }
+  void setName(const std::string s) { _name = s; }
 
-	friend std::ostream& operator<<( std::ostream& os, const DummyEdge& v );
+  friend std::ostream &operator<<(std::ostream &os, const DummyEdge &v);
 
 private:
-	std::string _name;
-	std::string _inAttrName;
+  std::string _name;
+  std::string _inAttrName;
 };
-
 }
 }
 
 #endif
-

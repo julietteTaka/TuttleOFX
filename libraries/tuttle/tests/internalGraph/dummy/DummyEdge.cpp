@@ -3,10 +3,9 @@
 namespace tuttle {
 namespace test {
 
-std::ostream& operator<<( std::ostream& os, const DummyEdge& v )
-{
-	os << v.getName() ;
-	return os;
+std::ostream &operator<<(std::ostream &os, const DummyEdge &v) {
+  os << v.getName();
+  return os;
 }
 
 } // namespace test

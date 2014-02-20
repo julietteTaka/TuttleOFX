@@ -19,301 +19,283 @@ namespace bpo = boost::program_options;
 namespace bfs = boost::filesystem;
 namespace bal = boost::algorithm;
 
-
-namespace sam
-{
-	bool wasSthgDumped = false;
+namespace sam {
+bool wasSthgDumped = false;
 }
 
 // A helper function to simplify the main part.
-template<class T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
-{
-	copy(v.begin(), v.end(), std::ostream_iterator<T>(std::cout, " "));
-	return os;
+template <class T>
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
+  copy(v.begin(), v.end(), std::ostream_iterator<T>(std::cout, " "));
+  return os;
 }
 
-template<class T>
-void coutVec( const boost::ptr_vector<T>& v )
-{
-	BOOST_FOREACH( const T& f, v )
-	{
-		TUTTLE_COUT( f );
-		sam::wasSthgDumped = true;
-	}
+template <class T> void coutVec(const boost::ptr_vector<T> &v) {
+  BOOST_FOREACH(const T & f, v) {
+    TUTTLE_COUT(f);
+    sam::wasSthgDumped = true;
+  }
 }
 
+int main(int argc, char **argv) {
+  signal(SIGINT, signal_callback_handler);
 
-int main( int argc, char** argv )
-{
-	signal(SIGINT, signal_callback_handler);
+  using namespace tuttle::common;
+  using namespace sam;
 
-	using namespace tuttle::common;
-	using namespace sam;
+  boost::shared_ptr<formatters::Formatter> formatter(
+      formatters::Formatter::get());
+  boost::shared_ptr<Color> color(Color::get());
 
-	boost::shared_ptr<formatters::Formatter> formatter( formatters::Formatter::get() );
-	boost::shared_ptr<Color>                 color( Color::get() );
-	
-	sequenceParser::EMaskType    researchMask        = sequenceParser::eMaskTypeDirectory | sequenceParser::eMaskTypeFile | sequenceParser::eMaskTypeSequence ; // by default show directories, files and sequences
-	sequenceParser::EMaskOptions descriptionMask     = sequenceParser::eMaskOptionsNone;   // by default show nothing
-	bool             recursiveListing    = false;
-	bool             script              = false;
-	std::string      availableExtensions;
-	std::vector<std::string> paths;
-	std::vector<std::string> filters;
+  sequenceParser::EMaskType researchMask =
+      sequenceParser::eMaskTypeDirectory | sequenceParser::eMaskTypeFile |
+      sequenceParser::eMaskTypeSequence; // by default show directories, files
+                                         // and sequences
+  sequenceParser::EMaskOptions descriptionMask =
+      sequenceParser::eMaskOptionsNone; // by default show nothing
+  bool recursiveListing = false;
+  bool script = false;
+  std::string availableExtensions;
+  std::vector<std::string> paths;
+  std::vector<std::string> filters;
 
-	formatter->init_logging();
-	
-	// Declare the supported options.
-	bpo::options_description mainOptions;
-	mainOptions.add_options()
-		(kAllOptionString            , kAllOptionMessage)
-		(kDirectoriesOptionString    , kDirectoriesOptionMessage)
-		(kExpressionOptionString     , bpo::value<std::string>(), kExpressionOptionMessage)
-		(kFilesOptionString          , kFilesOptionMessage )
-		(kHelpOptionString           , kHelpOptionMessage)
-		(kLongListingOptionString   , kLongListingOptionMessage)
-		(kRelativePathOptionString  , kRelativePathOptionMessage)
-		(kRecursiveOptionString      , kRecursiveOptionMessage)
-		(kPathOptionString    , kPathOptionMessage)
-		(kSequencesOptionString           , kSequencesOptionMessage)
-		(kColorOptionString            , kColorOptionMessage)
-		(kFullDisplayOptionString     , kFullDisplayOptionMessage )
-		(kScriptOptionString           , kScriptOptionMessage)
-		(kBriefOptionString            , kBriefOptionMessage)
-	;
-	
-	// describe hidden options
-	bpo::options_description hidden;
-	hidden.add_options()
-		(kInputDirOptionString, bpo::value< std::vector<std::string> >(), kInputDirOptionMessage)
-		(kEnableColorOptionString, bpo::value<std::string>(), kEnableColorOptionMessage)
-	;
-	
-	// define default options 
-	bpo::positional_options_description pod;
-	pod.add(kInputDirOptionLongName, -1);
-	
-	bpo::options_description cmdline_options;
-	cmdline_options.add(mainOptions).add(hidden);
+  formatter->init_logging();
 
-	bpo::positional_options_description pd;
-	pd.add("", -1);
-	
-	bpo::variables_map vm;
+  // Declare the supported options.
+  bpo::options_description mainOptions;
+  mainOptions.add_options()(kAllOptionString, kAllOptionMessage)(
+      kDirectoriesOptionString, kDirectoriesOptionMessage)(
+      kExpressionOptionString, bpo::value<std::string>(),
+      kExpressionOptionMessage)(kFilesOptionString, kFilesOptionMessage)(
+      kHelpOptionString, kHelpOptionMessage)(kLongListingOptionString,
+                                             kLongListingOptionMessage)(
+      kRelativePathOptionString, kRelativePathOptionMessage)(
+      kRecursiveOptionString, kRecursiveOptionMessage)(
+      kPathOptionString, kPathOptionMessage)(kSequencesOptionString,
+                                             kSequencesOptionMessage)(
+      kColorOptionString, kColorOptionMessage)(kFullDisplayOptionString,
+                                               kFullDisplayOptionMessage)(
+      kScriptOptionString, kScriptOptionMessage)(kBriefOptionString,
+                                                 kBriefOptionMessage);
 
-	try
-	{
-		//parse the command line, and put the result in vm
-		bpo::store(bpo::command_line_parser(argc, argv).options(cmdline_options).positional(pod).run(), vm);
+  // describe hidden options
+  bpo::options_description hidden;
+  hidden.add_options()(kInputDirOptionString,
+                       bpo::value<std::vector<std::string> >(),
+                       kInputDirOptionMessage)(kEnableColorOptionString,
+                                               bpo::value<std::string>(),
+                                               kEnableColorOptionMessage);
 
-		// get environment options and parse them
-		if( const char* env_ls_options = std::getenv("SAM_LS_OPTIONS") )
-		{
-			const std::vector<std::string> vecOptions = bpo::split_unix( env_ls_options, " " );
-			bpo::store(bpo::command_line_parser(vecOptions).options(cmdline_options).positional(pod).run(), vm);
-		}
-		if( const char* env_ls_options = std::getenv("SAM_OPTIONS") )
-		{
-			const std::vector<std::string> vecOptions = bpo::split_unix( env_ls_options, " " );
-			bpo::store(bpo::command_line_parser(vecOptions).options(cmdline_options).positional(pod).run(), vm);
-		}
-		bpo::notify(vm);
-	}
-	catch( const bpo::error& e)
-	{
-		TUTTLE_LOG_ERROR("sam-ls: command line error: " << e.what() );
-		exit( 254 );
-	}
-	catch(...)
-	{
-		TUTTLE_LOG_ERROR("sam-ls: unknown error in command line.");
-		exit( 254 );
-	}
+  // define default options
+  bpo::positional_options_description pod;
+  pod.add(kInputDirOptionLongName, -1);
 
-	if ( vm.count(kScriptOptionLongName) )
-	{
-		// disable color, disable directory printing and set relative path by default
-		script = true;
-		descriptionMask |= sequenceParser::eMaskOptionsAbsolutePath;
-	}
+  bpo::options_description cmdline_options;
+  cmdline_options.add(mainOptions).add(hidden);
 
-	if ( vm.count(kColorOptionLongName) && !script )
-	{
-		color->enable();
-		descriptionMask |= sequenceParser::eMaskOptionsColor;
-	}
-	if ( vm.count(kEnableColorOptionLongName) && !script )
-	{
-		const std::string str = vm[kEnableColorOptionLongName].as<std::string>();
-		if( string_to_boolean( str ) )
-		{
-			color->enable();
-			descriptionMask |= sequenceParser::eMaskOptionsColor;
-		}
-		else
-		{
-			color->disable();
-			remove( descriptionMask, sequenceParser::eMaskOptionsColor );
-		}
-	}
-	
-	if (vm.count(kHelpOptionLongName))
-	{
-		TUTTLE_COUT( color->_blue  << "TuttleOFX project [" << kUrlTuttleofxProject << "]" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "NAME" << color->_std );
-		TUTTLE_COUT( color->_green << "\tsam-ls - list directory contents" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "SYNOPSIS" << color->_std );
-		TUTTLE_COUT( color->_green << "\tsam-ls [options] [directories]" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "DESCRIPTION" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( "List information about the sequences, files and folders." );
-		TUTTLE_COUT( "List the current directory by default, and only sequences." );
-		TUTTLE_COUT( "The script option disable color, disable directory printing (in multi-directory case or recursive) and set relative path by default." );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( color->_blue  << "OPTIONS" << color->_std );
-		TUTTLE_COUT( "" );
-		TUTTLE_COUT( mainOptions );
-		return 0;
-	}
+  bpo::positional_options_description pd;
+  pd.add("", -1);
 
-	if ( vm.count(kBriefOptionLongName) )
-	{
-		TUTTLE_COUT( color->_green << "list directory contents" << color->_std );
-		return 0;
-	}
+  bpo::variables_map vm;
 
-	if (vm.count(kExpressionOptionLongName))
-	{
-		TUTTLE_LOG_WARNING( "Expression: " << vm["expression"].as<std::string>() );
-		bal::split( filters, vm["expression"].as<std::string>(), bal::is_any_of(","));
-	}
+  try {
+    // parse the command line, and put the result in vm
+    bpo::store(bpo::command_line_parser(argc, argv)
+                   .options(cmdline_options)
+                   .positional(pod)
+                   .run(),
+               vm);
 
-	if( vm.count(kDirectoriesOptionLongName ) | vm.count(kFilesOptionLongName) | vm.count(kSequencesOptionLongName) )
-	{
-		researchMask &= ~sequenceParser::eMaskTypeDirectory;
-		researchMask &= ~sequenceParser::eMaskTypeFile;
-		researchMask &= ~sequenceParser::eMaskTypeSequence;
-	}
-		
-	if( vm.count(kDirectoriesOptionLongName ) )
-	{
-		researchMask |= sequenceParser::eMaskTypeDirectory;
-	}
-	if (vm.count(kFilesOptionLongName))
-	{
-		researchMask |= sequenceParser::eMaskTypeFile;
-	}
-	if (vm.count(kSequencesOptionLongName))
-	{
-		researchMask |= sequenceParser::eMaskTypeSequence;
-	}
-	
-	if (vm.count(kFullDisplayOptionLongName))
-	{
-		researchMask |= sequenceParser::eMaskTypeDirectory;
-		researchMask |= sequenceParser::eMaskTypeFile;
-		researchMask |= sequenceParser::eMaskTypeSequence;
-	}
-	
-	if (vm.count(kAllOptionLongName))
-	{
-		// add .* files
-		descriptionMask |= sequenceParser::eMaskOptionsDotFile;
-	}
-	
-	if (vm.count(kLongListingOptionLongName))
-	{
-		descriptionMask |= sequenceParser::eMaskOptionsProperties;
-	}
-	
-	if (vm.count(kRelativePathOptionLongName) )
-	{
-		descriptionMask |= sequenceParser::eMaskOptionsPath;
-	}
+    // get environment options and parse them
+    if (const char *env_ls_options = std::getenv("SAM_LS_OPTIONS")) {
+      const std::vector<std::string> vecOptions =
+          bpo::split_unix(env_ls_options, " ");
+      bpo::store(bpo::command_line_parser(vecOptions)
+                     .options(cmdline_options)
+                     .positional(pod)
+                     .run(),
+                 vm);
+    }
+    if (const char *env_ls_options = std::getenv("SAM_OPTIONS")) {
+      const std::vector<std::string> vecOptions =
+          bpo::split_unix(env_ls_options, " ");
+      bpo::store(bpo::command_line_parser(vecOptions)
+                     .options(cmdline_options)
+                     .positional(pod)
+                     .run(),
+                 vm);
+    }
+    bpo::notify(vm);
+  }
+  catch (const bpo::error &e) {
+    TUTTLE_LOG_ERROR("sam-ls: command line error: " << e.what());
+    exit(254);
+  }
+  catch (...) {
+    TUTTLE_LOG_ERROR("sam-ls: unknown error in command line.");
+    exit(254);
+  }
 
-	if(vm.count(kPathOptionLongName))
-	{
-		descriptionMask |= sequenceParser::eMaskOptionsAbsolutePath;
-	}
-	
-	// defines paths, but if no directory specify in command line, we add the current path
-	if (vm.count(kInputDirOptionLongName))
-	{
-		paths = vm[kInputDirOptionLongName].as< std::vector<std::string> >();
-	}
-	else
-	{
-		paths.push_back( "./" );
-	}
-	
-	if (vm.count(kRecursiveOptionLongName))
-	{
-		recursiveListing = true;
-	}
+  if (vm.count(kScriptOptionLongName)) {
+    // disable color, disable directory printing and set relative path by
+    // default
+    script = true;
+    descriptionMask |= sequenceParser::eMaskOptionsAbsolutePath;
+  }
 
+  if (vm.count(kColorOptionLongName) && !script) {
+    color->enable();
+    descriptionMask |= sequenceParser::eMaskOptionsColor;
+  }
+  if (vm.count(kEnableColorOptionLongName) && !script) {
+    const std::string str = vm[kEnableColorOptionLongName].as<std::string>();
+    if (string_to_boolean(str)) {
+      color->enable();
+      descriptionMask |= sequenceParser::eMaskOptionsColor;
+    } else {
+      color->disable();
+      remove(descriptionMask, sequenceParser::eMaskOptionsColor);
+    }
+  }
 
-// 	for(uint i=0; i<filters.size(); i++)
-// 	TUTTLE_LOG_TRACE( "filters = " << filters.at(i) );
-// 	TUTTLE_LOG_TRACE( "research mask = " << researchMask );
-// 	TUTTLE_LOG_TRACE( "options  mask = " << descriptionMask );
+  if (vm.count(kHelpOptionLongName)) {
+    TUTTLE_COUT(color->_blue << "TuttleOFX project [" << kUrlTuttleofxProject
+                             << "]" << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "NAME" << color->_std);
+    TUTTLE_COUT(color->_green << "\tsam-ls - list directory contents"
+                              << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "SYNOPSIS" << color->_std);
+    TUTTLE_COUT(color->_green << "\tsam-ls [options] [directories]"
+                              << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "DESCRIPTION" << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT("List information about the sequences, files and folders.");
+    TUTTLE_COUT("List the current directory by default, and only sequences.");
+    TUTTLE_COUT("The script option disable color, disable directory printing "
+                "(in multi-directory case or recursive) and set relative path "
+                "by default.");
+    TUTTLE_COUT("");
+    TUTTLE_COUT(color->_blue << "OPTIONS" << color->_std);
+    TUTTLE_COUT("");
+    TUTTLE_COUT(mainOptions);
+    return 0;
+  }
 
-	std::list<boost::shared_ptr<sequenceParser::FileObject> > listing;
-	try
-	{
-		std::size_t index = 0;
-		BOOST_FOREACH( bfs::path path, paths )
-		{
-			if( path == bfs::path(".") )
-			{
-				path = bfs::path("./");
-			}
-			if( ( paths.size() > 1 || recursiveListing ) && !script )
-			{
-				if( index > 0 )
-				{
-					TUTTLE_COUT( "" );
-				}
-				TUTTLE_COUT( path.string() << ":");
-				wasSthgDumped = true;
-			}
+  if (vm.count(kBriefOptionLongName)) {
+    TUTTLE_COUT(color->_green << "list directory contents" << color->_std);
+    return 0;
+  }
 
-			coutVec( sequenceParser::fileObjectInDirectory( path.string(), filters, researchMask, descriptionMask ) );
+  if (vm.count(kExpressionOptionLongName)) {
+    TUTTLE_LOG_WARNING("Expression: " << vm["expression"].as<std::string>());
+    bal::split(filters, vm["expression"].as<std::string>(),
+               bal::is_any_of(","));
+  }
 
-			if(recursiveListing)
-			{
-				for ( bfs::recursive_directory_iterator end, dir( path ); dir != end; ++dir )
-				{
-					if( bfs::is_directory( *dir ) )
-					{
-						bfs::path currentPath = (bfs::path)*dir;
-						if( !script )
-							TUTTLE_COUT( "\n" << currentPath.string() << ":" );
+  if (vm.count(kDirectoriesOptionLongName) | vm.count(kFilesOptionLongName) |
+      vm.count(kSequencesOptionLongName)) {
+    researchMask &= ~sequenceParser::eMaskTypeDirectory;
+    researchMask &= ~sequenceParser::eMaskTypeFile;
+    researchMask &= ~sequenceParser::eMaskTypeSequence;
+  }
 
-						coutVec( sequenceParser::fileObjectInDirectory( currentPath.string(), filters, researchMask, descriptionMask ) );
+  if (vm.count(kDirectoriesOptionLongName)) {
+    researchMask |= sequenceParser::eMaskTypeDirectory;
+  }
+  if (vm.count(kFilesOptionLongName)) {
+    researchMask |= sequenceParser::eMaskTypeFile;
+  }
+  if (vm.count(kSequencesOptionLongName)) {
+    researchMask |= sequenceParser::eMaskTypeSequence;
+  }
 
-					}
-				}
-			}
-			++index;
-		}
-	}
-	catch ( const bfs::filesystem_error& ex)
-	{
-		TUTTLE_LOG_ERROR( ex.what() );
-	}
-	catch( ... )
-	{
-		TUTTLE_LOG_ERROR( boost::current_exception_diagnostic_information() );
-	}
-	
-	if(!wasSthgDumped)
-	{
-		TUTTLE_LOG_ERROR( "No sequence found here." );
-	}
-	
-	return 0;
+  if (vm.count(kFullDisplayOptionLongName)) {
+    researchMask |= sequenceParser::eMaskTypeDirectory;
+    researchMask |= sequenceParser::eMaskTypeFile;
+    researchMask |= sequenceParser::eMaskTypeSequence;
+  }
+
+  if (vm.count(kAllOptionLongName)) {
+    // add .* files
+    descriptionMask |= sequenceParser::eMaskOptionsDotFile;
+  }
+
+  if (vm.count(kLongListingOptionLongName)) {
+    descriptionMask |= sequenceParser::eMaskOptionsProperties;
+  }
+
+  if (vm.count(kRelativePathOptionLongName)) {
+    descriptionMask |= sequenceParser::eMaskOptionsPath;
+  }
+
+  if (vm.count(kPathOptionLongName)) {
+    descriptionMask |= sequenceParser::eMaskOptionsAbsolutePath;
+  }
+
+  // defines paths, but if no directory specify in command line, we add the
+  // current path
+  if (vm.count(kInputDirOptionLongName)) {
+    paths = vm[kInputDirOptionLongName].as<std::vector<std::string> >();
+  } else {
+    paths.push_back("./");
+  }
+
+  if (vm.count(kRecursiveOptionLongName)) {
+    recursiveListing = true;
+  }
+
+  // 	for(uint i=0; i<filters.size(); i++)
+  // 	TUTTLE_LOG_TRACE( "filters = " << filters.at(i) );
+  // 	TUTTLE_LOG_TRACE( "research mask = " << researchMask );
+  // 	TUTTLE_LOG_TRACE( "options  mask = " << descriptionMask );
+
+  std::list<boost::shared_ptr<sequenceParser::FileObject> > listing;
+  try {
+    std::size_t index = 0;
+    BOOST_FOREACH(bfs::path path, paths) {
+      if (path == bfs::path(".")) {
+        path = bfs::path("./");
+      }
+      if ((paths.size() > 1 || recursiveListing) && !script) {
+        if (index > 0) {
+          TUTTLE_COUT("");
+        }
+        TUTTLE_COUT(path.string() << ":");
+        wasSthgDumped = true;
+      }
+
+      coutVec(sequenceParser::fileObjectInDirectory(
+          path.string(), filters, researchMask, descriptionMask));
+
+      if (recursiveListing) {
+        for (bfs::recursive_directory_iterator end, dir(path); dir != end;
+             ++dir) {
+          if (bfs::is_directory(*dir)) {
+            bfs::path currentPath = (bfs::path) * dir;
+            if (!script)
+              TUTTLE_COUT("\n" << currentPath.string() << ":");
+
+            coutVec(sequenceParser::fileObjectInDirectory(
+                currentPath.string(), filters, researchMask, descriptionMask));
+          }
+        }
+      }
+      ++index;
+    }
+  }
+  catch (const bfs::filesystem_error &ex) {
+    TUTTLE_LOG_ERROR(ex.what());
+  }
+  catch (...) {
+    TUTTLE_LOG_ERROR(boost::current_exception_diagnostic_information());
+  }
+
+  if (!wasSthgDumped) {
+    TUTTLE_LOG_ERROR("No sequence found here.");
+  }
+
+  return 0;
 }

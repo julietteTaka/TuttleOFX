@@ -5,7 +5,6 @@ namespace plugin {
 namespace interact {
 
 IFrame::~IFrame() {}
-
 }
 }
 }

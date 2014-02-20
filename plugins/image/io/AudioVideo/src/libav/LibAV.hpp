@@ -3,16 +3,16 @@
 
 extern "C" {
 #ifndef __STDC_CONSTANT_MACROS
-	#define __STDC_CONSTANT_MACROS
+#define __STDC_CONSTANT_MACROS
 #endif
-	#include <libavcodec/avcodec.h>
-	#include <libavformat/avformat.h>
-	#include <libavutil/avutil.h>
-	#include <libavutil/opt.h>
-	#include <libavutil/mathematics.h>
-	#include <libavutil/avstring.h>
-	#include <libavutil/pixdesc.h>
-	#include <libswscale/swscale.h>
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libavutil/avutil.h>
+#include <libavutil/opt.h>
+#include <libavutil/mathematics.h>
+#include <libavutil/avstring.h>
+#include <libavutil/pixdesc.h>
+#include <libswscale/swscale.h>
 }
 
 #include <string>
@@ -22,47 +22,41 @@ namespace tuttle {
 namespace plugin {
 namespace av {
 
-typedef struct AVPrivOption
-{
-	AVOption o;
-	std::string class_name;
+typedef struct AVPrivOption {
+  AVOption o;
+  std::string class_name;
 } AVPrivOption;
 
-enum EAVParamType
-{
-	eAVParamFormat = 0,
-	eAVParamVideo,
-	eAVParamAudio
+enum EAVParamType {
+  eAVParamFormat = 0,
+  eAVParamVideo,
+  eAVParamAudio
 };
 
 /**
  * @brief This is a base class for libav, don't use it directly.
  * It contains only utilities functions.
  */
-class LibAV
-{
+class LibAV {
 protected:
-	LibAV() {}
-	virtual ~LibAV() {}
+  LibAV() {}
+  virtual ~LibAV() {}
 
 public:
-	static const std::string libavError_toString( int error );
-	static const std::string libavLogLevel_toString( int logLevel );
-	static const std::string codecType_toString( const AVMediaType codec_type );
+  static const std::string libavError_toString(int error);
+  static const std::string libavLogLevel_toString(int logLevel);
+  static const std::string codecType_toString(const AVMediaType codec_type);
 
-	std::vector<AVPrivOption> getAVOptions(const AVClass *av_class);
-	
-	void getPixelsFormatList();
-	
+  std::vector<AVPrivOption> getAVOptions(const AVClass *av_class);
+
+  void getPixelsFormatList();
+
 private:
-	static bool _hasBeenInit;
-	static bool globalInit();
-
+  static bool _hasBeenInit;
+  static bool globalInit();
 };
-
 }
 }
 }
 
 #endif
-

@@ -7,13 +7,12 @@
 
 namespace tuttle {
 
-class TetraInterpolator : public Interpolator
-{
+class TetraInterpolator : public Interpolator {
 public:
-	TetraInterpolator() : Interpolator() {}
-	Color interpolate( const AbstractLut* lut, const double x, const double y, const double z ) const;
+  TetraInterpolator() : Interpolator() {}
+  Color interpolate(const AbstractLut *lut, const double x, const double y,
+                    const double z) const;
 };
-
 }
 
 #endif

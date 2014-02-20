@@ -3,9 +3,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace ramp {
-
-}
+namespace ramp {}
 }
 }
 

@@ -6,7 +6,6 @@ namespace ofx {
 namespace attribute {
 
 OfxhParamSetAccessor::~OfxhParamSetAccessor() {}
-
 }
 }
 }

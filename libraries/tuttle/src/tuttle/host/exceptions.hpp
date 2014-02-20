@@ -3,13 +3,11 @@
 
 #include <tuttle/common/exceptions.hpp>
 
-
 namespace tuttle {
 namespace host {
 namespace exception {
 
 using namespace tuttle::exception;
-
 }
 }
 }

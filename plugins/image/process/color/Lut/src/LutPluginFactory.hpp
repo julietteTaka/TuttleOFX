@@ -7,8 +7,7 @@ namespace tuttle {
 namespace plugin {
 namespace lut {
 static const bool kSupportTiles = true;
-mDeclarePluginFactory( LutPluginFactory, {}, {}
-                       );
+mDeclarePluginFactory(LutPluginFactory, {}, {});
 }
 }
 }

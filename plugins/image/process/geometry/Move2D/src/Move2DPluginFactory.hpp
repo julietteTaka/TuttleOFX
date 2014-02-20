@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace move2D {
 
-mDeclarePluginFactory( Move2DPluginFactory, { }, { } );
-
+mDeclarePluginFactory(Move2DPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

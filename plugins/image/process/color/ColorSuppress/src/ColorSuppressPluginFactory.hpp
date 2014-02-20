@@ -7,10 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace colorSuppress {
 
-	mDeclarePluginFactory( ColorSuppressPluginFactory, { }, { } );
+mDeclarePluginFactory(ColorSuppressPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-

@@ -11,21 +11,20 @@ class INode;
 
 namespace attribute {
 
-class Param : public Attribute
-	, virtual public ofx::attribute::OfxhParamAccessor
-{
+class Param : public Attribute,
+              virtual public ofx::attribute::OfxhParamAccessor {
 public:
-	Param( INode& effect );
-	virtual ~Param() = 0;
+  Param(INode &effect);
+  virtual ~Param() = 0;
 
-	bool isOutput() const { return false; }
-	
-	const std::string& getName() const { return ofx::attribute::OfxhParamAccessor::getName(); }
+  bool isOutput() const { return false; }
+
+  const std::string &getName() const {
+    return ofx::attribute::OfxhParamAccessor::getName();
+  }
 };
-
 }
 }
 }
 
 #endif
-

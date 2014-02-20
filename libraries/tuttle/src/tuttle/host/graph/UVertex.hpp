@@ -15,26 +15,23 @@ namespace graph {
 /**
  * @brief Vertex of the user graph.
  */
-class UVertex : public IVertex
-{
+class UVertex : public IVertex {
 public:
-	typedef std::string Key;
+  typedef std::string Key;
+
 public:
-	UVertex()
-	{}
-	
-	UVertex( const std::string& name, INode& processNode );
+  UVertex() {}
 
-	~UVertex() {}
+  UVertex(const std::string &name, INode &processNode);
 
-	Key getKey() const { return getName(); }
-	
-	friend std::ostream& operator<<( std::ostream& os, const UVertex& v );
+  ~UVertex() {}
+
+  Key getKey() const { return getName(); }
+
+  friend std::ostream &operator<<(std::ostream &os, const UVertex &v);
 };
-
 }
 }
 }
 
 #endif
-

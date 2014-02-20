@@ -8,13 +8,10 @@ namespace plugin {
 namespace turboJpeg {
 namespace reader {
 
-mDeclarePluginFactory( TurboJpegReaderPluginFactory, { }, { } );
-
+mDeclarePluginFactory(TurboJpegReaderPluginFactory, {}, {});
 }
 }
 }
 }
 
 #endif
-
-

@@ -23,41 +23,40 @@ namespace diffusion {
 using namespace imageUtils;
 
 struct region_t {
-    unsigned int dox, doy;
-    unsigned int dw, dh;
+  unsigned int dox, doy;
+  unsigned int dw, dh;
 };
 
 /**
  * @brief Base class for the denoising processor
  *
  */
-template<class View>
-class AnisotropicDiffusionProcess : public ImageGilFilterProcessor<View>
-{
-    typedef typename View::value_type Pixel;
-protected :
-    AnisotropicDiffusionPlugin&  _plugin;        ///< Rendering plugin
-	boost::scoped_ptr<OFX::Image> _srcTensor;
-    OFX::BooleanParam*  _fast_approx;   ///< Perform fast approximation
-    OFX::RGBParam*      _amplitude;   ///< Red amplitude control parameter
-    View                _srcView;       ///< Source image view
-    View                _srcTensorView; ///< Source tensors image view
-    OfxRectI _upScaledSrcBounds, _dBounds;
+template <class View>
+class AnisotropicDiffusionProcess : public ImageGilFilterProcessor<View> {
+  typedef typename View::value_type Pixel;
 
-public :
-    AnisotropicDiffusionProcess<View>( AnisotropicDiffusionPlugin& instance );
+protected:
+  AnisotropicDiffusionPlugin &_plugin; ///< Rendering plugin
+  boost::scoped_ptr<OFX::Image> _srcTensor;
+  OFX::BooleanParam *_fast_approx; ///< Perform fast approximation
+  OFX::RGBParam *_amplitude;       ///< Red amplitude control parameter
+  View _srcView;                   ///< Source image view
+  View _srcTensorView;             ///< Source tensors image view
+  OfxRectI _upScaledSrcBounds, _dBounds;
 
-    void setup( const OFX::RenderArguments& args );
+public:
+  AnisotropicDiffusionProcess<View>(AnisotropicDiffusionPlugin &instance);
 
-    void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void setup(const OFX::RenderArguments &args);
 
-    // Blur anisotopric
-    void blur_anisotropic( View &dst, View &src, View &G,
-                           const region_t & dregion, const OfxRGBColourD& amplitude,
-                           const bool fast_approx=true, const float dl=0.8f,
-                           const float da=30.0f, const float gauss_prec=2.0f );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
+
+  // Blur anisotopric
+  void blur_anisotropic(View &dst, View &src, View &G, const region_t &dregion,
+                        const OfxRGBColourD &amplitude,
+                        const bool fast_approx = true, const float dl = 0.8f,
+                        const float da = 30.0f, const float gauss_prec = 2.0f);
 };
-
 }
 }
 }

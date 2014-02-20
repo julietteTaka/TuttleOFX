@@ -8,12 +8,10 @@ namespace exr {
 namespace writer {
 
 static const bool kSupportTiles = false;
-mDeclarePluginFactory( EXRWriterPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(EXRWriterPluginFactory, {}, {});
 }
 }
 }
 }
 
-#endif //EXR_WRITER_PLUGIN_FACTORY_HPP
+#endif // EXR_WRITER_PLUGIN_FACTORY_HPP

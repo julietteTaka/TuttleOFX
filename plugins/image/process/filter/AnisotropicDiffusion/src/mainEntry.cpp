@@ -8,11 +8,13 @@
 namespace OFX {
 namespace Plugin {
 
-void getPluginIDs( OFX::PluginFactoryArray& ids )
-{
-	mAppendPluginFactory( ids, tuttle::plugin::anisotropicFilter::tensors::AnisotropicTensorsPluginFactory, "tuttle.anisotropictensors" );
-	mAppendPluginFactory( ids, tuttle::plugin::anisotropicFilter::diffusion::AnisotropicDiffusionPluginFactory,"tuttle.anisotropicdiffusion" );
+void getPluginIDs(OFX::PluginFactoryArray &ids) {
+  mAppendPluginFactory(ids, tuttle::plugin::anisotropicFilter::tensors::
+                                AnisotropicTensorsPluginFactory,
+                       "tuttle.anisotropictensors");
+  mAppendPluginFactory(ids, tuttle::plugin::anisotropicFilter::diffusion::
+                                AnisotropicDiffusionPluginFactory,
+                       "tuttle.anisotropicdiffusion");
 }
-
 }
 }

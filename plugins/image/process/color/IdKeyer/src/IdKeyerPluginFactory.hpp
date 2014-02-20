@@ -9,8 +9,7 @@ namespace idKeyer {
 
 static const bool kSupportTiles = true;
 
-mDeclarePluginFactory( IdKeyerPluginFactory, {}, {} );
-
+mDeclarePluginFactory(IdKeyerPluginFactory, {}, {});
 }
 }
 }

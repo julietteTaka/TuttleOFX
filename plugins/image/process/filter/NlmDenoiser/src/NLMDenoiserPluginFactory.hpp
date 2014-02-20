@@ -6,7 +6,7 @@
 namespace tuttle {
 namespace plugin {
 namespace nlmDenoiser {
-	mDeclarePluginFactory( NLMDenoiserPluginFactory, {}, {} );
+mDeclarePluginFactory(NLMDenoiserPluginFactory, {}, {});
 }
 }
 }

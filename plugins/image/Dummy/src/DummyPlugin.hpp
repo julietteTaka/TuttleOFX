@@ -9,33 +9,30 @@ namespace tuttle {
 namespace plugin {
 namespace dummy {
 
-template<typename Scalar>
-struct DummyProcessParams
-{
-	
-};
+template <typename Scalar> struct DummyProcessParams {};
 
 /**
  * @brief Dummy plugin
  */
-class DummyPlugin : public ImageEffectGilPlugin
-{
+class DummyPlugin : public ImageEffectGilPlugin {
 public:
-	typedef float Scalar;
-public:
-	DummyPlugin( OfxImageEffectHandle handle );
+  typedef float Scalar;
 
 public:
-	DummyProcessParams<Scalar> getProcessParams( const OfxPointD& renderScale = OFX::kNoRenderScale ) const;
+  DummyPlugin(OfxImageEffectHandle handle);
 
-	void changedParam( const OFX::InstanceChangedArgs &args, const std::string &paramName );
+public:
+  DummyProcessParams<Scalar> getProcessParams(const OfxPointD &renderScale =
+                                                  OFX::kNoRenderScale) const;
 
-	bool isIdentity( const OFX::RenderArguments& args, OFX::Clip*& identityClip, double& identityTime );
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
 
-	void render( const OFX::RenderArguments &args );
+  bool isIdentity(const OFX::RenderArguments &args, OFX::Clip *&identityClip,
+                  double &identityTime);
 
+  void render(const OFX::RenderArguments &args);
 };
-
 }
 }
 }

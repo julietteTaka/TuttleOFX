@@ -3,7 +3,6 @@
 
 #include <tuttle/plugin/global.hpp>
 
-
 namespace tuttle {
 namespace plugin {
 namespace colorTransform {
@@ -18,7 +17,6 @@ static const std::string kParamContrastRGB = "contrastGlobal";
 static const std::string kParamContrast = "contrast";
 static const std::string kParamOffsetRGB = "offsetGlobal";
 static const std::string kParamOffset = "offset";
-
 }
 }
 }

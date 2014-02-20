@@ -8,29 +8,28 @@ namespace plugin {
 namespace openImageIO {
 namespace reader {
 
-struct OpenImageIOReaderProcessParams
-{
-	std::string _filepath;       ///< filepath
+struct OpenImageIOReaderProcessParams {
+  std::string _filepath; ///< filepath
 };
 
 /**
  * @brief OpenImageIO reader
  *
  */
-class OpenImageIOReaderPlugin : public ReaderPlugin
-{
+class OpenImageIOReaderPlugin : public ReaderPlugin {
 public:
-	OpenImageIOReaderPlugin( OfxImageEffectHandle handle );
+  OpenImageIOReaderPlugin(OfxImageEffectHandle handle);
 
 public:
-	OpenImageIOReaderProcessParams getProcessParams( const OfxTime time );
-	void                           changedParam( const OFX::InstanceChangedArgs& args, const std::string& paramName );
-	bool                           getRegionOfDefinition( const OFX::RegionOfDefinitionArguments& args, OfxRectD& rod );
-	void                           getClipPreferences( OFX::ClipPreferencesSetter& clipPreferences );
+  OpenImageIOReaderProcessParams getProcessParams(const OfxTime time);
+  void changedParam(const OFX::InstanceChangedArgs &args,
+                    const std::string &paramName);
+  bool getRegionOfDefinition(const OFX::RegionOfDefinitionArguments &args,
+                             OfxRectD &rod);
+  void getClipPreferences(OFX::ClipPreferencesSetter &clipPreferences);
 
-	void                           render( const OFX::RenderArguments& args );
+  void render(const OFX::RenderArguments &args);
 };
-
 }
 }
 }

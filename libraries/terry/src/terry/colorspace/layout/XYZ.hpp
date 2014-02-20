@@ -1,5 +1,5 @@
 #ifndef _TERRY_COLOR_LAYOUT_XYZ_HPP_
-#define	_TERRY_COLOR_LAYOUT_XYZ_HPP_
+#define _TERRY_COLOR_LAYOUT_XYZ_HPP_
 
 #include "rgb.hpp"
 
@@ -12,8 +12,7 @@ namespace layout {
 
 /// \addtogroup ColorNameModel
 /// \{
-namespace XYZ
-{
+namespace XYZ {
 /// \brief X
 struct X_t {};
 /// \brief Y
@@ -24,14 +23,9 @@ struct Z_t {};
 /// \}
 
 /// \ingroup ColorSpaceModel
-typedef boost::mpl::vector3< XYZ::X_t
-                    , XYZ::Y_t
-                    , XYZ::Z_t
-                    > XYZ_t;
-
+typedef boost::mpl::vector3<XYZ::X_t, XYZ::Y_t, XYZ::Z_t> XYZ_t;
 }
 }
 }
-
 
 #endif

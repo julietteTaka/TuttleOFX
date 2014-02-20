@@ -6,9 +6,7 @@ namespace tuttle {
 namespace plugin {
 namespace constant {
 
-mDeclarePluginFactory( ConstantPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(ConstantPluginFactory, {}, {});
 }
 }
 }

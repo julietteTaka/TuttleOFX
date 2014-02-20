@@ -6,10 +6,9 @@
 namespace tuttle {
 namespace plugin {
 namespace pushPixel {
-	mDeclarePluginFactory( PushPixelPluginFactory, { }, { } );
+mDeclarePluginFactory(PushPixelPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-

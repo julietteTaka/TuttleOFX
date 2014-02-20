@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace localmaxima {
 
-mDeclarePluginFactory( LocalMaximaPluginFactory, { }, { } );
-
+mDeclarePluginFactory(LocalMaximaPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

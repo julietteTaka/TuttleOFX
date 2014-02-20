@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace blur {
 
-mDeclarePluginFactory( BlurPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(BlurPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-

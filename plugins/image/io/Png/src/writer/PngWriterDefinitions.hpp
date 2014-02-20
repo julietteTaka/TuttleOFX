@@ -9,20 +9,17 @@ namespace plugin {
 namespace png {
 namespace writer {
 
-enum ETuttlePluginBitDepth
-{
-	eTuttlePluginBitDepth8 = 0,
-	eTuttlePluginBitDepth16
+enum ETuttlePluginBitDepth {
+  eTuttlePluginBitDepth8 = 0,
+  eTuttlePluginBitDepth16
 };
 
-enum ETuttlePluginComponents
-{
-	eTuttlePluginComponentsAuto = 0,
-	eTuttlePluginComponentsGray,
-	eTuttlePluginComponentsRGB,
-	eTuttlePluginComponentsRGBA
+enum ETuttlePluginComponents {
+  eTuttlePluginComponentsAuto = 0,
+  eTuttlePluginComponentsGray,
+  eTuttlePluginComponentsRGB,
+  eTuttlePluginComponentsRGBA
 };
-
 }
 }
 }

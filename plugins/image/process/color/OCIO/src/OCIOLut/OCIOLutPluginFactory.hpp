@@ -5,12 +5,11 @@
 
 namespace tuttle {
 namespace plugin {
-namespace ocio{
+namespace ocio {
 namespace lut {
 
 static const bool kSupportTiles = true;
-mDeclarePluginFactory( OCIOLutPluginFactory, {}, {} );
-
+mDeclarePluginFactory(OCIOLutPluginFactory, {}, {});
 }
 }
 }

@@ -12,23 +12,21 @@ namespace reader {
  * @brief TurboJpeg process
  *
  */
-template<class View>
-class TurboJpegReaderProcess : public ImageGilProcessor<View>
-{
+template <class View>
+class TurboJpegReaderProcess : public ImageGilProcessor<View> {
 protected:
-	TurboJpegReaderPlugin&    _plugin;            ///< Rendering plugin
-	TurboJpegReaderProcessParams _params; ///< parameters
+  TurboJpegReaderPlugin &_plugin;       ///< Rendering plugin
+  TurboJpegReaderProcessParams _params; ///< parameters
 
 public:
-	TurboJpegReaderProcess( TurboJpegReaderPlugin& effect );
+  TurboJpegReaderProcess(TurboJpegReaderPlugin &effect);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
-	
-	void readImage( View& dst );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
+
+  void readImage(View &dst);
 };
-
 }
 }
 }

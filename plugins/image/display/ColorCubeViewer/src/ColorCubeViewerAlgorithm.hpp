@@ -3,11 +3,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace colorCubeViewer {
-
-
-
-}
+namespace colorCubeViewer {}
 }
 }
 

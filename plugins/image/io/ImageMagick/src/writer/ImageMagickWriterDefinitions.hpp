@@ -9,14 +9,12 @@ namespace plugin {
 namespace imagemagick {
 namespace writer {
 
-enum ETuttlePluginBitDepth
-{
-	eTuttlePluginBitDepth8 = 0
+enum ETuttlePluginBitDepth {
+  eTuttlePluginBitDepth8 = 0
 };
 
 static const std::string kParamPremult = "premult";
 static const std::string kParamQuality = "quality";
-
 }
 }
 }

@@ -10,4 +10,3 @@ using namespace tuttle::common;
 }
 
 #endif
-

@@ -6,7 +6,6 @@ namespace plugin {
 namespace bitDepth {
 
 static const std::string kParamOutputBitDepth = "outputBitDepth";
-
 }
 }
 }

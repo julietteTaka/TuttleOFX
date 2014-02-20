@@ -11,27 +11,23 @@ namespace tuttle {
 namespace plugin {
 namespace crop {
 
-class CropOverlay : public OFX::OverlayInteract
-{
+class CropOverlay : public OFX::OverlayInteract {
 public:
-	CropOverlay( OfxInteractHandle handle, OFX::ImageEffect* effect ) : OFX::OverlayInteract( handle )
-	{
-		_effect = effect;
-	}
+  CropOverlay(OfxInteractHandle handle, OFX::ImageEffect *effect)
+      : OFX::OverlayInteract(handle) {
+    _effect = effect;
+  }
 
-	virtual bool draw( const OFX::DrawArgs& args );
+  virtual bool draw(const OFX::DrawArgs &args);
 };
 
-class CropEffectOverlay : public OFX::EffectOverlayDescriptor
-{
+class CropEffectOverlay : public OFX::EffectOverlayDescriptor {
 public:
-	OFX::Interact* createInstance( OfxInteractHandle handle, OFX::ImageEffect* effect )
-	{
-		return new CropOverlay( handle, effect );
-	}
-
+  OFX::Interact *createInstance(OfxInteractHandle handle,
+                                OFX::ImageEffect *effect) {
+    return new CropOverlay(handle, effect);
+  }
 };
-
 }
 }
 }

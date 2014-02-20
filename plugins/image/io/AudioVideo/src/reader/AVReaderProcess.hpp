@@ -17,20 +17,17 @@ namespace reader {
  * @brief Audio Video process
  *
  */
-template<class View>
-class AVReaderProcess : public ImageGilProcessor<View>
-{
+template <class View> class AVReaderProcess : public ImageGilProcessor<View> {
 protected:
-	AVReaderPlugin& _plugin;        ///< Rendering plugin
+  AVReaderPlugin &_plugin; ///< Rendering plugin
 
 public:
-	AVReaderProcess( AVReaderPlugin& instance );
+  AVReaderProcess(AVReaderPlugin &instance);
 
-	void setup( const OFX::RenderArguments& args );
-	// Do some processing
-	void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void setup(const OFX::RenderArguments &args);
+  // Do some processing
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

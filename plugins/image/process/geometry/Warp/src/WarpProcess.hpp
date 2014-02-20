@@ -14,38 +14,34 @@ namespace warp {
  * @brief Warp process
  *
  */
-template<class View>
-class WarpProcess : public ImageGilFilterProcessor<View>
-{
+template <class View> class WarpProcess : public ImageGilFilterProcessor<View> {
 public:
-    typedef typename View::value_type Pixel;
-    typedef typename boost::gil::channel_type<View>::type Channel;
-    typedef WarpPlugin::Scalar Scalar;
-    typedef typename View::point_t Point;
-    typedef typename View::coord_t Coord;
-    typedef typename terry::image_from_view<View>::type Image;
+  typedef typename View::value_type Pixel;
+  typedef typename boost::gil::channel_type<View>::type Channel;
+  typedef WarpPlugin::Scalar Scalar;
+  typedef typename View::point_t Point;
+  typedef typename View::coord_t Coord;
+  typedef typename terry::image_from_view<View>::type Image;
 
-protected :
-    WarpPlugin&    _plugin;            ///< Rendering plugin
+protected:
+  WarpPlugin &_plugin; ///< Rendering plugin
 
+  OFX::Clip *_clipSrcB; ///< Source B
+  boost::scoped_ptr<OFX::Image> _srcB;
+  OfxRectI _srcBPixelRod;
+  View _srcBView;
 
-    OFX::Clip* _clipSrcB;       ///< Source B
-    boost::scoped_ptr<OFX::Image> _srcB;
-    OfxRectI _srcBPixelRod;
-    View _srcBView;
-
-    WarpProcessParams<Scalar> _params; ///< parameters
-    TPS_Morpher<Scalar> _tpsA;
-    TPS_Morpher<Scalar> _tpsB;
+  WarpProcessParams<Scalar> _params; ///< parameters
+  TPS_Morpher<Scalar> _tpsA;
+  TPS_Morpher<Scalar> _tpsB;
 
 public:
-    WarpProcess( WarpPlugin& effect );
+  WarpProcess(WarpPlugin &effect);
 
-	void setup( const OFX::RenderArguments& args );
+  void setup(const OFX::RenderArguments &args);
 
-    void multiThreadProcessImages( const OfxRectI& procWindowRoW );
+  void multiThreadProcessImages(const OfxRectI &procWindowRoW);
 };
-
 }
 }
 }

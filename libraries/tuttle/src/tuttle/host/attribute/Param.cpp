@@ -6,12 +6,9 @@ namespace tuttle {
 namespace host {
 namespace attribute {
 
-Param::Param( INode& effect )
-	: Attribute( effect )
-{}
+Param::Param(INode &effect) : Attribute(effect) {}
 
 Param::~Param() {}
-
 }
 }
 }

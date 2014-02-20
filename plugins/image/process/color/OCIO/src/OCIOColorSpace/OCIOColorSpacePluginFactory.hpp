@@ -5,12 +5,11 @@
 
 namespace tuttle {
 namespace plugin {
-namespace ocio{
+namespace ocio {
 namespace colorspace {
 
 static const bool kSupportTiles = true;
-mDeclarePluginFactory( OCIOColorSpacePluginFactory, {}, {} );
-
+mDeclarePluginFactory(OCIOColorSpacePluginFactory, {}, {});
 }
 }
 }

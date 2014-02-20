@@ -9,9 +9,7 @@ namespace text {
 
 static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( TextPluginFactory, {}, {}
-                       );
-
+mDeclarePluginFactory(TextPluginFactory, {}, {});
 }
 }
 }

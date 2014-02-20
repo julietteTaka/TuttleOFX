@@ -9,34 +9,30 @@ namespace plugin {
 namespace jpeg {
 namespace writer {
 
-JpegWriterPlugin::JpegWriterPlugin( OfxImageEffectHandle handle )
-	: WriterPlugin( handle )
-{
-	_paramPremult = fetchBooleanParam( kParamPremultiplied );
-	_paramQuality = fetchIntParam( kParamQuality );
+JpegWriterPlugin::JpegWriterPlugin(OfxImageEffectHandle handle)
+    : WriterPlugin(handle) {
+  _paramPremult = fetchBooleanParam(kParamPremultiplied);
+  _paramQuality = fetchIntParam(kParamQuality);
 }
 
-JpegWriterProcessParams JpegWriterPlugin::getProcessParams( const OfxTime time )
-{
-	JpegWriterProcessParams params;
+JpegWriterProcessParams JpegWriterPlugin::getProcessParams(const OfxTime time) {
+  JpegWriterProcessParams params;
 
-	params._filepath = getAbsoluteFilenameAt( time );
-	params._quality  = this->_paramQuality->getValue();
-	params._premult  = this->_paramPremult->getValue();
-	return params;
+  params._filepath = getAbsoluteFilenameAt(time);
+  params._quality = this->_paramQuality->getValue();
+  params._premult = this->_paramPremult->getValue();
+  return params;
 }
 
 /**
  * @brief The overridden render function
  * @param[in]   args     Rendering parameters
  */
-void JpegWriterPlugin::render( const OFX::RenderArguments& args )
-{
-	WriterPlugin::render( args );
+void JpegWriterPlugin::render(const OFX::RenderArguments &args) {
+  WriterPlugin::render(args);
 
-	doGilRender<JpegWriterProcess>( *this, args );
+  doGilRender<JpegWriterProcess>(*this, args);
 }
-
 }
 }
 }

@@ -7,12 +7,9 @@ namespace tuttle {
 namespace plugin {
 namespace ctl {
 
-mDeclarePluginFactory( CTLPluginFactory, { }, { } );
-
+mDeclarePluginFactory(CTLPluginFactory, {}, {});
 }
 }
 }
 
 #endif
-
-

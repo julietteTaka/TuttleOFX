@@ -5,12 +5,7 @@
 
 namespace tuttle {
 namespace plugin {
-namespace ctl {
-
-
-
-
-}
+namespace ctl {}
 }
 }
 

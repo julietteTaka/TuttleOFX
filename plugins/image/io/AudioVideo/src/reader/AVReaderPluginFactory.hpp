@@ -9,8 +9,7 @@ namespace reader {
 
 static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( AVReaderPluginFactory, {}, {} );
-
+mDeclarePluginFactory(AVReaderPluginFactory, {}, {});
 }
 }
 }

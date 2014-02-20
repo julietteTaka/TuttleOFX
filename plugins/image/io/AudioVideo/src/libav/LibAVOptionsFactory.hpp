@@ -11,10 +11,13 @@ namespace tuttle {
 namespace plugin {
 namespace av {
 
-void addOptionsFromAVOption( OFX::ImageEffectDescriptor& desc, OFX::GroupParamDescriptor* group, void* av_class, int req_flags, int rej_flags );
+void addOptionsFromAVOption(OFX::ImageEffectDescriptor &desc,
+                            OFX::GroupParamDescriptor *group, void *av_class,
+                            int req_flags, int rej_flags);
 
-void addOptionsFromAVOption( OFX::ImageEffectDescriptor& desc, OFX::GroupParamDescriptor* group, const std::vector<AVPrivOption>& options );
-
+void addOptionsFromAVOption(OFX::ImageEffectDescriptor &desc,
+                            OFX::GroupParamDescriptor *group,
+                            const std::vector<AVPrivOption> &options);
 }
 }
 }

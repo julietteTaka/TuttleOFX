@@ -7,10 +7,9 @@ namespace plugin {
 namespace jpeg2000 {
 namespace reader {
 
-static const bool   kSupportTiles                 = false;
+static const bool kSupportTiles = false;
 
-mDeclarePluginFactory( Jpeg2000ReaderPluginFactory, { }, { } );
-
+mDeclarePluginFactory(Jpeg2000ReaderPluginFactory, {}, {});
 }
 }
 }

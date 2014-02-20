@@ -13,17 +13,15 @@ namespace host {
 namespace ofx {
 namespace attribute {
 
-class OfxhParamCustom
-	: public OfxhParamString
-{
+class OfxhParamCustom : public OfxhParamString {
 public:
-	OfxhParamCustom( const OfxhParamDescriptor& descriptor, const std::string& name, OfxhParamSet& setInstance ) : OfxhParamString( descriptor, name, setInstance ) {}
+  OfxhParamCustom(const OfxhParamDescriptor &descriptor,
+                  const std::string &name, OfxhParamSet &setInstance)
+      : OfxhParamString(descriptor, name, setInstance) {}
 };
-
 }
 }
 }
 }
 
 #endif
-

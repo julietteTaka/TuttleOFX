@@ -7,23 +7,24 @@ namespace tuttle {
 namespace plugin {
 namespace av {
 
-class LibAVPresetParser
-{
+class LibAVPresetParser {
 public:
-	LibAVPresetParser();
-	~LibAVPresetParser();
-	
-	static PresetsList researchPresetsFiles();
+  LibAVPresetParser();
+  ~LibAVPresetParser();
 
-	static PresetsList getPresetListForPathList( const std::string& envVar );
-	
-	static bool isValidExtension( const std::string& filename );
-	
-	static void getPresetList( std::vector<std::string>& presetID, const std::string& extension = "" );
-	static void getPresetList( std::vector<std::string>& presetID, std::vector<std::string>& presetLabelID, const std::string& extension = "" );
-	static PresetsList getPresetsPathList( const std::string& extension = "" );
+  static PresetsList researchPresetsFiles();
+
+  static PresetsList getPresetListForPathList(const std::string &envVar);
+
+  static bool isValidExtension(const std::string &filename);
+
+  static void getPresetList(std::vector<std::string> &presetID,
+                            const std::string &extension = "");
+  static void getPresetList(std::vector<std::string> &presetID,
+                            std::vector<std::string> &presetLabelID,
+                            const std::string &extension = "");
+  static PresetsList getPresetsPathList(const std::string &extension = "");
 };
-
 }
 }
 }
