@@ -91,4 +91,25 @@ pythonInstallDir = project.inOutputDir('python')
 pythonFiles = project.scanFiles("python", accept=['*.py'])
 pythonInstall = Install(pythonInstallDir, pythonFiles)
 
+baseRoot='src'
+
+headers=[]
+
+headers+=Glob(baseRoot + '/tuttle/common/*.hpp')
+headers+=Glob(baseRoot + '/tuttle/common/*/*.hpp')
+headers+=Glob(baseRoot + '/tuttle/common/*/*/*.hpp')
+
+headers+=Glob(baseRoot + '/tuttle/plugin/*.hpp')
+headers+=Glob(baseRoot + '/tuttle/plugin/*/*.hpp')
+
+headers+=Glob(baseRoot + '/tuttle/host/*.hpp')
+headers+=Glob(baseRoot + '/tuttle/host/*/*.hpp')
+headers+=Glob(baseRoot + '/tuttle/host/*/*/*.hpp')
+
+
+tuttlePluginHeaders = [project.env.Install(os.path.join(project.inOutputHeaders(), Dir(baseRoot).rel_path(h.get_dir())), h.get_path()) for h in headers]
+
+project.env.Alias('header', tuttlePluginHeaders)
+
 project.env.Alias('all', pythonInstall)
+project.env.Alias('all', tuttlePluginHeaders)
