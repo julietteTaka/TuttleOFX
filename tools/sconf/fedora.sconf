@@ -17,15 +17,15 @@ incdir_boost = join(extern,'boost')
 libdir_boost = join(extern,'boost/stage/lib')
 
 # there is no standard package for ffmeg
-ffmpeg = join(extern,'ffmpeg')
-incdir_ffmpeg = ffmpeg
-libdir_ffmpeg = [
-	join(ffmpeg,'libavformat'),
-	join(ffmpeg,'libavcodec'),
-	join(ffmpeg,'libavdevice'),
-	join(ffmpeg,'libavutil'),
-	join(ffmpeg,'libavfilter'),
-	join(ffmpeg,'libswscale'),
-	]
+#ffmpeg = join(extern,'ffmpeg')
+incdir_ffmpeg = '/home/marnaud/dev/build-ffmpeg-2.1.3/include'
+#libdir_ffmpeg = [
+#	join(ffmpeg,'libavformat'),
+#	join(ffmpeg,'libavcodec'),
+#	join(ffmpeg,'libavdevice'),
+#	join(ffmpeg,'libavutil'),
+#	join(ffmpeg,'libavfilter'),
+#	join(ffmpeg,'libswscale'),
+#	]
 
 

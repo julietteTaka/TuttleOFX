@@ -5,7 +5,7 @@ project.Program(
 	project.getName(),
 	dirs = ['src'],
 	libraries = [
-		libs.openfxHack,
+		libs.openfx,
 		libs.terry,
 		libs.boost_gil,
 		libs.png,

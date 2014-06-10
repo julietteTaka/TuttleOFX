@@ -109,9 +109,9 @@ class Tuttle( SConsProject ):
 			return None
 		allLocalEnvFlags = localEnvFlags.copy()  # duplicate the user dictionary
 		if self.linux:
-			ofxLinkflags = ['-Wl,--version-script=' + project.inTopDir('libraries/openfxHack/Support/include/linuxSymbols')]
+			ofxLinkflags = ['-Wl,--version-script=' + project.inTopDir('libraries/tuttle/src/tuttle/openfx/Support/linuxSymbols')]
 		elif self.macos:
-			ofxLinkflags = ['-headerpad_max_install_names', '-exported_symbols_list', project.inTopDir('libraries/openfxHack/Support/include/osxSymbols')]
+			ofxLinkflags = ['-headerpad_max_install_names', '-exported_symbols_list', project.inTopDir('libraries/tuttle/src/tuttle/openfx/Support/osxSymbols')]
 		else:
 			ofxLinkflags = []
 		if 'SHLINKFLAGS' in allLocalEnvFlags:

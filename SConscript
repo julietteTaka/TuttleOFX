@@ -47,7 +47,6 @@ if not windows:
 SConscript(
 		project.scanFiles( [
 				'libraries/boostHack',
-				'libraries/openfxHack',
 				'libraries/terry',
 				'libraries/sequenceParser',
 			], accept=['SConscript'] ) +

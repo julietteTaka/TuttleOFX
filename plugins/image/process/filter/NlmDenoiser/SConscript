@@ -4,8 +4,6 @@ project.createOfxPlugin(
     dirs = ['src'],
     includes = ['src'],
     libraries = [
-        libs.openfxHack,
-        libs.openfxPluginSupportHack,
         libs.tuttlePlugin,
         libs.boost,
         libs.boost_gil
